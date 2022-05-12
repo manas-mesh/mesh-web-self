@@ -5,8 +5,6 @@ interface IProps {}
 
 const Wrapper = styled.div``;
 
-const Review = ({}: IProps) => {
-  return <Wrapper>review</Wrapper>;
-};
+const Review = ({}: IProps) => <Wrapper>review</Wrapper>;
 
 export default Review;
