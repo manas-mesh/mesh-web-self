@@ -15,6 +15,7 @@ export const baseTheme = {
       bg40: colors.neutral.blueGray[40],
       bg60: colors.neutral.blueGray[60],
       bg80: colors.neutral.blueGray[80],
+      bg92: colors.neutral.blueGray[92],
       bg94: colors.neutral.blueGray[94],
       bg96: colors.neutral.blueGray[96],
       bg98: colors.neutral.blueGray[98],

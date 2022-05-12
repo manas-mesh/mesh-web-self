@@ -4,6 +4,8 @@ import { ThemeProvider } from '@emotion/react';
 // Types
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import { store } from '../store/';
 
@@ -15,12 +17,17 @@ import GlobalStylesCSSReset from '@styles/CSSReset';
 import GlobalStylesBase from '@styles/Base';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const queryClient = new QueryClient();
+
   return (
     <Provider store={store}>
       <ThemeProvider theme={baseTheme}>
-        <GlobalStylesCSSReset />
-        <GlobalStylesBase />
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <GlobalStylesCSSReset />
+          <GlobalStylesBase />
+          <Component {...pageProps} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </ThemeProvider>
     </Provider>
   );
