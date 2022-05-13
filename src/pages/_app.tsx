@@ -1,7 +1,8 @@
 // Libraries
 import { ThemeProvider } from '@emotion/react';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ChakraProvider } from '@chakra-ui/react';
 
 // Types
 import type { AppProps } from 'next/app';
@@ -22,12 +23,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={baseTheme}>
-        <GlobalStylesCSSReset />
-        <GlobalStylesBase />
-        <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        <ChakraProvider>
+          <GlobalStylesCSSReset />
+          <GlobalStylesBase />
+          <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </ChakraProvider>
       </ThemeProvider>
     </Provider>
   );
