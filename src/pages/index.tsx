@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
   const data = useFetch<any[]>('https://jsonplaceholder.typicode.com/posts', undefined, { retry: false });
 
-  console.log(data, 'data');
+  // console.log(data, 'data');
   const theme: ThemeType = useTheme();
 
   return (
