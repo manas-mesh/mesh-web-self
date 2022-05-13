@@ -1,11 +1,11 @@
 // Libraries
 import { ThemeProvider } from '@emotion/react';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 // Types
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import { store } from '../store/';
 
@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={baseTheme}>
+        <GlobalStylesCSSReset />
+        <GlobalStylesBase />
         <QueryClientProvider client={queryClient}>
-          <GlobalStylesCSSReset />
-          <GlobalStylesBase />
           <Component {...pageProps} />
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
