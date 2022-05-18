@@ -10,14 +10,14 @@ import { ThemeType } from '@themes/clients/baseTheme';
 //   background: ${baseTheme.colors.surfaces.g86};
 // `;
 
-export const SliderTrackWrapper = styled(SliderTrack)(({ theme }: ThemeType) => ({
+export const SliderTrackWrapper = styled(SliderTrack)(({ theme }: { theme: ThemeType }) => ({
   height: '20px',
   border: 'none',
   borderRadius: '4px',
   background: theme.colors.surfaces.g86,
 }));
 
-export const SliderThumbWrapper = styled(SliderThumb)(({ theme }: ThemeType) => ({
+export const SliderThumbWrapper = styled(SliderThumb)(({ theme }: { theme: ThemeType }) => ({
   height: '28px',
   width: '28px',
   borderRadius: '4px',
@@ -33,6 +33,6 @@ export const SliderThumbWrapper = styled(SliderThumb)(({ theme }: ThemeType) => 
 //   background: ${baseTheme.colors.surfaces.bg40};
 // `;
 
-export const SliderFilledTrackWrapper = styled(SliderFilledTrack)(({ theme }: ThemeType) => ({
+export const SliderFilledTrackWrapper = styled(SliderFilledTrack)(({ theme }: { theme: ThemeType }) => ({
   background: theme.colors.surfaces.gr100,
 }));
