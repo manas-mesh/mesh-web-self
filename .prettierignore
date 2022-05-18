@@ -36,3 +36,6 @@ yarn-error.log*
 
 # eslint
 .eslintcache
+
+# auto generated files from command
+/src/assets/iconComponents/*
