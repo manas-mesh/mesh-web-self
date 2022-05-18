@@ -38,8 +38,7 @@ const cleanAtrributes = ($el, $) => {
   });
 };
 
-const createComponentString = (viewBox, iconSvg, name) => `
-  import { Icon } from '@chakra-ui/react';
+const createComponentString = (viewBox, iconSvg, name) => `import { Icon } from '@chakra-ui/react';
   export const ${name} = (props) => (
     <Icon viewBox="${viewBox}" {...props}>${iconSvg}</Icon>
     );

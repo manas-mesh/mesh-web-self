@@ -8,11 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "format": "prettier --ignore-path .gitignore --write .",
+    "format": "prettier --ignore-path .prettierignore --write .",
     "storybook": "start-storybook -p 6006 ./public",
     "build-storybook": "build-storybook -s public",
     "prepare": "husky install",
-    "generate-chakra-icons": "./src/thirdPartyModifiedModules/create-chakra-icon.js ./src/assets/icons/*.svg ./src/assets/iconComponents"
+    "generate-chakra-icons": "./src/moduleOverrides/create-chakra-icon.js ./src/assets/icons/*.svg ./src/assets/iconComponents"
   },
   "husky": {
     "hooks": {
