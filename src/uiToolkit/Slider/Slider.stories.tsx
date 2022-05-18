@@ -9,7 +9,10 @@ import {
   SliderMark,
   background,
 } from '@chakra-ui/react';
-import Slider from './';
+import Slider from '.';
+import { baseTheme } from '../../themes/clients/baseTheme';
+import { ThemeType } from '@themes/clients/baseTheme';
+import { useTheme } from '@emotion/react';
 
 const SliderStory: Meta = {
   title: 'Core Components/Slider',
@@ -18,12 +21,15 @@ const SliderStory: Meta = {
 export default SliderStory;
 
 //const Template = args =><Button{...args} />
-export const Defaultt = () => (
-  <Slider
-    onChangeEnd={(e: any) => {
-      console.log(e, 'final value');
-    }}
-    value={1}
-    max={20}
-  />
-);
+export const Defaultt = () => {
+  const theme: ThemeType = useTheme();
+  return (
+    <Slider
+      onChangeEnd={(e: any) => {
+        console.log(e, 'final value');
+      }}
+      value={2}
+      max={20}
+    />
+  );
+};
