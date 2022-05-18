@@ -1,0 +1,17 @@
+export {
+  TextBodyLarge,
+  TextBodyMedium,
+  TextBodySmall,
+  TextDisplayLarge,
+  TextDisplayMedium,
+  TextDisplaySmall,
+  TextHeadlineLarge,
+  TextHeadlineMedium,
+  TextHeadlineSmall,
+  TextLabelLarge,
+  TextLabelMedium,
+  TextLabelSmall,
+  TextTitleLarge,
+  TextTitleMedium,
+  TextTitleSmall,
+} from './Typography';

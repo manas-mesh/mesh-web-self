@@ -25,7 +25,9 @@
       "@services/*": ["services/*"],
       "@themes/*": ["themes/*"],
       "@constants/*": ["constants/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@assets/*": ["assets/*"],
+      "@iconComponents": ["assets/iconComponents/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
