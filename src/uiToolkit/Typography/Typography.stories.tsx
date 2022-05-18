@@ -1,3 +1,4 @@
+import { Stack } from '@chakra-ui/react';
 import { Story } from '@storybook/react';
 import React from 'react';
 
@@ -34,7 +35,7 @@ export const Primary = Template.bind({});
 
 Primary.decorators = [
   () => (
-    <>
+    <Stack spacing={8}>
       {/* uncomment if ever needed in project */}
       {/* <TextDisplayLarge sx={{ mb: 2 }}>
           TextDisplayLarge ---- Display Large - Roboto 57/64 . 0
@@ -64,7 +65,7 @@ Primary.decorators = [
       <TextBodyMediumBold sx={{ mb: 2 }}>TextBodyMediumBold ---- Body Medium - Roboto 14/20 . +0.25</TextBodyMediumBold>
       <TextBodySmall sx={{ mb: 2 }}>TextBodySmall ---- Body Small - Roboto 12/16 . +0.4</TextBodySmall>
       <TextBodySmallBold sx={{ mb: 2 }}>TextBodySmallBold ---- Body Small - Roboto 12/16 . +0.4</TextBodySmallBold>
-    </>
+    </Stack>
   ),
 ];
 

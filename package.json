@@ -11,7 +11,13 @@
     "format": "prettier --ignore-path .gitignore --write .",
     "storybook": "start-storybook -p 6006 ./public",
     "build-storybook": "build-storybook -s public",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "generate-chakra-icons": "./src/thirdPartyModifiedModules/create-chakra-icon.js ./src/assets/icons/*.svg ./src/assets/iconComponents"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "generate-chakra-icons"
+    }
   },
   "dependencies": {
     "@chakra-ui/react": "^2.0.0",
@@ -44,6 +50,7 @@
     "@types/react": "18.0.9",
     "@types/react-dom": "18.0.3",
     "babel-loader": "^8.2.5",
+    "create-chakra-icon": "^0.2.1",
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
     "eslint-config-prettier": "^8.5.0",

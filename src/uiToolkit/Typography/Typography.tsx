@@ -1,32 +1,41 @@
 import { SxProps } from '@mui/material';
 import { useTheme } from '@emotion/react';
-import styled, { StyledComponent } from '@emotion/styled';
-import isPropValid from '@emotion/is-prop-valid';
 
 import { FONT_SIZE_VARIANTS, FONT_VARIANTS, FONT_WEIGHT_VARIANTS, ThemeType } from '@themes/clients/baseTheme';
 import { FC, ReactNode } from 'react';
+import { Text, TextProps } from '@chakra-ui/react';
 
 const TransientProps = ['fontSize', 'lineHeight', 'fontWeight', 'textColor', 'letterSpacing', 'sx'];
 
-type TransientPropTypes = {
+type PropTypes = {
   fontSize: string;
   lineHeight: string;
   fontWeight: string | number;
   textColor: string;
   letterSpacing: string;
+  children: React.ReactNode;
+  as: any | undefined;
 };
 
-const TypographyWrapper: StyledComponent<TransientPropTypes> = styled('p', {
-  shouldForwardProp: (prop: any) => isPropValid(prop) && !TransientProps.includes(prop),
-})(
-  ({ fontSize, lineHeight, fontWeight, textColor, letterSpacing }: TransientPropTypes) => `
-  color: ${textColor};
-  font-size: ${fontSize};
-  line-height: ${lineHeight};
-  font-weight: ${fontWeight};
-  letter-spacing: ${letterSpacing};
-  margin: 0;
-`,
+const TypographyWrapper: FC<PropTypes> = ({
+  children,
+  fontSize,
+  lineHeight,
+  fontWeight,
+  textColor,
+  letterSpacing,
+  as,
+}) => (
+  <Text
+    as={as}
+    fontSize={fontSize}
+    lineHeight={lineHeight}
+    fontWeight={fontWeight}
+    textColor={textColor}
+    letterSpacing={letterSpacing}
+  >
+    {children}
+  </Text>
 );
 
 // **************** Main component- start *******************
