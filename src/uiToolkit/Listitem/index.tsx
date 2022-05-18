@@ -72,7 +72,7 @@ const Listitem = ({
     </Box>
   );
 
-  const hanldeOnClick = (): void => {
+  const handleOnClick = (): void => {
     if (onClick) {
       onClick();
     }
@@ -88,7 +88,7 @@ const Listitem = ({
   };
 
   return (
-    <Wrapper isDisabled={isDisabled} active={active} onClick={hanldeOnClick}>
+    <Wrapper isDisabled={isDisabled} active={active} onClick={handleOnClick}>
       <Box sx={{ display: 'flex' }}>
         {renderLeftComponent()}
         {renderOtherInfo()}
