@@ -46,6 +46,7 @@ const getBaseButtonStyles = (theme: ThemeType, props: any) => ({
   '&:hover:enabled': !props.withBackground
     ? {}
     : {
+        cursor: 'pointer',
         backgroundColor: theme.colors.surfaces.bg96,
         '&>p': {
           color: theme.colors.text.bg40,

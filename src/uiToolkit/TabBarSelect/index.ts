@@ -1,0 +1,1 @@
+export { TabBarSelect } from './TabBarSelect';

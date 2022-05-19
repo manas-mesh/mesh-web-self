@@ -24,6 +24,11 @@ export type ThemeType = typeof baseTheme;
 
 export const baseTheme = {
   colors: {
+    common: {
+      white: colors.white,
+      black: colors.black,
+      transparent: 'transparent',
+    },
     surfaces: {
       white: colors.white,
       g20: colors.neutral.gray[20],
