@@ -10,16 +10,24 @@ import { ThemeType } from '@themes/clients/baseTheme';
 //   background: ${baseTheme.colors.surfaces.g86};
 // `;
 
-export const SliderTrackWrapper = styled(SliderTrack)(({ theme }: { theme: ThemeType }) => ({
+export const SliderTrackWrapper = styled(SliderTrack)(({ theme }: { theme?: ThemeType }) => ({
   height: '20px',
   border: 'none',
+  overflow: 'hidden',
   borderRadius: '4px',
   background: theme.colors.surfaces.g86,
 }));
 
-export const SliderThumbWrapper = styled(SliderThumb)(({ theme }: { theme: ThemeType }) => ({
+export const SliderThumbWrapper = styled(SliderThumb)(({ theme }: { theme?: ThemeType }) => ({
   height: '28px',
   width: '28px',
+  padding: '4px',
+  display: 'flex',
+  justifyContent: 'center',
+  WebkitJustifyContent: 'center',
+  alignItems: 'center',
+  WebkitAlignItems: 'center',
+  transform: 'translateY(-50%)',
   borderRadius: '4px',
   background: theme.colors.surfaces.bg40,
 }));
@@ -33,6 +41,7 @@ export const SliderThumbWrapper = styled(SliderThumb)(({ theme }: { theme: Theme
 //   background: ${baseTheme.colors.surfaces.bg40};
 // `;
 
-export const SliderFilledTrackWrapper = styled(SliderFilledTrack)(({ theme }: { theme: ThemeType }) => ({
+export const SliderFilledTrackWrapper = styled(SliderFilledTrack)(({ theme }: { theme?: ThemeType }) => ({
   background: theme.colors.surfaces.gr100,
+  height: 'inherit',
 }));

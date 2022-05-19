@@ -1,15 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { Meta } from '@storybook/react';
-import React from 'react';
-import {
-  Slider as SliderWrapper,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderMark,
-  background,
-} from '@chakra-ui/react';
-import Slider from '.';
+import { Meta, Story } from '@storybook/react';
+import React, { useState } from 'react';
+import Slider, { SliderProps } from '.';
 import { baseTheme } from '../../themes/clients/baseTheme';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { useTheme } from '@emotion/react';
@@ -20,16 +12,18 @@ const SliderStory: Meta = {
 };
 export default SliderStory;
 
-//const Template = args =><Button{...args} />
-export const Defaultt = () => {
-  const theme: ThemeType = useTheme();
-  return (
-    <Slider
-      onChangeEnd={(e: any) => {
-        console.log(e, 'final value');
-      }}
-      value={2}
-      max={20}
-    />
-  );
+const SliderTemplate: Story<SliderProps> = (args) => <Slider {...args} />;
+
+export const Basic = SliderTemplate.bind({});
+
+Basic.args = {
+  min: 0,
+  max: 100,
+  value: 10,
+  isDisabled: false,
 };
+
+export const Disabled = SliderTemplate.bind({});
+
+Disabled.args = { ...Basic.args };
+Disabled.args.isDisabled = true;

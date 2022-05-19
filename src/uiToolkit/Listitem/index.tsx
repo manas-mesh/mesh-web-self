@@ -36,14 +36,12 @@ const Wrapper = styled.div<WrapperTypes>`
     background: ${({ theme }) => theme.colors.surfaces.white};
   }
 `;
-let kolla;
-
 const Listitem = ({
   rightComponent,
   leftComponent,
   className,
   subTitle,
-  title = 'ok',
+  title,
   onClick,
   isDisabled,
   active,

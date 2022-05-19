@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Slider as SliderWrapper } from '@chakra-ui/react';
-import Image from 'next/image';
 import { Box } from '@mui/system';
-import sliderThumbIcon from '../../assets/icons/sliderThumbIcon.svg';
 import { SliderFilledTrackWrapper, SliderThumbWrapper, SliderTrackWrapper } from './Slider.styles';
+import { SliderThumbIcon } from '../../assets/iconComponents/SliderThumbIcon';
 
-interface SliderProps {
+export interface SliderProps {
   isDisabled?: boolean;
   value: number;
   min?: number;
@@ -16,7 +15,7 @@ interface SliderProps {
 }
 
 function Slider({ isDisabled, value, min = 0, max = 100, step = 1, onChange, onChangeEnd }: SliderProps) {
-  const [sliderValue, setSliderValue] = useState(value || 0);
+  const [sliderValue, setSliderValue] = useState(value);
 
   const onChangeHandler = (e: number): void => {
     setSliderValue(e);
@@ -37,13 +36,13 @@ function Slider({ isDisabled, value, min = 0, max = 100, step = 1, onChange, onC
 
   const renderSliderThumb = (): JSX.Element => (
     <SliderThumbWrapper>
-      {/* <Image width={10} height={14} src={sliderThumbIcon} alt="slider-icon" /> */}
+      <SliderThumbIcon />
     </SliderThumbWrapper>
   );
 
   return (
     <>
-      <Box width={100}>
+      <Box>
         <SliderWrapper
           min={min}
           max={max}

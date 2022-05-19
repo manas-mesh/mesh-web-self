@@ -12,7 +12,6 @@ const Home: NextPage = () => {
   const data = useFetch<any[]>('https://jsonplaceholder.typicode.com/posts', undefined, { retry: false });
 
   // console.log(data, 'data');
-
   return (
     <div style={{ width: 150, marginLeft: 20 }}>
       Develop
@@ -20,7 +19,7 @@ const Home: NextPage = () => {
         onChangeEnd={(e) => {
           console.log(e, 'final value');
         }}
-        value={1}
+        value={7}
         max={20}
       />
     </div>
