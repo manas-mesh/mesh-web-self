@@ -9,6 +9,9 @@ module.exports = {
     'storybook-addon-next',
     '@chakra-ui/storybook-addon',
   ],
+  features: {
+    emotionAlias: false,
+  },
   framework: '@storybook/react',
   typescript: {
     reactDocgen: 'react-docgen-typescript',
