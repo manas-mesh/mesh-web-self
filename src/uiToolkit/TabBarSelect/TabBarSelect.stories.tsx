@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TabBarSelect } from './TabBarSelect';
+import { TabBarSelect, ValueType } from './TabBarSelect';
 
 const TabBarSelectStory = {
   title: 'Core Components/TabBarSelect',
@@ -13,7 +13,7 @@ const options = [
   { value: 'three', label: 'three' },
 ];
 
-const onChangeHandler = (newSelectedValue) => console.log(`new selected value is: ${newSelectedValue}`);
+const onChangeHandler = (newSelectedValue: ValueType) => console.log(`new selected value is: ${newSelectedValue}`);
 
 export default TabBarSelectStory;
 
