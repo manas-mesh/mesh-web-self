@@ -1,5 +1,27 @@
 import { colors, typography } from '../tokens';
 
+export enum FONT_VARIANTS {
+  body = 'body',
+  label = 'label',
+  title = 'title',
+  headline = 'headline',
+  display = 'display',
+}
+
+export enum FONT_SIZE_VARIANTS {
+  small = 'small',
+  medium = 'medium',
+  large = 'large',
+}
+
+export enum FONT_WEIGHT_VARIANTS {
+  light = 'light',
+  regular = 'regular',
+  bold = 'bold',
+}
+
+export type ThemeType = typeof baseTheme;
+
 export const baseTheme = {
   colors: {
     surfaces: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
+import { Box, Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay, useTheme } from '@chakra-ui/react';
 import { baseTheme } from '@themes/clients/baseTheme';
 
 interface DialogProps {
@@ -10,7 +10,7 @@ interface DialogProps {
 }
 
 export const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, children, showCloseButton = false }) => {
-  console.log({ isOpen });
+  const theme = useTheme();
   return (
     <Drawer
       isOpen={isOpen}
@@ -18,22 +18,22 @@ export const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, children, showC
         onClose && onClose();
       }}
       isFullHeight={false}
+      size={'xs'}
     >
       <DrawerOverlay />
       <DrawerContent
         borderRadius="16px 16px 0 0"
         ml="auto"
-        bg={baseTheme.colors.surfaces.g96}
-        boxShadow={baseTheme.shadows.dark}
+        bg={theme.colors.surfaces.g96}
+        boxShadow={theme.shadows.dark}
         top="100px !important"
         position="absolute"
         bottom={0}
         right={0}
-        width="500px"
         mr="12px"
         overflowY="auto"
       >
-        {showCloseButton && <DrawerCloseButton />}
+        {showCloseButton && <DrawerCloseButton border={'none'} />}
         {children}
       </DrawerContent>
     </Drawer>

@@ -22,16 +22,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
-      <ThemeProvider theme={baseTheme}>
-        <ChakraProvider>
+      <ChakraProvider>
+        <ThemeProvider theme={baseTheme}>
           <GlobalStylesCSSReset />
           <GlobalStylesBase />
           <QueryClientProvider client={queryClient}>
             <Component {...pageProps} />
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
-        </ChakraProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </ChakraProvider>
     </Provider>
   );
 }
