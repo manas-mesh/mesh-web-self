@@ -1,42 +1,10 @@
-import { SxProps } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
 import { FONT_SIZE_VARIANTS, FONT_VARIANTS, FONT_WEIGHT_VARIANTS, ThemeType } from '@themes/clients/baseTheme';
-import { FC, ReactNode } from 'react';
-import { Text, TextProps } from '@chakra-ui/react';
+import { ComponentType, FC, ReactNode } from 'react';
+import { Text, TextProps, StyleProps } from '@chakra-ui/react';
 
 const TransientProps = ['fontSize', 'lineHeight', 'fontWeight', 'textColor', 'letterSpacing', 'sx'];
-
-type PropTypes = {
-  fontSize: string;
-  lineHeight: string;
-  fontWeight: string | number;
-  textColor: string;
-  letterSpacing: string;
-  children: React.ReactNode;
-  as: any | undefined;
-};
-
-const TypographyWrapper: FC<PropTypes> = ({
-  children,
-  fontSize,
-  lineHeight,
-  fontWeight,
-  textColor,
-  letterSpacing,
-  as,
-}) => (
-  <Text
-    as={as}
-    fontSize={fontSize}
-    lineHeight={lineHeight}
-    fontWeight={fontWeight}
-    textColor={textColor}
-    letterSpacing={letterSpacing}
-  >
-    {children}
-  </Text>
-);
 
 // **************** Main component- start *******************
 
@@ -45,21 +13,20 @@ export interface TypographyPropTypes {
   lineHeight?: string;
   weight?: FONT_WEIGHT_VARIANTS;
   color?: string;
-  sx?: SxProps;
-  as?: string;
+  as?: ComponentType;
   variant?: FONT_VARIANTS;
   children?: ReactNode | null;
 }
 
-export const Typography: FC<TypographyPropTypes> = ({
+export const Typography: FC<TypographyPropTypes & StyleProps> = ({
   children = null,
   as,
-  sx,
   variant = FONT_VARIANTS.body,
   size = FONT_SIZE_VARIANTS.medium,
   lineHeight = '16px',
   weight = FONT_WEIGHT_VARIANTS.regular,
   color,
+  ...styleProps
 }) => {
   const theme: ThemeType = useTheme();
   const fontSize = theme.fonts.size[variant][size];
@@ -68,45 +35,45 @@ export const Typography: FC<TypographyPropTypes> = ({
   const letterSpacing = theme.fonts.letterSpacing[variant][size];
 
   return (
-    <TypographyWrapper
+    <Text
       as={as}
       fontSize={fontSize}
       lineHeight={lineHeight}
       fontWeight={fontWeight}
       textColor={textColor}
       letterSpacing={letterSpacing}
-      sx={sx}
+      {...styleProps}
     >
       {children}
-    </TypographyWrapper>
+    </Text>
   );
 };
 // **************** Main component- end *******************
 
-export const TextDisplayLarge = (props: TypographyPropTypes) => (
+export const TextDisplayLarge = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.display} size={FONT_SIZE_VARIANTS.large} lineHeight={'64px'} {...props} />
 );
-export const TextDisplayMedium = (props: TypographyPropTypes) => (
+export const TextDisplayMedium = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.display} size={FONT_SIZE_VARIANTS.medium} lineHeight={'52px'} {...props} />
 );
-export const TextDisplaySmall = (props: TypographyPropTypes) => (
+export const TextDisplaySmall = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.display} size={FONT_SIZE_VARIANTS.small} lineHeight={'44px'} {...props} />
 );
 
-export const TextHeadlineLarge = (props: TypographyPropTypes) => (
+export const TextHeadlineLarge = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.headline} size={FONT_SIZE_VARIANTS.large} lineHeight={'40px'} {...props} />
 );
-export const TextHeadlineMedium = (props: TypographyPropTypes) => (
+export const TextHeadlineMedium = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.headline} size={FONT_SIZE_VARIANTS.medium} lineHeight={'36px'} {...props} />
 );
-export const TextHeadlineSmall = (props: TypographyPropTypes) => (
+export const TextHeadlineSmall = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.headline} size={FONT_SIZE_VARIANTS.small} lineHeight={'32px'} {...props} />
 );
 
-export const TextTitleLarge = (props: TypographyPropTypes) => (
+export const TextTitleLarge = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.title} size={FONT_SIZE_VARIANTS.large} lineHeight={'28px'} {...props} />
 );
-export const TextTitleMedium = (props: TypographyPropTypes) => (
+export const TextTitleMedium = (props: TypographyPropTypes & StyleProps) => (
   <Typography
     variant={FONT_VARIANTS.title}
     size={FONT_SIZE_VARIANTS.medium}
@@ -115,7 +82,7 @@ export const TextTitleMedium = (props: TypographyPropTypes) => (
     {...props}
   />
 );
-export const TextTitleSmall = (props: TypographyPropTypes) => (
+export const TextTitleSmall = (props: TypographyPropTypes & StyleProps) => (
   <Typography
     variant={FONT_VARIANTS.title}
     size={FONT_SIZE_VARIANTS.small}
@@ -125,7 +92,7 @@ export const TextTitleSmall = (props: TypographyPropTypes) => (
   />
 );
 
-export const TextLabelLarge = (props: TypographyPropTypes) => (
+export const TextLabelLarge = (props: TypographyPropTypes & StyleProps) => (
   <Typography
     variant={FONT_VARIANTS.label}
     size={FONT_SIZE_VARIANTS.large}
@@ -134,7 +101,7 @@ export const TextLabelLarge = (props: TypographyPropTypes) => (
     {...props}
   />
 );
-export const TextLabelMedium = (props: TypographyPropTypes) => (
+export const TextLabelMedium = (props: TypographyPropTypes & StyleProps) => (
   <Typography
     variant={FONT_VARIANTS.label}
     size={FONT_SIZE_VARIANTS.medium}
@@ -143,7 +110,7 @@ export const TextLabelMedium = (props: TypographyPropTypes) => (
     {...props}
   />
 );
-export const TextLabelSmall = (props: TypographyPropTypes) => {
+export const TextLabelSmall = (props: TypographyPropTypes & StyleProps) => {
   const theme: ThemeType = useTheme();
   return (
     <Typography
@@ -157,23 +124,23 @@ export const TextLabelSmall = (props: TypographyPropTypes) => {
   );
 };
 
-export const TextBodyLarge = (props: TypographyPropTypes) => (
+export const TextBodyLarge = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.body} size={FONT_SIZE_VARIANTS.large} lineHeight={'24px'} {...props} />
 );
-export const TextBodyLargeBold = (props: TypographyPropTypes) => (
+export const TextBodyLargeBold = (props: TypographyPropTypes & StyleProps) => (
   <TextBodyLarge weight={FONT_WEIGHT_VARIANTS.bold} {...props} />
 );
 
-export const TextBodyMedium = (props: TypographyPropTypes) => (
+export const TextBodyMedium = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.body} size={FONT_SIZE_VARIANTS.medium} lineHeight={'20px'} {...props} />
 );
-export const TextBodyMediumBold = (props: TypographyPropTypes) => (
+export const TextBodyMediumBold = (props: TypographyPropTypes & StyleProps) => (
   <TextBodyMedium weight={FONT_WEIGHT_VARIANTS.bold} {...props} />
 );
 
-export const TextBodySmall = (props: TypographyPropTypes) => (
+export const TextBodySmall = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.body} size={FONT_SIZE_VARIANTS.small} lineHeight={'16px'} {...props} />
 );
-export const TextBodySmallBold = (props: TypographyPropTypes) => (
+export const TextBodySmallBold = (props: TypographyPropTypes & StyleProps) => (
   <TextBodySmall weight={FONT_WEIGHT_VARIANTS.bold} {...props} />
 );
