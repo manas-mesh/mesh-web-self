@@ -3,8 +3,6 @@ import React from 'react';
 import { Dialog } from './';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { Box } from '@chakra-ui/react';
-import { getThemingArgTypes } from '@chakra-ui/storybook-addon';
-import { baseTheme } from '@themes/clients/baseTheme';
 
 const DialogStory = {
   title: 'Core Components/Dialog',

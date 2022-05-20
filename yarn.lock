@@ -222,11 +222,6 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.17.12.tgz#86c2347da5acbf5583ba0a10aed4c9bf9da9cf96"
   integrity sha512-JDkf04mqtN3y4iAbO1hv9U2ARpPyPL1zqyWs/2WG1pgSq9llHFjStX5jdxb84himgJm+8Ng+x0oiWF/nw/XQKA==
 
-"@babel/helper-plugin-utils@^7.17.12":
-  version "7.17.12"
-  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.17.12.tgz#86c2347da5acbf5583ba0a10aed4c9bf9da9cf96"
-  integrity sha512-JDkf04mqtN3y4iAbO1hv9U2ARpPyPL1zqyWs/2WG1pgSq9llHFjStX5jdxb84himgJm+8Ng+x0oiWF/nw/XQKA==
-
 "@babel/helper-remap-async-to-generator@^7.16.8":
   version "7.16.8"
   resolved "https://registry.yarnpkg.com/@babel/helper-remap-async-to-generator/-/helper-remap-async-to-generator-7.16.8.tgz#29ffaade68a367e2ed09c90901986918d25e57e3"
@@ -1298,14 +1293,6 @@
   dependencies:
     "@chakra-ui/utils" "2.0.0"
 
-"@chakra-ui/icons@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@chakra-ui/icons/-/icons-2.0.0.tgz#2a23cf702823b922eecbaa4228b08d807767434b"
-  integrity sha512-2lArHMil6O0FwG6TghKwbe453BM1Zzp22U8+oyTFYDVwqhmBTMAepE9TsBg4w/nnH0aeYjQpA1VVSopgB7HBMw==
-  dependencies:
-    "@chakra-ui/icon" "3.0.0"
-    "@types/react" "^18.0.1"
-
 "@chakra-ui/image@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@chakra-ui/image/-/image-2.0.0.tgz#84f62adafbb1c03229296f3988104df6657fa0bf"
@@ -1565,14 +1552,6 @@
     "@chakra-ui/icon" "3.0.0"
     "@chakra-ui/utils" "2.0.0"
     "@chakra-ui/visually-hidden" "2.0.0"
-
-"@chakra-ui/storybook-addon@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@chakra-ui/storybook-addon/-/storybook-addon-2.0.2.tgz#8b66e796f9f6d2fccd9548857df99b7f8878df9b"
-  integrity sha512-xOMnU0G025VFbZPW3lDEJ0Ret8DClCelvcDQP4omucUDZapPuiMBHhzFDoioTGy/eRqlucaxhq26eDwFHnkiZg==
-  dependencies:
-    "@chakra-ui/icons" "^2.0.0"
-    webpack-merge "^5.0.0"
 
 "@chakra-ui/styled-system@2.0.0":
   version "2.0.0"
@@ -3571,7 +3550,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@18.0.9", "@types/react@^18.0.1":
+"@types/react@*", "@types/react@18.0.9":
   version "18.0.9"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.9.tgz#d6712a38bd6cd83469603e7359511126f122e878"
   integrity sha512-9bjbg1hJHUm4De19L1cHiW0Jvx3geel6Qczhjd0qY5VKVE2X5+x77YxAepuCwVh4vrgZJdgEJw48zrhRIeF4Nw==
@@ -12405,14 +12384,6 @@ webpack-log@^2.0.0:
     ansi-colors "^3.0.0"
     uuid "^3.3.2"
 
-webpack-merge@^5.0.0:
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-5.8.0.tgz#2b39dbf22af87776ad744c390223731d30a68f61"
-  integrity sha512-/SaI7xY0831XwP6kzuwhKWVKDP9t1QY1h65lAFLbZqMPIuYcD9QAW4u9STIbU9kaJbPBB/geU/gLr1wDjOhQ+Q==
-  dependencies:
-    clone-deep "^4.0.1"
-    wildcard "^2.0.0"
-
 webpack-sources@^1.4.0, webpack-sources@^1.4.1, webpack-sources@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.4.3.tgz#eedd8ec0b928fbf1cbfe994e22d2d890f330a933"
@@ -12552,11 +12523,6 @@ widest-line@^3.1.0:
   integrity sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
   dependencies:
     string-width "^4.0.0"
-
-wildcard@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/wildcard/-/wildcard-2.0.0.tgz#a77d20e5200c6faaac979e4b3aadc7b3dd7f8fec"
-  integrity sha512-JcKqAHLPxcdb9KM49dufGXn2x3ssnfjbcaQdLlfZsL9rH9wgDQjUtDxbo8NE0F6SFvydeu1VhZe7hZuHsB2/pw==
 
 word-wrap@^1.2.3, word-wrap@~1.2.3:
   version "1.2.3"

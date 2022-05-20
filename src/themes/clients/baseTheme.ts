@@ -167,4 +167,7 @@ export const baseTheme = {
     dark: '0px -4px 16px rgba(0, 0, 0, 0.16)',
     light: '0px 2px 8px rgba(0, 0, 0, 0.08)',
   },
+  layout: {
+    colWidth: 'var(--layout-col-width)',
+  },
 };
