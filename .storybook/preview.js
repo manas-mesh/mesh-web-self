@@ -2,6 +2,7 @@ import { addDecorator } from '@storybook/react';
 import decorators from './decorators';
 
 import * as NextImage from 'next/image';
+import { baseTheme } from 'src/themes/clients/baseTheme';
 
 // This is required because storybook isn't aware of the fancy ways nextJS does image optimization
 // so we are not concerned with image optimization in storybook and just override nextJS images to be always
@@ -16,6 +17,9 @@ Object.defineProperty(NextImage, 'default', {
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
+  chakra: {
+    theme: baseTheme,
+  },
   controls: {
     matchers: {
       color: /(background|color)$/i,

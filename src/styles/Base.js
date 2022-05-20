@@ -19,6 +19,23 @@ const Base = css`
     text-decoration: none;
   }
 
+  /* selector for top level element i.e html */
+  :root {
+    --layout-col-width: 64px;
+  }
+
+  @media (min-width: 1281px) {
+    :root {
+      --layout-col-width: 80px;
+    }
+  }
+
+  @media (min-width: 1441px) {
+    :root {
+      --layout-col-width: 90px;
+    }
+  }
+
   /* Styling next js created root div */
   #__next {
     height: 100%;
