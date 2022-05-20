@@ -1,10 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StarIcon } from '@chakra-ui/icons';
 import { Box } from '@chakra-ui/react';
 import { baseTheme } from '@themes/clients/baseTheme';
 import { TextLabelSmall } from '@uiToolkit/Typography';
-import { EmptyStar } from '../../assets/iconComponents/EmptyStar';
-import { FilledStar } from '../../assets/iconComponents/FilledStar';
 
 interface RatingProps {
   precision?: number;
@@ -48,9 +45,6 @@ export const Rating = ({ precision = 1, maxRating = 5, filledIcon, emptyIcon, ra
     setIsHovered(false);
   };
 
-  const FilledIcon = filledIcon;
-  const EmptyIcon = filledIcon;
-
   return (
     <Box
       sx={{ background: baseTheme.colors.surfaces.bg92, padding: '12px', borderRadius: '8px', width: 'fit-content' }}
@@ -60,9 +54,6 @@ export const Rating = ({ precision = 1, maxRating = 5, filledIcon, emptyIcon, ra
         sx={{
           display: 'inline-flex',
           gap: '6px',
-          //   position: 'relative',
-          //   cursor: 'pointer',
-          //   textAlign: 'left',
         }}
         onClick={handleClick}
         onMouseMoveCapture={handleMouseMove}
@@ -80,14 +71,7 @@ export const Rating = ({ precision = 1, maxRating = 5, filledIcon, emptyIcon, ra
           return (
             <Box sx={{ fill: baseTheme.colors.surfaces.bg40 }} key={index}>
               {' '}
-              {/* {filledIcon} */}
-              {
-                showEmptyIcon
-                  ? emptyIcon
-                  : // <EmptyStar sx={{ fill: baseTheme.colors.surfaces.bg40 }} />
-                    filledIcon
-                // <FilledStar sx={{ fill: baseTheme.colors.surfaces.bg40 }} />
-              }
+              {showEmptyIcon ? emptyIcon : filledIcon}
             </Box>
           );
         })}
