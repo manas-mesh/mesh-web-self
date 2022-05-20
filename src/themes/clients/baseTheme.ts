@@ -24,6 +24,11 @@ export type ThemeType = typeof baseTheme;
 
 export const baseTheme = {
   colors: {
+    common: {
+      white: colors.white,
+      black: colors.black,
+      transparent: 'transparent',
+    },
     surfaces: {
       white: colors.white,
       g20: colors.neutral.gray[20],
@@ -166,5 +171,8 @@ export const baseTheme = {
   shadows: {
     dark: '0px -4px 16px rgba(0, 0, 0, 0.16)',
     light: '0px 2px 8px rgba(0, 0, 0, 0.08)',
+  },
+  layout: {
+    colWidth: 'var(--layout-col-width)',
   },
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Box } from '@mui/system';
+import { Box } from '@chakra-ui/react';
 
 interface ListitemProps {
   className?: string;
@@ -23,17 +23,17 @@ const Wrapper = styled.div<WrapperTypes>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${({ theme, isDisabled }) => (isDisabled ? 'unset' : theme.colors.surfaces.bg92)};
+  background: ${({ theme, isDisabled }) => (isDisabled ? 'unset' : theme?.colors?.surfaces?.bg92)};
   border-radius: 8px;
   padding: 12px;
-  border-width: 1px solid ${({ theme }) => theme.colors.border.tw24};
+  border: 1px solid ${({ theme }) => theme?.colors?.border?.tw24};
   margin-bottom: 12px;
   &:hover {
-    background: ${({ theme, isDisabled }) => (isDisabled ? 'unset' : theme.colors.surfaces.bg96)};
+    background: ${({ theme, isDisabled }) => (isDisabled ? 'unset' : theme?.colors?.surfaces?.bg96)};
     cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
   }
   &:active {
-    background: ${({ theme }) => theme.colors.surfaces.white};
+    background: ${({ theme }) => theme?.colors?.surfaces?.white};
   }
 `;
 
@@ -55,7 +55,7 @@ const Listitem = ({
 
   const renderSubtitle = (): JSX.Element | undefined => {
     if (subTitle) {
-      return <Box sx={{ color: 'text.bg40' }}>{subTitle}</Box>;
+      return <Box color={'text.bg40'}>{subTitle}</Box>;
     }
   };
 
@@ -66,7 +66,7 @@ const Listitem = ({
   };
 
   const renderOtherInfo = (): JSX.Element => (
-    <Box sx={{ marginLeft: '8px' }}>
+    <Box marginLeft={8}>
       {renderTitle()}
       {renderSubtitle()}
     </Box>
@@ -89,7 +89,7 @@ const Listitem = ({
 
   return (
     <Wrapper isDisabled={isDisabled} active={active} onClick={handleOnClick}>
-      <Box sx={{ display: 'flex' }}>
+      <Box display={'flex'}>
         {renderLeftComponent()}
         {renderOtherInfo()}
       </Box>

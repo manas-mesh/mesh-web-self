@@ -8,6 +8,9 @@ module.exports = {
     '@storybook/addon-interactions',
     'storybook-addon-next',
   ],
+  features: {
+    emotionAlias: false,
+  },
   framework: '@storybook/react',
   typescript: {
     reactDocgen: 'react-docgen-typescript',
