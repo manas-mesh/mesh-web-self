@@ -9,7 +9,6 @@ interface RatingProps {
   emptyIcon?: any;
   filledIcon?: any;
   rating: number;
-  interactive?: boolean;
   label?: string;
 }
 export const Rating = ({ precision = 1, maxRating = 5, filledIcon, emptyIcon, rating, label = '' }: RatingProps) => {
@@ -63,10 +62,6 @@ export const Rating = ({ precision = 1, maxRating = 5, filledIcon, emptyIcon, ra
         {[...new Array(maxRating)].map((arr, index) => {
           const activeState = isHovered ? hoverActiveStar : activeStar;
           const showEmptyIcon = activeState === -1 || activeState < index + 1;
-          const isActiveRating = activeState !== 1;
-          const isRatingWithPrecision = activeState % 1 !== 0;
-          const isRatingEqualToIndex = Math.ceil(activeState) === index + 1;
-          //   const showRatingWithPrecision = isActiveRating && isRatingWithPrecision && isRatingEqualToIndex;
 
           return (
             <Box sx={{ fill: baseTheme.colors.surfaces.bg40 }} key={index}>
