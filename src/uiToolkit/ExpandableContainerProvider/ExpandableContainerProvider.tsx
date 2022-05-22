@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { Box } from '@chakra-ui/react';
+import { Box, StyleProps } from '@chakra-ui/react';
 
 import { createContext, FC, ReactNode, useCallback, useContext, useRef, useState } from 'react';
 import { Button } from 'uiToolkit/Button';
-import { ThemeType } from '@themes/clients/baseTheme';
+import { BUTTON_SIZE } from '@uiToolkit/Button/Button';
+import { Minimize } from '@assets/iconComponents';
 
 export interface ExpandableContainerI {
   isExpanded: boolean;
@@ -22,7 +23,6 @@ type Props = {
   width: string | number;
   height: string | number;
   yDistFromTop: string | number;
-  theme: ThemeType;
 };
 
 const TransientProps = ['isExpanded', 'sx', 'width', 'height', 'yDistFromTop'];
@@ -159,18 +159,18 @@ export const ExpandableContainerProvider: FC<{ id: string; children: ReactNode }
 
   return (
     <ExpandableContainerContext.Provider value={value}>
-      <Box sx={{ display: 'flex' }} key={id}>
+      <Box display="flex" key={id}>
         <StyledExpandableContainer
           className={className}
           ref={containerRef}
-          sx={{ flexGrow: 1 }}
+          // flexGrow={1}
           width={shrinkDomData.width}
           height={shrinkDomData.height}
           yDistFromTop={shrinkDomData.top}
           key={id}
         >
           {isExpanded && (
-            <FloatingButton startIconName="minimize" size="large" onClick={handleShrinkClick}>
+            <FloatingButton StartIcon={Minimize} size={BUTTON_SIZE.large} onClick={handleShrinkClick}>
               Minimize
             </FloatingButton>
           )}

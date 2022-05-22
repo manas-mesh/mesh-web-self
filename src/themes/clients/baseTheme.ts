@@ -22,6 +22,10 @@ export enum FONT_WEIGHT_VARIANTS {
 
 export type ThemeType = typeof baseTheme;
 
+export interface ThemeProps {
+  theme: ThemeType;
+}
+
 export const baseTheme = {
   colors: {
     common: {

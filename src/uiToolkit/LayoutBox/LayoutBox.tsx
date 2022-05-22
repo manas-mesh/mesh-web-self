@@ -1,7 +1,5 @@
-import styled, { StyledComponent } from '@emotion/styled';
-import { Box, BoxProps } from '@chakra-ui/react';
-import { ThemeType } from '@themes/clients/baseTheme';
-import { FC } from 'react';
+import styled from '@emotion/styled';
+import { Box } from '@chakra-ui/react';
 
 type ColSpanType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16;
 const TransientProps = ['colSpan'];

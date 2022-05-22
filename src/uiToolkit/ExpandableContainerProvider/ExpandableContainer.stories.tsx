@@ -1,4 +1,4 @@
-import { Box } from '@mui/system';
+import { Box } from '@chakra-ui/react';
 import React from 'react';
 import { AppLayoutDummyWrapper } from 'uiToolkit/AppLayoutDummyWrapper';
 import { Button } from 'uiToolkit/Button';
@@ -21,7 +21,7 @@ const DemoInnerComp = () => {
   }: ExpandableContainerI = useExpandableContainer();
   const heading = "Hello , the container is '" + (isExpanded ? "Expanded'" : "Not Expanded'");
   return (
-    <Box sx={{ bgcolor: 'burlywood', p: 2 }}>
+    <Box bg="burlywood" p={2}>
       <h1>{heading}</h1>
       <Button onClick={onExpandClick} sx={{ mr: 2 }}>
         Expand
