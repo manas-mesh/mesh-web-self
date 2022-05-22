@@ -3,3 +3,4 @@ export { ArrowRight } from './ArrowRight';
 export { Test } from './Test';
 export { SliderThumbIcon } from './SliderThumbIcon';
 export { Close } from './Close';
+export { Minimize } from './Minimize';
