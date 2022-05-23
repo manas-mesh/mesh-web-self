@@ -8,7 +8,7 @@ import {
   Wrapper,
   SliderWrapper,
 } from './Slider.styles';
-import { SliderThumbIcon } from '../../assets/iconComponents/SliderThumbIcon';
+import { SliderThumbIcon } from '@iconComponents';
 import { TextareaProps } from '@uiToolkit/Textarea/Textarea';
 import { isValidNumberRegExp } from '@constants/index';
 import { useTheme } from '@emotion/react';
@@ -115,7 +115,7 @@ const Slider: React.FC<SliderProps> = ({
   //slider thumb render
   const renderSliderThumb = (): JSX.Element => (
     <SliderThumbWrapper>
-      <SliderThumbIcon color={theme.colors.surfaces.white} />
+      <SliderThumbIcon boxSize={20} color={theme.colors.surfaces.white} />
     </SliderThumbWrapper>
   );
 
