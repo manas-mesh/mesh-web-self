@@ -46,7 +46,6 @@ const Slider: React.FC<SliderProps> = ({
 
   const [sliderValue, setSliderValue] = useState(String(value));
 
-  console.log('check render');
   //value is stored as string so that it can be used in both slider and textarea component
   const stringValueToNumber: number = isNaN(parseFloat(sliderValue)) ? min : parseFloat(sliderValue);
 
