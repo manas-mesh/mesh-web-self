@@ -21,10 +21,12 @@ export type TextareaProps = {
   endIcon?: React.ReactNode;
   isDisabled?: boolean;
   error?: string;
+  className?: string;
 };
 
 const Textarea: React.FC<TextareaProps> = ({
   type = 'text',
+  className = '',
   name,
   label,
   placeholder,
@@ -40,7 +42,12 @@ const Textarea: React.FC<TextareaProps> = ({
   const theme = useTheme();
 
   return (
-    <StyledFormControl isDisabled={isDisabled} isInvalid={error ? true : false} withBackground={withBackground}>
+    <StyledFormControl
+      className={className}
+      isDisabled={isDisabled}
+      isInvalid={error ? true : false}
+      withBackground={withBackground}
+    >
       <FormLabel htmlFor={name}>
         <TextLabelSmall color={error ? theme.colors.errors.fields : theme.colors.text.bg40}>
           {error ? error : label}
