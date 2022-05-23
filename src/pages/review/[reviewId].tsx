@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Avatar from '@uiToolkit/Avatar';
 import ListItem from '@uiToolkit/Listitem';
-import RadioButton from '@uiToolkit/RadioButton';
+import { Checkbox } from '@uiToolkit/Checkbox';
 
 interface IProps {}
 
@@ -37,7 +37,7 @@ const Review = ({}: IProps) => {
 
   return (
     <Wrapper style={{ marginLeft: '40px', marginTop: '40px' }}>
-      <RadioButton options={OPTIONS} />
+      <Checkbox />
     </Wrapper>
   );
 };
