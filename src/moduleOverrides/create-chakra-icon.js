@@ -39,7 +39,11 @@ const cleanAtrributes = ($el, $) => {
 };
 
 const createComponentString = (viewBox, iconSvg, name) => `import { Icon } from '@chakra-ui/react';
-  export const ${name} = (props) => (
+
+  export interface Dictionary<T> {
+    [Key: string]: T
+  }
+  export const ${name} = (props: Dictionary<any>) => (
     <Icon viewBox="${viewBox}" {...props}>${iconSvg}</Icon>
     );
 `;
@@ -61,6 +65,6 @@ mkdirp(distDir, (err) => {
     const viewBox = $svg.attr('viewBox');
     const componentString = createComponentString(viewBox, iconSvg, name);
 
-    fs.writeFileSync(path.join(distDir, name + '.js'), componentString, 'utf-8');
+    fs.writeFileSync(path.join(distDir, name + '.tsx'), componentString, 'utf-8');
   });
 });
