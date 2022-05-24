@@ -5,8 +5,8 @@ import { BaseStarRating } from '@uiToolkit/BaseStarRating/BaseStarRating';
 interface RatingProps {
   precision?: number;
   maxRating: number;
-  emptyIcon?: any;
-  filledIcon?: any;
+  emptyIcon?: React.ReactNode;
+  filledIcon?: React.ReactNode;
   rating: number;
   label?: string;
   disabled?: boolean;
@@ -15,9 +15,7 @@ interface RatingProps {
 }
 
 export const Rating = ({ ...props }: RatingProps) => (
-    <Box
-      sx={{ background: baseTheme.colors.surfaces.bg92, padding: '12px', borderRadius: '8px', width: 'fit-content' }}
-    >
-      <BaseStarRating {...props} />
-    </Box>
-  );
+  <Box sx={{ background: baseTheme.colors.surfaces.bg92, padding: '12px', borderRadius: '8px', width: 'fit-content' }}>
+    <BaseStarRating {...props} />
+  </Box>
+);
