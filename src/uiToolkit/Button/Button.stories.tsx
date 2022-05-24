@@ -94,3 +94,9 @@ export const WithoutBackgroundWithEndIcon = () => (
 );
 
 export const WithoutBackgroundIconOnly = () => <Button withBackground={false} StartIcon={DemoIcon} />;
+
+export const WithoutBackgroundDisabled = () => (
+  <Button withBackground={false} isDisabled>
+    Hello
+  </Button>
+);

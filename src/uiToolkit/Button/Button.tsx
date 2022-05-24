@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React, { FC, ReactNode, useMemo } from 'react';
 import { Button as ChakraButton, ButtonProps } from '@chakra-ui/react';
-import { ThemeType } from '@themes/clients/baseTheme';
+import { ThemeProps, ThemeType } from '@themes/clients/baseTheme';
 
 import { TextLabelLarge, TextLabelSmall } from 'uiToolkit/Typography';
 import { useTheme } from '@emotion/react';
@@ -31,7 +31,7 @@ type PropTypes = {
   withBackground: boolean;
 };
 
-const getBaseButtonStyles = (theme: ThemeType, props: any) => ({
+const getBaseButtonStyles = (theme: ThemeType, props: PropTypes) => ({
   boxShadow: 'none',
   height: !props.withBackground ? '24px' : props.size === BUTTON_SIZE.large ? '40px' : '28px',
   textTransform: 'none',
@@ -44,7 +44,7 @@ const getBaseButtonStyles = (theme: ThemeType, props: any) => ({
     margin: props.isIconOnlyButton ? '0' : props.isLeftIcon ? '0 4px 0 0' : '0 0 0 4px',
   },
   '&:hover:enabled': !props.withBackground
-    ? {}
+    ? { backgroundColor: 'unset' }
     : {
         cursor: 'pointer',
         backgroundColor: theme.colors.surfaces.bg96,
@@ -55,6 +55,9 @@ const getBaseButtonStyles = (theme: ThemeType, props: any) => ({
           color: theme.colors.icon.bg40,
         },
       },
+  '&:hover:disabled': {
+    backgroundColor: 'transparent',
+  },
 
   '&:active:enabled, &.active-styles': !props.withBackground
     ? {}
@@ -69,26 +72,29 @@ const getBaseButtonStyles = (theme: ThemeType, props: any) => ({
       },
 
   '&:disabled': {
+    opacity: '1',
     '&>*': {
       opacity: '50%',
     },
-    cursor: 'not-allowed',
   },
 });
 
 const StyledButton = styled(ChakraButton, {
   shouldForwardProp: (prop: string) => !TransientProps.includes(prop),
 })(
-  ({ theme, ...props }: { theme: any; props: any }): Dictionary<any> => ({
-    ...getBaseButtonStyles(theme as ThemeType, props),
+  ({ theme, ...props }: ThemeProps & PropTypes): Dictionary<any> => ({
+    ...getBaseButtonStyles(theme, props),
     backgroundColor: theme.colors.surfaces.bg40,
+    '&:hover:disabled': {
+      backgroundColor: theme.colors.surfaces.bg40,
+    },
   }),
 );
 
 const OutlineButton = styled(ChakraButton, {
   shouldForwardProp: (prop: string) => !TransientProps.includes(prop),
 })(
-  ({ theme, ...props }: { theme: any; props: any }): Dictionary<any> => ({
+  ({ theme, ...props }: ThemeProps & PropTypes): Dictionary<any> => ({
     ...getBaseButtonStyles(theme, props),
 
     backgroundColor: 'transparent',
@@ -109,7 +115,7 @@ const OutlineButton = styled(ChakraButton, {
 const TextButton = styled(ChakraButton, {
   shouldForwardProp: (prop: string) => !TransientProps.includes(prop),
 })(
-  ({ theme, ...props }: { theme: any; props: any }): Dictionary<any> => ({
+  ({ theme, ...props }: ThemeProps & PropTypes): Dictionary<any> => ({
     ...getBaseButtonStyles(theme, props),
 
     backgroundColor: 'transparent',
@@ -125,7 +131,7 @@ const TextButton = styled(ChakraButton, {
 const BaseButton = styled(ChakraButton, {
   shouldForwardProp: (prop: string) => !TransientProps.includes(prop),
 })(
-  ({ theme, ...props }: { theme: any; props: any }): Dictionary<any> => ({
+  ({ theme, ...props }: ThemeProps & PropTypes): Dictionary<any> => ({
     ...getBaseButtonStyles(theme, props),
 
     backgroundColor: 'transparent',
@@ -172,7 +178,7 @@ export const Button: FC<ButtonProps & AdditionalButtonProps> = ({
   const isIconOnlyButton = !children;
   const isLeftIcon = !!StartIcon;
   const isTextOnlyButton = !StartIcon && !EndIcon;
-  const theme: ThemeType = useTheme();
+  const theme = useTheme();
 
   switch (variant) {
     case BUTTON_VARIANT.outlined:
@@ -190,11 +196,13 @@ export const Button: FC<ButtonProps & AdditionalButtonProps> = ({
   }
 
   if (StartIcon) {
-    StartIconComp = <StartIcon color={theme.colors.icon.white} boxSize={size === BUTTON_SIZE.large ? '24px' : '20'} />;
+    StartIconComp = (
+      <StartIcon color={theme.colors.icon.white} boxSize={size === BUTTON_SIZE.large ? '24px' : '20px'} />
+    );
   }
 
   if (EndIcon) {
-    EndIconComp = <EndIcon color={theme.colors.icon.white} boxSize={size === BUTTON_SIZE.large ? '24' : '20'} />;
+    EndIconComp = <EndIcon color={theme.colors.icon.white} boxSize={size === BUTTON_SIZE.large ? '24px' : '20px'} />;
   }
 
   let TextLabelComp = TextLabelSmall;
