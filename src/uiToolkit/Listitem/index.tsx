@@ -36,7 +36,6 @@ const Wrapper = styled.div<WrapperTypes>`
     background: ${({ theme }) => theme?.colors?.surfaces?.white};
   }
 `;
-
 const Listitem = ({
   rightComponent,
   leftComponent,

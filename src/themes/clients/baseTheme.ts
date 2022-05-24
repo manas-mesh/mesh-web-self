@@ -22,6 +22,10 @@ export enum FONT_WEIGHT_VARIANTS {
 
 export type ThemeType = typeof baseTheme;
 
+export interface ThemeProps {
+  theme: ThemeType;
+}
+
 export const baseTheme = {
   colors: {
     common: {
@@ -32,6 +36,7 @@ export const baseTheme = {
     surfaces: {
       white: colors.white,
       g20: colors.neutral.gray[20],
+      g86: colors.neutral.gray[86],
       g90: colors.neutral.gray[90],
       g92: colors.neutral.gray[92],
       g94: colors.neutral.gray[94],
@@ -48,6 +53,7 @@ export const baseTheme = {
       bg98: colors.neutral.blueGray[98],
       tw24: colors.neutral.transparentWhite[24],
       t48: colors.neutral.transparentWhite[48],
+      gr100: colors.chromatic.green[100],
     },
     text: {
       white: colors.white,
