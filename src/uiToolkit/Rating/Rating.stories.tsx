@@ -1,12 +1,8 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
 import { Rating } from './Rating';
-import { EmptyStar } from '../../assets/iconComponents/EmptyStar';
-import { FilledStar } from '../../assets/iconComponents/FilledStar';
 
 export default {
-  title: 'Rating/Rating',
+  title: 'Core Components/Rating',
   component: Rating,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -24,8 +20,6 @@ WithoutLabel.args = {
 export const WithLabel = Template.bind({});
 WithLabel.args = {
   maxRating: 10,
-  rating: 3,
+  rating: 2,
   label: 'Label',
-  emptyIcon: <EmptyStar />,
-  filledIcon: <FilledStar />,
 };
