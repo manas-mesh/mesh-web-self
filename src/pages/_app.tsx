@@ -3,6 +3,7 @@ import { ThemeProvider } from '@emotion/react';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ChakraProvider } from '@chakra-ui/react';
+import ErrorBoundary from 'components/ErrorBoundary';
 
 // Types
 import type { AppProps } from 'next/app';
@@ -27,7 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           <GlobalStylesCSSReset />
           <GlobalStylesBase />
           <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
+            <ErrorBoundary>
+              <Component {...pageProps} />
+            </ErrorBoundary>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ThemeProvider>
