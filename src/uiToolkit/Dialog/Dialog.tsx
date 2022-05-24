@@ -1,7 +1,10 @@
 import React from 'react';
-import { Box, Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
+import { Box, Drawer, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
 import { useTheme } from '@chakra-ui/react';
 import { ThemeType } from '@themes/clients/baseTheme';
+import { Button } from '@uiToolkit/Button';
+import { BUTTON_SIZE } from '@uiToolkit/Button/Button';
+import { Close } from '@assets/iconComponents';
 
 interface DialogProps {
   isOpen: boolean;
@@ -27,15 +30,17 @@ export const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, children, showC
         bg={theme.colors.surfaces.g96}
         boxShadow={theme.shadows.dark}
         top={`calc(${theme.layout.colWidth} + 12px)`}
-        position="absolute"
         bottom={0}
         w={`calc(${theme.layout.colWidth} * 8 - 12px)`}
         right={0}
         mr="12px"
-        overflowY="auto"
       >
-        {showCloseButton && <DrawerCloseButton border={'none'} />}
-        {children}
+        {showCloseButton && (
+          <Button StartIcon={Close} size={BUTTON_SIZE.large} onClick={onClose} position="absolute" top="-60" right="0">
+            Close
+          </Button>
+        )}
+        <Box overflowY="auto">{children}</Box>
       </DrawerContent>
     </Drawer>
   );
