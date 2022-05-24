@@ -44,7 +44,7 @@ const getBaseButtonStyles = (theme: ThemeType, props: PropTypes) => ({
     margin: props.isIconOnlyButton ? '0' : props.isLeftIcon ? '0 4px 0 0' : '0 0 0 4px',
   },
   '&:hover:enabled': !props.withBackground
-    ? {}
+    ? { backgroundColor: 'unset' }
     : {
         cursor: 'pointer',
         backgroundColor: theme.colors.surfaces.bg96,
@@ -55,6 +55,9 @@ const getBaseButtonStyles = (theme: ThemeType, props: PropTypes) => ({
           color: theme.colors.icon.bg40,
         },
       },
+  '&:hover:disabled': {
+    backgroundColor: 'transparent',
+  },
 
   '&:active:enabled, &.active-styles': !props.withBackground
     ? {}
@@ -69,10 +72,10 @@ const getBaseButtonStyles = (theme: ThemeType, props: PropTypes) => ({
       },
 
   '&:disabled': {
+    opacity: '1',
     '&>*': {
       opacity: '50%',
     },
-    cursor: 'not-allowed',
   },
 });
 
@@ -82,6 +85,9 @@ const StyledButton = styled(ChakraButton, {
   ({ theme, ...props }: ThemeProps & PropTypes): Dictionary<any> => ({
     ...getBaseButtonStyles(theme, props),
     backgroundColor: theme.colors.surfaces.bg40,
+    '&:hover:disabled': {
+      backgroundColor: theme.colors.surfaces.bg40,
+    },
   }),
 );
 
@@ -190,11 +196,13 @@ export const Button: FC<ButtonProps & AdditionalButtonProps> = ({
   }
 
   if (StartIcon) {
-    StartIconComp = <StartIcon color={theme.colors.icon.white} boxSize={size === BUTTON_SIZE.large ? '24px' : '20'} />;
+    StartIconComp = (
+      <StartIcon color={theme.colors.icon.white} boxSize={size === BUTTON_SIZE.large ? '24px' : '20px'} />
+    );
   }
 
   if (EndIcon) {
-    EndIconComp = <EndIcon color={theme.colors.icon.white} boxSize={size === BUTTON_SIZE.large ? '24' : '20'} />;
+    EndIconComp = <EndIcon color={theme.colors.icon.white} boxSize={size === BUTTON_SIZE.large ? '24px' : '20px'} />;
   }
 
   let TextLabelComp = TextLabelSmall;
