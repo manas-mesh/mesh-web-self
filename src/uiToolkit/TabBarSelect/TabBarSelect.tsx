@@ -11,17 +11,17 @@ const buttonGroupMarginStyles = {
   },
 };
 
-export type ValueType = number | string;
+export type TabBarValueType = number | string;
 
-type OptionType = {
+export type TabBarOptionType = {
   label: string;
-  value: ValueType;
+  value: TabBarValueType;
 };
 
 type PropTypes = {
-  options: OptionType[];
-  value: ValueType;
-  onChange: (newSelectedValue: ValueType) => void;
+  options: TabBarOptionType[];
+  value: TabBarValueType | undefined;
+  onChange: (newSelectedValue: TabBarValueType) => void;
   fullWidth?: boolean;
   withBackground?: boolean;
 };
@@ -30,7 +30,7 @@ export const TabBarSelect = ({ options, value, onChange, fullWidth = false, with
   const [selectedValue, setSelectedValue] = useState(value);
   const theme: ThemeType = useTheme();
 
-  const onChangeHandler = (newSelectedValue: ValueType) => {
+  const onChangeHandler = (newSelectedValue: TabBarValueType) => {
     if (selectedValue === newSelectedValue) return;
     setSelectedValue(newSelectedValue);
     onChange(newSelectedValue);
