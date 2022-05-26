@@ -12,6 +12,39 @@ export default ButtonSelectStory;
 
 const ButtonSelectTemplate: Story<ButtonSelectProps> = (args) => <ButtonSelect {...args} />;
 
+const nestedOptions = [
+  {
+    label: 'parent1',
+    StartIcon: StartIcon,
+    isNested: true,
+    value: [
+      { value: 1, label: 'check1', StartIcon: StartIcon, isNested: false },
+      { value: 2, label: 'check2', StartIcon: StartIcon, isNested: false },
+      { value: 3, label: 'check3', StartIcon: StartIcon, isNested: false },
+    ],
+  },
+  {
+    label: 'parent2',
+    StartIcon: StartIcon,
+    isNested: true,
+    value: [
+      { value: 4, label: 'check4', StartIcon: StartIcon, isNested: false },
+      { value: 7, label: 'check7', StartIcon: StartIcon, isNested: false },
+    ],
+  },
+  {
+    label: 'parent3',
+    StartIcon: StartIcon,
+    isNested: true,
+    value: [
+      { value: 8, label: 'check8', StartIcon: StartIcon, isNested: false },
+      { value: 9, label: 'check9', StartIcon: StartIcon, isNested: false },
+    ],
+  },
+  { value: 5, label: 'check5', StartIcon: StartIcon, isNested: false },
+  { value: 6, label: 'check4zzzz', isNested: false },
+];
+
 const options: Optionitem[] = [
   { value: 1, label: 'check1', StartIcon: StartIcon },
   { value: 2, label: 'check2', StartIcon: StartIcon },
@@ -48,6 +81,26 @@ WithDefaultValue.args = {
   options,
   onChange: (e: any) => console.log(e),
   ButtonStartIcon: StartIcon,
-  defaultLabel: options[1].label,
-  defaultValue: options[1].value,
+  defaultItems: [options[2]],
+};
+
+export const ButtonWithNestedOptions = ButtonSelectTemplate.bind({});
+
+ButtonWithNestedOptions.args = {
+  options: nestedOptions,
+  onChange: (e) => {
+    console.log(e);
+  },
+  ButtonStartIcon: StartIcon,
+};
+
+export const NestedOptionsWithMultipleSelect = ButtonSelectTemplate.bind({});
+
+NestedOptionsWithMultipleSelect.args = {
+  options: nestedOptions,
+  onChange: (e) => {
+    console.log(e);
+  },
+  ButtonStartIcon: StartIcon,
+  allowMultipleSelect: true,
 };

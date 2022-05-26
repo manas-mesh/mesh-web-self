@@ -6,3 +6,4 @@ export { SliderThumbIcon } from './SliderThumbIcon';
 export { Close } from './Close';
 export { ExpandMore } from './ExpandMore';
 export { ExpandLess } from './ExpandLess';
+export { Tick } from './Tick';

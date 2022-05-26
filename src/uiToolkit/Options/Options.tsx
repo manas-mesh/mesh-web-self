@@ -1,42 +1,113 @@
 import React, { FC, useState } from 'react';
 import { TextBodyMedium } from 'uiToolkit/Typography';
-import { StyledMenuList, StyledMenuItem, Wrapper } from './Options.style';
+import { StyledMenuList, StyledMenuItem, Wrapper, StyledHeader } from './Options.style';
 import { useTheme } from '@emotion/react';
 import { ThemeType } from '@themes/clients/baseTheme';
-import { BoxProps } from '@chakra-ui/react';
+import { Box, BoxProps } from '@chakra-ui/react';
+import { Collapse } from '@chakra-ui/react';
+import { ExpandLess, ExpandMore, Tick } from '@assets/iconComponents';
 
 //value type
-export type valuetype = number | string;
+export type valuetype = number | string | Optionitem[];
 
 //type of each option item
 export interface Optionitem {
-  value: number | string;
+  value: valuetype;
   label: string;
   isDisabled?: boolean;
   StartIcon?: FC<any> | undefined;
+  isNested?: boolean;
 }
+
+//sample nested options data structure
+// const options:Optionitem[] = [{label:'parent1',isNested:true,
+// value:[
+//{ label:'child1',isNested:false,value:2}
+//]
+//},
+//{label:'parent2',isNested:false,value:1}
+//]
 
 //options proptype
-export interface OptionsType {
+export interface OptionsTypeProps {
   options: Optionitem[];
-  onChange?: (item: Optionitem) => void;
-  defaultValue?: valuetype;
+  onChange?: (items: Optionitem[]) => void;
+  defaultItems?: Optionitem[];
+  allowMultipleSelect?: boolean;
 }
 
-//OPTIONS COMPONENT STARTS HERE
-export const Options: FC<BoxProps & OptionsType> = ({ options = [], onChange, defaultValue, ...props }) => {
+type RenderItemProps = {
+  item: Optionitem;
+  index: number;
+  renderMenuListItem: Function;
+};
+
+//SUPPORTING COMPONENT
+const RenderItem = ({ item, index, renderMenuListItem }: RenderItemProps): JSX.Element => {
   const theme: ThemeType = useTheme();
-  const [selectedOption, setSelectedOption] = useState<valuetype | undefined>(defaultValue);
+  const [show, setShow] = useState<boolean>(false);
+  const { label, value, isNested = false } = item;
+  const EndIcon: any = () => {
+    if (show) {
+      return <ExpandLess boxSize={'18px'} />;
+    }
+    return <ExpandMore boxSize={'18px'} />;
+  };
+  //toggle header function for nested options
+  const toggleHeader = (): void => {
+    setShow(!show);
+  };
+  if (isNested && Array.isArray(value) && value.length > 0) {
+    return (
+      <>
+        <StyledHeader onClick={toggleHeader} _hover={{ background: theme.colors.surfaces.bg94 }}>
+          <TextBodyMedium fontWeight={500}>{label}</TextBodyMedium>
+          <EndIcon />
+        </StyledHeader>
+
+        <Collapse in={show} animateOpacity>
+          {value.map((item, index) => renderMenuListItem(item, index))}
+        </Collapse>
+      </>
+    );
+  }
+  return renderMenuListItem(item, index);
+};
+
+//OPTIONS COMPONENT STARTS HERE
+export const Options: FC<BoxProps & OptionsTypeProps> = ({
+  options = [],
+  onChange,
+  defaultItems = [],
+  allowMultipleSelect = false,
+  ...props
+}) => {
+  const theme: ThemeType = useTheme();
+  const [selectedOption, setSelectedOption] = useState<Optionitem[]>(defaultItems);
 
   //onchange event handler
   const onChangeHandler = (item: Optionitem): void => {
     const { value } = item;
-    setSelectedOption(value);
-    if (onChange) onChange(item);
+    let updatedOptions;
+    if (!allowMultipleSelect) {
+      updatedOptions = [item];
+    } else if (isOptionSelected(value, selectedOption)) {
+      updatedOptions = selectedOption.filter((option) => option.value !== value);
+    } else {
+      updatedOptions = [...selectedOption, item];
+    }
+    setSelectedOption(updatedOptions);
+    if (onChange) onChange(updatedOptions);
   };
 
-  //render each item from the options list
-  const renderItem = (item: Optionitem): JSX.Element => {
+  //function to check if given value is checked/unchecked
+  const isOptionSelected = (value: valuetype, selectedOption: Optionitem[]): boolean => {
+    const found = selectedOption.some((option) => option.value === value);
+    return found;
+  };
+
+  //render each option object
+  const renderMenuListItem = (item: Optionitem, index: number): JSX.Element => {
     const { label, value, isDisabled, StartIcon } = item;
     let iconProp;
     if (StartIcon) {
@@ -46,23 +117,28 @@ export const Options: FC<BoxProps & OptionsType> = ({ options = [], onChange, de
     }
     return (
       <StyledMenuItem
-        key={value}
-        value={value}
+        key={index}
         isDisabled={isDisabled}
-        selected={value === selectedOption}
+        selected={isOptionSelected(value, selectedOption)}
         _hover={{ background: theme.colors.surfaces.bg96 }}
         onClick={() => onChangeHandler(item)}
         {...iconProp}
       >
-        <TextBodyMedium>{label}</TextBodyMedium>
+        <Box width={'100%'} display={'flex'} justifyContent={'space-between'}>
+          <TextBodyMedium>{label}</TextBodyMedium>
+          {isOptionSelected(value, selectedOption) && <Tick style={{ marginRight: '2px' }} boxSize={'18px'} />}
+        </Box>
       </StyledMenuItem>
     );
   };
+
   return (
-    <>
-      <Wrapper {...props}>
-        <StyledMenuList mt={'4px'}>{options.map((item: Optionitem) => renderItem(item))}</StyledMenuList>
-      </Wrapper>
-    </>
+    <Wrapper {...props}>
+      <StyledMenuList mt={'4px'}>
+        {options.map((item: Optionitem, index: number) => (
+          <RenderItem key={index} item={item} index={index} renderMenuListItem={renderMenuListItem} />
+        ))}
+      </StyledMenuList>
+    </Wrapper>
   );
 };

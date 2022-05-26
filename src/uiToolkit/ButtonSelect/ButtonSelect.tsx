@@ -14,11 +14,11 @@ export interface ButtonSelectProps {
   isDisabled?: boolean;
   className?: string;
   options: Optionitem[];
-  onChange: (selectedOption: Optionitem) => void;
+  onChange: (selectedOption: Optionitem[]) => void;
   ButtonStartIcon?: FC<any> | undefined;
-  defaultLabel?: string;
-  defaultValue?: valuetype;
+  defaultItems?: Optionitem[];
   buttonSelectStyle?: React.CSSProperties;
+  allowMultipleSelect?: boolean;
 }
 
 //BUTTON SELECT COMPONENT STARTS HERE
@@ -27,15 +27,17 @@ export const ButtonSelect: FC<ButtonSelectProps> = ({
   className = '',
   options = [],
   onChange,
-  defaultValue,
+  defaultItems = [],
   ButtonStartIcon,
-  defaultLabel = 'Select',
+  allowMultipleSelect = false,
   ...props
 }) => {
+  const defaultButtonLabel = 'Select';
   const [isOpen, setIsOpen] = useState(false);
-  const [buttonLabel, setButtonLabel] = useState(defaultLabel);
+  const [buttonLabel, setButtonLabel] = useState(
+    defaultItems.length > 0 ? defaultItems.map((item) => item.label) : [defaultButtonLabel],
+  );
   const theme: ThemeType = useTheme();
-
   const EndIcon: any = () => {
     if (isOpen) {
       return <ExpandLess boxSize={'18px'} color={theme.colors.surfaces.white} />;
@@ -49,10 +51,11 @@ export const ButtonSelect: FC<ButtonSelectProps> = ({
   };
 
   //onchange event handler
-  const onChangeHandler = (item: Optionitem): void => {
-    const { label } = item;
-    setButtonLabel(label);
-    if (onChange) onChange(item);
+  const onChangeHandler = (items: Optionitem[]): void => {
+    if (items.length > 0) {
+      setButtonLabel(items.map((item) => item.label));
+    } else setButtonLabel([defaultButtonLabel]);
+    if (onChange) onChange(items);
   };
 
   //menu onclose handler
@@ -74,16 +77,21 @@ export const ButtonSelect: FC<ButtonSelectProps> = ({
         EndIcon={EndIcon}
         selected={isOpen}
       >
-        {buttonLabel}
+        {buttonLabel.join(', ')}
       </Button>
     );
   };
   return (
     <>
       <Wrapper className={className} {...props}>
-        <Menu isOpen={isOpen} onClose={closeHandler}>
+        <Menu isOpen={isOpen} onClose={closeHandler} closeOnSelect={false}>
           <MenuButton as={RenderButton} />
-          <Options defaultValue={defaultValue} options={options} onChange={onChangeHandler} />
+          <Options
+            allowMultipleSelect={allowMultipleSelect}
+            defaultItems={defaultItems}
+            options={options}
+            onChange={(e) => onChangeHandler(e)}
+          />
         </Menu>
       </Wrapper>
     </>
