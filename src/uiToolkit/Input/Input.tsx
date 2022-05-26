@@ -1,12 +1,18 @@
 // Libraries
 import { useTheme } from '@emotion/react';
-import { InputGroup, InputRightElement, FormLabel } from '@chakra-ui/react';
+import { InputGroup } from '@chakra-ui/react';
 
 // Typography
 import { TextLabelSmall, TextBodySmall } from '@uiToolkit/Typography';
 
 // Styles
-import { StyledChakraInput, StyledFormControl, StyledFormHelperText } from './Input.styles';
+import {
+  StyledChakraInput,
+  StyledFormControl,
+  StyledFormHelperText,
+  StyledFormLabel,
+  StyledInputRightElement,
+} from './Input.styles';
 
 export type InputProps = {
   type: string;
@@ -39,11 +45,11 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <StyledFormControl isDisabled={isDisabled} isInvalid={error ? true : false} withBackground={withBackground}>
-      <FormLabel htmlFor={name}>
+      <StyledFormLabel htmlFor={name}>
         <TextLabelSmall color={error ? theme.colors.errors.fields : theme.colors.text.bg40}>
           {error ? error : label}
         </TextLabelSmall>
-      </FormLabel>
+      </StyledFormLabel>
       <InputGroup>
         <StyledChakraInput
           id={name}
@@ -54,7 +60,7 @@ const Input: React.FC<InputProps> = ({
           onChange={handleChange}
           endIcon={endIcon}
         />
-        <InputRightElement>{endIcon}</InputRightElement>
+        <StyledInputRightElement>{endIcon}</StyledInputRightElement>
       </InputGroup>
       <StyledFormHelperText>
         <TextBodySmall>{helperText}</TextBodySmall>
