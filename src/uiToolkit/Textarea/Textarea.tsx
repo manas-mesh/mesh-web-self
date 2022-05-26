@@ -79,4 +79,4 @@ const Textarea: React.FC<TextareaProps> = ({
   );
 };
 
-export { Textarea };
+export default Textarea;
