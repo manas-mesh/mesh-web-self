@@ -1,12 +1,18 @@
 // Libraries
 import { useTheme } from '@emotion/react';
-import { InputGroup, InputRightElement, FormLabel } from '@chakra-ui/react';
+import { InputGroup } from '@chakra-ui/react';
 
 // Typography
 import { TextLabelSmall, TextBodySmall } from '@uiToolkit/Typography';
 
 // Styles
-import { StyledChakraTextarea, StyledFormControl, StyledFormHelperText } from './Textarea.styles';
+import {
+  StyledChakraTextarea,
+  StyledFormControl,
+  StyledFormHelperText,
+  StyledFormLabel,
+  StyledInputRightElement,
+} from './Textarea.styles';
 
 export type TextareaProps = {
   type: string;
@@ -34,7 +40,7 @@ const Textarea: React.FC<TextareaProps> = ({
   withBackground = false,
   value,
   handleChange,
-  rows,
+  rows = 3,
   endIcon,
   isDisabled,
   error,
@@ -48,11 +54,11 @@ const Textarea: React.FC<TextareaProps> = ({
       isInvalid={error ? true : false}
       withBackground={withBackground}
     >
-      <FormLabel htmlFor={name}>
+      <StyledFormLabel htmlFor={name}>
         <TextLabelSmall color={error ? theme.colors.errors.fields : theme.colors.text.bg40}>
           {error ? error : label}
         </TextLabelSmall>
-      </FormLabel>
+      </StyledFormLabel>
       <InputGroup>
         <StyledChakraTextarea
           id={name}
@@ -64,7 +70,7 @@ const Textarea: React.FC<TextareaProps> = ({
           rows={rows}
           endIcon={endIcon}
         />
-        <InputRightElement>{endIcon}</InputRightElement>
+        <StyledInputRightElement>{endIcon}</StyledInputRightElement>
       </InputGroup>
       <StyledFormHelperText>
         <TextBodySmall>{helperText}</TextBodySmall>

@@ -20,7 +20,7 @@ const TextareaTemplate: Story<TextareaProps> = (args) => {
 
   return (
     <div style={{ width: '200px' }}>
-      <Textarea withBackground={true} {...args} value={value} handleChange={handleChange} />
+      <Textarea withBackground={true} value={value} handleChange={handleChange} {...args} />
     </div>
   );
 };
