@@ -4,4 +4,3 @@ export { Test } from './Test';
 export { Minimize } from './Minimize';
 export { SliderThumbIcon } from './SliderThumbIcon';
 export { Close } from './Close';
-export { Minimize } from './Minimize';
