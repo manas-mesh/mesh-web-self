@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Story } from '@storybook/react';
 
-import { Select } from './Select';
+import Select from './Select';
 import type { SelectProps } from './Select';
 
 const people = [
@@ -30,10 +30,11 @@ const SelectStory = {
 };
 
 const SelectTemplate: Story<SelectProps> = (args) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState();
 
-  function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setValue(e.target.value);
+  function handleChange(value: [] | object) {
+    console.log(value);
+    setValue(value);
   }
 
   return (
@@ -51,21 +52,21 @@ Basic.args = {
   placeholder: 'Enter Name',
 };
 
-// export const WithoutBackground = SelectTemplate.bind({});
-// WithoutBackground.args = {
-//   name: 'Name',
-//   type: 'text',
-//   label: 'Name',
-//   placeholder: 'Enter Name',
-//   withBackground: false,
-// };
+export const WithoutBackground = SelectTemplate.bind({});
+WithoutBackground.args = {
+  name: 'Name',
+  type: 'text',
+  label: 'Name',
+  placeholder: 'Enter Name',
+  withBackground: false,
+};
 
-// export const WithoutLabel = SelectTemplate.bind({});
-// WithoutLabel.args = {
-//   name: 'Name',
-//   type: 'text',
-//   placeholder: 'Enter Name',
-// };
+export const WithoutLabel = SelectTemplate.bind({});
+WithoutLabel.args = {
+  name: 'Name',
+  type: 'text',
+  placeholder: 'Enter Name',
+};
 
 // export const WithHelperText = SelectTemplate.bind({});
 // WithHelperText.args = {

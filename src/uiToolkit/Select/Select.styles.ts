@@ -44,3 +44,10 @@ export const StyledFormHelperText = styled(FormHelperText)`
   text-align: right;
   margin: 0;
 `;
+
+export const ReactSelectCustomStyles = {
+  container: (provided, state) => ({
+    ...provided,
+    width: '100%',
+  }),
+};

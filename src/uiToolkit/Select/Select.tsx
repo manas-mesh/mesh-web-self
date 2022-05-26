@@ -1,14 +1,17 @@
 // Libraries
 import { useTheme } from '@emotion/react';
-import { InputGroup, Menu, MenuButton, MenuList, MenuItem, MenuItemOption, MenuOptionGroup } from '@chakra-ui/react';
+import ReactSelect from 'react-select';
+import { InputGroup } from '@chakra-ui/react';
 
 // Typography
 import { TextLabelSmall, TextBodySmall } from '@uiToolkit/Typography';
 
 // Styles
-import { StyledChakraSelect, StyledFormControl, StyledFormHelperText, StyledFormLabel } from './Select.styles';
+import { StyledFormControl, StyledFormHelperText, StyledFormLabel, ReactSelectCustomStyles } from './Select.styles';
+import React from 'react';
 
 export type SelectProps = {
+  type: string;
   name: string;
   label?: string;
   placeholder?: string;
@@ -19,12 +22,23 @@ export type SelectProps = {
     value: string | number;
     label: string;
   }[];
-  handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChange: (value: any) => void;
+  isMulti?: boolean;
   isDisabled?: boolean;
   error?: string;
 };
 
+const reactSelectComponents = {
+  MultiValueContainer: ({ selectProps, data }) => {
+    const values = selectProps.value;
+    if (values) {
+      return values[values.length - 1].label === data.label ? data.label : data.label + ', ';
+    } else return '';
+  },
+};
+
 const Select: React.FC<SelectProps> = ({
+  type = 'text',
   name,
   label,
   placeholder,
@@ -33,6 +47,7 @@ const Select: React.FC<SelectProps> = ({
   value,
   options,
   handleChange,
+  isMulti,
   isDisabled,
   error,
 }) => {
@@ -46,44 +61,15 @@ const Select: React.FC<SelectProps> = ({
         </TextLabelSmall>
       </StyledFormLabel>
       <InputGroup>
-        <Menu>
-          <MenuButton
-            as={StyledChakraSelect}
-            id={name}
-            name={name}
-            // placeholder={placeholder}
-            value={value}
-            onChange={handleChange}
-          >
-            {/* <StyledChakraSelect
-              id={name}
-              name={name}
-              type={type}
-              placeholder={placeholder}
-              value={value}
-              onChange={handleChange}
-            > */}
-            {/* <MenuList>
-                {options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                  {option.label}
-                  </option>
-                  ))}
-                </MenuList> */}
-            {/* </StyledChakraSelect> */}d
-          </MenuButton>
-          {/* <MenuList>
-            <MenuItem>Download</MenuItem>
-            <MenuItem>Create a Copy</MenuItem>
-            <MenuItem>Mark as Draft</MenuItem>
-            <MenuItem>Delete</MenuItem>
-            <MenuItem>Attend a Workshop</MenuItem>
-          </MenuList> */}
-          <MenuOptionGroup defaultValue="asc" title="Order" type="radio">
-            <MenuItemOption value="asc">Ascending</MenuItemOption>
-            <MenuItemOption value="desc">Descending</MenuItemOption>
-          </MenuOptionGroup>
-        </Menu>
+        <ReactSelect
+          styles={ReactSelectCustomStyles}
+          options={options}
+          value={value}
+          onChange={handleChange}
+          placeholder={placeholder}
+          isMulti={isMulti}
+          components={reactSelectComponents}
+        />
       </InputGroup>
       <StyledFormHelperText>
         <TextBodySmall>{helperText}</TextBodySmall>
@@ -92,4 +78,49 @@ const Select: React.FC<SelectProps> = ({
   );
 };
 
-export { Select };
+// const Select: React.FC<SelectProps> = ({
+//   type = 'text',
+//   name,
+//   label,
+//   placeholder,
+//   helperText,
+//   withBackground = false,
+//   value,
+//   options,
+//   handleChange,
+//   isDisabled,
+//   error,
+// }) => {
+//   const theme = useTheme();
+
+//   return (
+//     <StyledFormControl isDisabled={isDisabled} isInvalid={error ? true : false} withBackground={withBackground}>
+//       <StyledFormLabel htmlFor={name}>
+//         <TextLabelSmall color={error ? theme.colors.errors.fields : theme.colors.text.bg40}>
+//           {error ? error : label}
+//         </TextLabelSmall>
+//       </StyledFormLabel>
+//       <InputGroup>
+//         <StyledChakraSelect
+//           id={name}
+//           name={name}
+//           type={type}
+//           placeholder={placeholder}
+//           value={value}
+//           onChange={handleChange}
+//         >
+//           {options.map((option) => (
+//             <option key={option.value} value={option.value}>
+//               {option.label}
+//             </option>
+//           ))}
+//         </StyledChakraSelect>
+//       </InputGroup>
+//       <StyledFormHelperText>
+//         <TextBodySmall>{helperText}</TextBodySmall>
+//       </StyledFormHelperText>
+//     </StyledFormControl>
+//   );
+// };
+
+export default Select;
