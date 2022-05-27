@@ -6,7 +6,13 @@ import { InputGroup, InputRightElement, FormLabel, InputProps as ChakraInputProp
 import { TextLabelSmall, TextBodySmall } from '@uiToolkit/Typography';
 
 // Styles
-import { StyledChakraInput, StyledFormControl, StyledFormHelperText } from './Input.styles';
+import {
+  StyledChakraInput,
+  StyledFormControl,
+  StyledFormHelperText,
+  StyledFormLabel,
+  StyledInputRightElement,
+} from './Input.styles';
 
 export type InputProps = {
   type?: string;
@@ -38,11 +44,11 @@ const Input: React.FC<InputProps & ChakraInputProps> = ({
 
   return (
     <StyledFormControl isDisabled={isDisabled} isInvalid={error ? true : false} withBackground={withBackground}>
-      <FormLabel htmlFor={name}>
+      <StyledFormLabel htmlFor={name}>
         <TextLabelSmall color={error ? theme.colors.errors.fields : theme.colors.text.bg40}>
           {error ? error : label}
         </TextLabelSmall>
-      </FormLabel>
+      </StyledFormLabel>
       <InputGroup>
         <StyledChakraInput
           id={name}
@@ -53,7 +59,7 @@ const Input: React.FC<InputProps & ChakraInputProps> = ({
           endIcon={endIcon}
           {...restChakraInputProps}
         />
-        <InputRightElement>{endIcon}</InputRightElement>
+        <StyledInputRightElement>{endIcon}</StyledInputRightElement>
       </InputGroup>
       <StyledFormHelperText>
         <TextBodySmall>{helperText}</TextBodySmall>
@@ -62,4 +68,4 @@ const Input: React.FC<InputProps & ChakraInputProps> = ({
   );
 };
 
-export { Input };
+export default Input;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Story } from '@storybook/react';
 
-import { Input } from './Input';
+import Input from './Input';
 import type { InputProps } from './Input';
 
 import { AppNavigationOutlined } from '@iconComponents';
