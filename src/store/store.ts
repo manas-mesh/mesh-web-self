@@ -12,7 +12,12 @@ const reducers = {
 
 const store = configureStore({
   reducer: reducers,
-
+  middleware: (getDefaultMiddleware) => {
+    const middlewares = getDefaultMiddleware({
+      serializableCheck: false,
+    });
+    return middlewares;
+  },
   devTools: process.env.NODE_ENV !== 'production',
 });
 
