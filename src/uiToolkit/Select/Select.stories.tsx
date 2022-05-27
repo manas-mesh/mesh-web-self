@@ -20,7 +20,7 @@ const people = [
   {
     value: 'jane-smith',
     label: 'Jane Smith',
-    disabled: true,
+    isDisabled: true,
   },
 ];
 
@@ -39,7 +39,7 @@ const SelectTemplate: Story<SelectProps> = (args) => {
 
   return (
     <div style={{ width: '200px' }}>
-      <Select withBackground={true} {...args} value={value} options={people} handleChange={handleChange} />
+      <Select withBackground={true} value={value} options={people} handleChange={handleChange} {...args} />
     </div>
   );
 };
@@ -55,7 +55,6 @@ Basic.args = {
 export const WithoutBackground = SelectTemplate.bind({});
 WithoutBackground.args = {
   name: 'Name',
-  type: 'text',
   label: 'Name',
   placeholder: 'Enter Name',
   withBackground: false,
@@ -64,45 +63,43 @@ WithoutBackground.args = {
 export const WithoutLabel = SelectTemplate.bind({});
 WithoutLabel.args = {
   name: 'Name',
-  type: 'text',
   placeholder: 'Enter Name',
 };
 
-// export const WithHelperText = SelectTemplate.bind({});
-// WithHelperText.args = {
-//   name: 'Name',
-//   type: 'text',
-//   label: 'Name',
-//   placeholder: 'Enter Name',
-//   helperText: 'Helper Text',
-// };
+export const MultiSelect = SelectTemplate.bind({});
+MultiSelect.args = {
+  name: 'Name',
+  label: 'Name',
+  placeholder: 'Enter Name',
+  isMulti: true,
+};
 
-// export const Disabled = SelectTemplate.bind({});
-// Disabled.args = {
-//   name: 'Name',
-//   type: 'text',
-//   label: 'Name',
-//   placeholder: 'Enter Name',
-//   value: 'Jane Doe',
-//   isDisabled: true,
-// };
+export const WithHelperText = SelectTemplate.bind({});
+WithHelperText.args = {
+  name: 'Name',
+  label: 'Name',
+  placeholder: 'Enter Name',
+  helperText: 'Helper Text',
+};
 
-// export const WithoutLabelAndDisabled = SelectTemplate.bind({});
-// WithoutLabelAndDisabled.args = {
-//   name: 'Name',
-//   type: 'text',
-//   placeholder: 'Enter Name',
-//   value: 'Jane Doe',
-//   isDisabled: true,
-// };
+export const Disabled = SelectTemplate.bind({});
+Disabled.args = {
+  name: 'Name',
+  label: 'Name',
+  placeholder: 'Enter Name',
+  value: {
+    value: 'jane-doe',
+    label: 'Jane Doe',
+  },
+  isDisabled: true,
+};
 
-// export const WithError = SelectTemplate.bind({});
-// WithError.args = {
-//   name: 'Name',
-//   type: 'text',
-//   label: 'Name',
-//   placeholder: 'Enter Name',
-//   error: 'This is an error',
-// };
+export const WithError = SelectTemplate.bind({});
+WithError.args = {
+  name: 'Name',
+  label: 'Name',
+  placeholder: 'Enter Name',
+  error: 'This is an error',
+};
 
 export default SelectStory;

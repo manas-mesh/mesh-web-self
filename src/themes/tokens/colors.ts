@@ -44,6 +44,7 @@ export const colors = {
     },
     transparentWhite: {
       0: `hsla(0, 0%, 100%, 0)`,
+      4: `hsla(0, 0%, 100%, 0.04)`,
       48: `hsla(0, 0%, 100%, 0.48)`,
       24: `rgba(255, 255, 255, 0.24)`,
     },

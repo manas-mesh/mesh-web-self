@@ -1,21 +1,77 @@
 // Libraries
 import styled from '@emotion/styled';
-import { Select as ChakraSelect, FormControl, FormHelperText, FormLabel } from '@chakra-ui/react';
+import ReactSelect from 'react-select';
+import { FormControl, FormHelperText, FormLabel } from '@chakra-ui/react';
 
-export const StyledChakraSelect = styled(ChakraSelect)`
-  height: auto;
-  border: ${(props) => `1px dashed ${props.theme.colors.border.bg60}`};
-  border-width: 0 0 1px 0;
-  border-radius: 0;
-  font-size: ${(props) => props.theme.fonts.size.body.medium};
-  color: ${(props) => props.theme.colors.text.bg20};
-  padding: 0 0 1px 0;
-  background: ${(props) => props.theme.colors.formFields.transparentBg};
-  outline: none;
-  width: ${(props) => (props.endIcon ? `calc(100% - 16px)` : `100%`)};
+export const StyledReactSelect = styled(ReactSelect)`
+  width: 100%;
 
-  &:hover {
-    border-color: ${(props) => props.theme.colors.border.bg60};
+  .select__control {
+    border: ${(props) => `1px dashed ${props.theme.colors.border.bg60}`};
+    border-width: 0 0 1px 0;
+    border-radius: 0;
+    font-size: ${(props) => props.theme.fonts.size.body.medium};
+    color: ${(props) => props.theme.colors.text.bg20};
+    background: ${(props) => props.theme.colors.formFields.transparentBg};
+    min-height: auto;
+  }
+
+  .select__control--is-focused {
+    border: ${(props) => `1px dashed ${props.theme.colors.border.bg60}`};
+    border-width: 0 0 1px 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .select__value-container {
+    padding: 0;
+  }
+
+  .select__input-container {
+    margin: 0;
+    padding: 0;
+  }
+
+  .select__placeholder {
+    margin: 0;
+    padding: 0;
+  }
+
+  .select__menu {
+    width: 110%;
+    margin-left: -5%;
+    background: ${(props) => props.theme.colors.selectMenu.bg};
+    padding: 8px;
+    border: ${(props) => `1px solid ${props.theme.colors.border.tw04}`};
+    border-radius: 8px;
+    box-shadow: ${(props) => props.theme.shadows.light};
+
+    .select__menu-list {
+      padding: 0;
+
+      .select__option {
+        padding: 4px;
+        border-radius: 4px;
+        font-size: ${(props) => props.theme.fonts.size.body.medium};
+        color: ${(props) => props.theme.colors.text.bg20};
+      }
+
+      .select__option:not(:last-of-type) {
+        margin-bottom: 8px;
+      }
+
+      .select__option--is-focused {
+        background: ${(props) => props.theme.colors.selectMenu.hoverItemBg};
+      }
+
+      .select__option--is-selected {
+        background: ${(props) => props.theme.colors.selectMenu.focusedItemBg};
+      }
+
+      .select__option--is-disabled {
+        opacity: 24%;
+      }
+    }
   }
 `;
 
@@ -44,10 +100,3 @@ export const StyledFormHelperText = styled(FormHelperText)`
   text-align: right;
   margin: 0;
 `;
-
-export const ReactSelectCustomStyles = {
-  container: (provided, state) => ({
-    ...provided,
-    width: '100%',
-  }),
-};
