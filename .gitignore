@@ -37,6 +37,10 @@ yarn-error.log*
 # eslint
 .eslintcache
 
+# env files
+.env*
+!.env.sample
+
 # IDE settings
 .vscode
 .idea

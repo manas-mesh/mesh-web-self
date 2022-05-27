@@ -17,6 +17,8 @@ import { baseTheme } from '@themes/clients/baseTheme';
 // Styles
 import GlobalStylesCSSReset from '@styles/CSSReset';
 import GlobalStylesBase from '@styles/Base';
+import { RouteGuard } from 'components/RouteGuard/RouteGuard';
+import { AuthProvider } from 'components/AuthProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -29,7 +31,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           <GlobalStylesBase />
           <QueryClientProvider client={queryClient}>
             <ErrorBoundary>
-              <Component {...pageProps} />
+              <AuthProvider>
+                <RouteGuard>
+                  <Component {...pageProps} />
+                </RouteGuard>
+              </AuthProvider>
             </ErrorBoundary>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
