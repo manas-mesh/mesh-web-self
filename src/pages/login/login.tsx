@@ -5,14 +5,14 @@ import TeamWorkImage from 'assets/illustrations/teamwork.png';
 import { useAuth } from 'components/AuthProvider';
 import { SUPPORT_EMAIL } from 'constants/projectConstants';
 import { ROUTES } from 'constants/routes';
-import { useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { auth0Authenticate, getAuth0LoginUrl } from 'services/auth';
 import { Button } from 'uiToolkit/Button';
 import { TextBodyMedium, TextBodySmall, TextHeadlineSmall, TextTitleLarge } from 'uiToolkit/Typography';
 import { useRouter } from 'next/router';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { useTheme } from '@emotion/react';
-import { Input } from '@uiToolkit/Input';
+import Input from '@uiToolkit/Input';
 import { TextLink } from '@uiToolkit/TextLink';
 import { Divider } from '@uiToolkit/commonComps';
 import { BREAKPOINTS } from '@constants/mediaQueries';
@@ -20,9 +20,9 @@ import Image from 'next/image';
 
 const containerCSS = {
   display: 'grid',
-  'grid-template-columns': '5fr 3fr',
+  gridTemplateColumns: '5fr 3fr',
   height: '100vh',
-  'min-width': BREAKPOINTS[0] + 'px',
+  minWidth: BREAKPOINTS[0] + 'px',
 };
 
 export const ButtonContainer = styled('div')`
@@ -90,12 +90,12 @@ const RightFormView = ({
       navigateToOrgUrl();
     }
   }, [invitationId, navigateToOrgUrl, org]);
-
-  function handleChange(e) {
-    setOrgName(e.target.value);
+  React;
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setOrgName((e.target as HTMLInputElement).value);
   }
 
-  function handleKeyDown(e) {
+  function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === 'Enter' && !loading && orgName) {
       navigateToOrgUrl();
     }
@@ -148,14 +148,7 @@ const RightFormView = ({
         onKeyDown={handleKeyDown}
         onChange={handleChange}
       />
-      <Button
-        width="100%"
-        // color={theme.palette.primary.main}
-        onClick={navigateToOrgUrl}
-        disabled={isDisabled}
-        sx={{ mt: 7 }}
-        // href={url}
-      >
+      <Button width="100%" onClick={navigateToOrgUrl} disabled={isDisabled} sx={{ mt: 7 }}>
         Continue
       </Button>
       <Divider my={10} width="100%" />
@@ -175,6 +168,7 @@ const RightFormView = ({
     </Box>
   );
 };
+
 const Login = () => {
   // null: not tried, true: success, false: fail
   const [codeLoginAttempt, setCodeLoginAttempt] = useState<boolean | null>(null);
