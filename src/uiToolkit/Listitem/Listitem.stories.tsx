@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
-import Listitem from './';
+import Listitem from './ListItem';
 
 const ListItemStory = {
   title: 'Core Components/ListItem',

@@ -10,3 +10,7 @@ export { Tick } from './Tick';
 export { EmptyStar } from './EmptyStar'
 export { FilledStar } from './FilledStar'
 export { ArrowDropDown } from './ArrowDropDown';
+export { DisabledIcon } from './DisabledIcon';
+export { StatusCompleted } from './StatusCompleted';
+export { StatusInProgress } from './StatusInProgress';
+export { StatusNotStarted } from './StatusNotStarted';
