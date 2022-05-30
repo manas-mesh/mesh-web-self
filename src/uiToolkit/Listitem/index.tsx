@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Box } from '@chakra-ui/react';
+import { TextLabelLarge, TextLabelSmall } from '@uiToolkit/Typography';
 
-interface ListitemProps {
+export interface ListitemProps {
   className?: string;
   isDisabled?: boolean;
   active?: boolean;
@@ -11,6 +12,7 @@ interface ListitemProps {
   leftComponent?: React.ReactNode;
   rightComponent?: React.ReactNode;
   onClick?: () => {};
+  style?: React.CSSProperties;
 }
 
 type WrapperTypes = {
@@ -45,6 +47,7 @@ const Listitem = ({
   onClick,
   isDisabled,
   active,
+  style,
 }: ListitemProps) => {
   const renderLeftComponent = (): JSX.Element | undefined => {
     if (leftComponent) {
@@ -54,18 +57,18 @@ const Listitem = ({
 
   const renderSubtitle = (): JSX.Element | undefined => {
     if (subTitle) {
-      return <Box color={'text.bg40'}>{subTitle}</Box>;
+      return <TextLabelSmall fontWeight={500}>{subTitle} </TextLabelSmall>;
     }
   };
 
   const renderTitle = (): JSX.Element | undefined => {
     if (title) {
-      return <div>{title}</div>;
+      return <TextLabelLarge fontWeight={500}>{title}</TextLabelLarge>;
     }
   };
 
   const renderOtherInfo = (): JSX.Element => (
-    <Box marginLeft={8}>
+    <Box>
       {renderTitle()}
       {renderSubtitle()}
     </Box>
@@ -87,7 +90,7 @@ const Listitem = ({
   };
 
   return (
-    <Wrapper isDisabled={isDisabled} active={active} onClick={handleOnClick}>
+    <Wrapper style={style} isDisabled={isDisabled} active={active} onClick={handleOnClick}>
       <Box display={'flex'}>
         {renderLeftComponent()}
         {renderOtherInfo()}
