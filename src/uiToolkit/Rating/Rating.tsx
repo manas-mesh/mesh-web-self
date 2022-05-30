@@ -1,32 +1,21 @@
-import { Box, chakra } from '@chakra-ui/react';
-import { baseTheme } from '@themes/clients/baseTheme';
-import { BaseStarRating } from '@uiToolkit/BaseStarRating/BaseStarRating';
+import { Box } from '@chakra-ui/react';
+import { BaseStarRating, RatingPropsI } from '@uiToolkit/BaseStarRating/BaseStarRating';
 import styled from '@emotion/styled';
+import { ThemeType } from '@themes/clients/baseTheme';
 
-interface RatingProps {
-  precision?: number;
-  maxRating: number;
-  emptyIcon?: React.ReactNode;
-  filledIcon?: React.ReactNode;
-  rating: number;
-  label?: string;
-  disabled?: boolean;
-  enableValidation?: boolean;
-  isRequired?: boolean;
-}
-const Wrapper = chakra(Box, {
+const Wrapper = styled(Box)(({ theme }: { theme: ThemeType }) => ({
   baseStyle: {
-    background: baseTheme.colors.surfaces.bg92,
+    background: theme.colors.surfaces.bg92,
     padding: '12px',
     borderRadius: '8px',
     width: 'fit-content',
     '&:focus': {
-      background: baseTheme.colors.formFields.focusBg,
+      background: theme.colors.formFields.focusBg,
     },
   },
-});
+}));
 
-export const Rating = ({ ...props }: RatingProps) => (
+export const Rating = ({ ...props }: RatingPropsI) => (
   <Wrapper>
     <BaseStarRating {...props} />
   </Wrapper>

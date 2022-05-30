@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box } from '@chakra-ui/react';
-import { baseTheme } from '@themes/clients/baseTheme';
+import { Box, IconProps } from '@chakra-ui/react';
+import { baseTheme, ThemeType } from '@themes/clients/baseTheme';
 import { TextLabelSmall } from '@uiToolkit/Typography';
 import { EmptyStar, FilledStar } from '@assets/iconComponents';
+import { useTheme } from '@emotion/react';
 
-interface IRatingProps {
+export interface RatingPropsI {
   precision?: number;
   maxRating: number;
-  emptyIcon?: React.ReactNode;
-  filledIcon?: React.ReactNode;
+  EmptyIcon?: React.FC<IconProps>;
+  FilledIcon?: React.FC<IconProps>;
   rating: number;
   label?: string;
   disabled?: boolean;
@@ -18,17 +19,18 @@ interface IRatingProps {
 export const BaseStarRating = ({
   precision = 1,
   maxRating = 5,
-  filledIcon = <FilledStar />,
-  emptyIcon = <EmptyStar />,
+  FilledIcon = FilledStar,
+  EmptyIcon = EmptyStar,
   rating,
   label = '',
   disabled = false,
   isRequired = false,
   enableValidation = false,
-}: IRatingProps) => {
+}: RatingPropsI) => {
   const [activeStar, setActiveStar] = useState<number>(rating);
 
   const validationErrorText = enableValidation && isRequired ? `${label} (Required)` : '';
+  const theme: ThemeType = useTheme();
 
   useEffect(() => {
     setActiveStar(rating);
@@ -86,11 +88,10 @@ export const BaseStarRating = ({
           const activeState = isHovered ? hoverActiveStar : activeStar;
           const showEmptyIcon = activeState === -1 || activeState < index + 1;
 
-          return (
-            <Box sx={{ fill: baseTheme.colors.surfaces.bg40 }} key={index}>
-              {' '}
-              {showEmptyIcon ? emptyIcon : filledIcon}
-            </Box>
+          return showEmptyIcon ? (
+            <EmptyIcon boxSize="16px" color={theme.colors.surfaces.bg40} />
+          ) : (
+            <FilledIcon boxSize="16px" color={theme.colors.surfaces.bg40} />
           );
         })}
       </Box>
