@@ -1,5 +1,6 @@
 export { AppNavigationOutlined } from './AppNavigationOutlined';
 export { ArrowRight } from './ArrowRight';
+export { ArrowLeft } from './ArrowLeft';
 export { Test } from './Test';
 export { Minimize } from './Minimize';
 export { SliderThumbIcon } from './SliderThumbIcon';
