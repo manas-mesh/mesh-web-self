@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Story } from '@storybook/react';
 
-import { Textarea } from './Textarea';
+import Textarea from './Textarea';
 import type { TextareaProps } from './Textarea';
 
 import { AppNavigationOutlined } from '@iconComponents';

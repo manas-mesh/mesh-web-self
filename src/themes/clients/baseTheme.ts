@@ -34,6 +34,7 @@ export const baseTheme = {
       transparent: 'transparent',
     },
     surfaces: {
+      lightBlue: 'hsla(205, 100%, 96%, 1)',
       white: colors.white,
       g20: colors.neutral.gray[20],
       g86: colors.neutral.gray[86],

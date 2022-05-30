@@ -8,7 +8,11 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 
-export const StyledChakraTextarea = styled(ChakraTextarea)`
+const transientProps: string[] = ['withBackground', 'endIcon'];
+
+export const StyledChakraTextarea = styled(ChakraTextarea, {
+  shouldForwardProp: (prop) => !transientProps.includes(prop),
+})`
   height: auto;
   border: ${(props) => `1px dashed ${props.theme.colors.border.bg60}`};
   border-width: 0 0 1px 0;
@@ -26,7 +30,9 @@ export const StyledChakraTextarea = styled(ChakraTextarea)`
   }
 `;
 
-export const StyledFormControl = styled(FormControl)`
+export const StyledFormControl = styled(FormControl, {
+  shouldForwardProp: (prop) => !transientProps.includes(prop),
+})`
   background: ${(props) =>
     props.withBackground ? props.theme.colors.formFields.bg : props.theme.colors.formFields.transparentBg};
   padding: 12px;
