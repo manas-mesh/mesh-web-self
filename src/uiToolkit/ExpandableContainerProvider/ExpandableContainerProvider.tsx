@@ -17,6 +17,7 @@ const initialContextValue = {
   onExpandClick: () => {},
   onShrinkClick: () => {},
 };
+
 const ExpandableContainerContext = createContext<ExpandableContainerI>(initialContextValue);
 
 type Props = {

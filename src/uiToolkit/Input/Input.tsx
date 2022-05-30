@@ -1,28 +1,33 @@
 // Libraries
 import { useTheme } from '@emotion/react';
-import { InputGroup, InputRightElement, FormLabel } from '@chakra-ui/react';
+import { InputGroup, InputRightElement, FormLabel, InputProps as ChakraInputProps } from '@chakra-ui/react';
 
 // Typography
 import { TextLabelSmall, TextBodySmall } from '@uiToolkit/Typography';
 
 // Styles
-import { StyledChakraInput, StyledFormControl, StyledFormHelperText } from './Input.styles';
+import {
+  StyledChakraInput,
+  StyledFormControl,
+  StyledFormHelperText,
+  StyledFormLabel,
+  StyledInputRightElement,
+} from './Input.styles';
 
 export type InputProps = {
-  type: string;
+  type?: string;
   name: string;
   label?: string;
   placeholder?: string;
   helperText?: string;
   withBackground: boolean;
   value: string;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   endIcon?: React.ReactNode;
   isDisabled?: boolean;
   error?: string;
 };
 
-const Input: React.FC<InputProps> = ({
+const Input: React.FC<InputProps & ChakraInputProps> = ({
   type = 'text',
   name,
   label,
@@ -30,20 +35,20 @@ const Input: React.FC<InputProps> = ({
   helperText,
   withBackground = false,
   value,
-  handleChange,
   endIcon,
   isDisabled,
   error,
+  ...restChakraInputProps
 }) => {
   const theme = useTheme();
 
   return (
     <StyledFormControl isDisabled={isDisabled} isInvalid={error ? true : false} withBackground={withBackground}>
-      <FormLabel htmlFor={name}>
+      <StyledFormLabel htmlFor={name}>
         <TextLabelSmall color={error ? theme.colors.errors.fields : theme.colors.text.bg40}>
           {error ? error : label}
         </TextLabelSmall>
-      </FormLabel>
+      </StyledFormLabel>
       <InputGroup>
         <StyledChakraInput
           id={name}
@@ -51,10 +56,10 @@ const Input: React.FC<InputProps> = ({
           type={type}
           placeholder={placeholder}
           value={value}
-          onChange={handleChange}
           endIcon={endIcon}
+          {...restChakraInputProps}
         />
-        <InputRightElement>{endIcon}</InputRightElement>
+        <StyledInputRightElement>{endIcon}</StyledInputRightElement>
       </InputGroup>
       <StyledFormHelperText>
         <TextBodySmall>{helperText}</TextBodySmall>
@@ -63,4 +68,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export { Input };
+export default Input;
