@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@chakra-ui/react';
 import {
   SliderFilledTrackWrapper,
@@ -13,11 +13,13 @@ import { TextareaProps } from '@uiToolkit/Textarea/Textarea';
 import { isValidNumberRegExp } from '@constants/index';
 import { useTheme } from '@emotion/react';
 import { ThemeType } from '@themes/clients/baseTheme';
+import { commonInputHandler } from '@utils/commonEventHandler';
 
 //slider proptype
 export interface SliderProps {
   isDisabled?: boolean;
   value: number;
+  stringifiedValue?: string; //only use this if textfield is enabled
   min?: number;
   showTextField?: boolean;
   max?: number;
@@ -26,7 +28,10 @@ export interface SliderProps {
   style?: React.CSSProperties;
   className?: string;
   onChange?: (val: number) => void;
+  onChangeStart?: (val: number) => void;
+  onBlurTextField?: (num: number, min: number, max: number) => void; //only use this if textfield is enabled
   onChangeEnd: (val: number) => void;
+  onChangeTextField?: (val: string) => void; //only use this if textfield is enabled
 }
 
 //SLIDER COMPONENT WITH INPUT FIELD STARTS HERE
@@ -35,19 +40,20 @@ const Slider: React.FC<SliderProps> = ({
   isDisabled = false,
   className = '',
   value,
+  stringifiedValue = '',
   style = {},
   min = 0,
   max = 100,
   step = 1,
   onChange,
+  onChangeStart,
   onChangeEnd,
+  onChangeTextField,
+  onBlurTextField,
 }) => {
   const theme: ThemeType = useTheme();
 
-  const [sliderValue, setSliderValue] = useState(String(value));
-
   //value is stored as string so that it can be used in both slider and textarea component
-  const stringValueToNumber: number = isNaN(parseFloat(sliderValue)) ? min : parseFloat(sliderValue);
 
   //left text area props
   const leftTextAreaProps: TextareaProps = {
@@ -63,46 +69,39 @@ const Slider: React.FC<SliderProps> = ({
   //right text area props
   const rightTextAreaProps: TextareaProps = {
     isDisabled: isDisabled,
-    value: String(sliderValue),
+    value: stringifiedValue,
     type: 'number',
     name: 'right-text-area',
     handleChange: (e) => {
       //only allow digits , '-' and '.'  (whole numbers, negative integers, decimals)
       if (e.target.value.match(isValidNumberRegExp)) {
-        setSliderValue(e.target.value);
-        onChangeEndHandler(parseFloat(e.target.value));
+        commonInputHandler(onChangeTextField, [e.target.value]);
       }
     },
     withBackground: false,
     rows: 1,
   };
 
+  //slider onChangeStart event handler
+  const onChangeStartHandler = (e: number): void => {
+    commonInputHandler(onChangeStart, [e]);
+  };
   //slider onChange event handler
   const onChangeHandler = (e: number): void => {
-    setSliderValue(String(e));
-    if (onChange) {
-      onChange(e);
-    }
+    commonInputHandler(onChange, [e]);
   };
 
   //slider onChangeEnd event handler
   const onChangeEndHandler = (e: number): void => {
-    const convertedNumber = Math.round((e + Number.EPSILON) * 100) / 100;
-    if (onChangeEnd) {
-      onChangeEnd(convertedNumber);
-    }
+    commonInputHandler(onChangeEnd, [e]);
   };
 
   //textarea onBlur event handler
   //round the value to the nearest limit when value is out of the range
   const handleInputBlur = (): void => {
     //rounding value to 2 decimal places
-    const convertedNumber = Math.round((parseFloat(sliderValue) + Number.EPSILON) * 100) / 100;
-    let num: number = convertedNumber;
-    if (isNaN(num) || num <= parseFloat(min)) num = min;
-    else if (num >= parseFloat(max)) num = max;
-    setSliderValue(String(num));
-    onChangeEndHandler(num);
+    const convertedNumber = Math.round((parseFloat(stringifiedValue) + Number.EPSILON) * 100) / 100;
+    commonInputHandler(onBlurTextField, [convertedNumber, min, max]);
   };
 
   //slider track render
@@ -140,9 +139,10 @@ const Slider: React.FC<SliderProps> = ({
           min={min}
           max={max}
           step={step}
+          onChangeStart={onChangeStartHandler}
           onChange={onChangeHandler}
           onChangeEnd={onChangeEndHandler}
-          value={stringValueToNumber}
+          value={value}
           isDisabled={isDisabled}
           focusThumbOnChange={false}
         >

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { Meta, Story } from '@storybook/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Slider, SliderProps } from './Slider';
 
 const SliderStory: Meta = {
@@ -9,13 +9,19 @@ const SliderStory: Meta = {
 };
 export default SliderStory;
 
-const SliderTemplate: Story<SliderProps> = (args) => <Slider {...args} />;
+const SliderTemplate: Story<SliderProps> = (args) => {
+  const [value, setValue] = useState(12);
+
+  const onChange = (e: number): void => {
+    setValue(e);
+  };
+  return <Slider {...args} onChange={onChange} value={value} stringifiedValue={String(value)} />;
+};
 
 export const Basic = SliderTemplate.bind({});
 Basic.args = {
   min: 0,
   max: 100,
-  value: 10,
   showTextField: true,
   isDisabled: false,
 };
