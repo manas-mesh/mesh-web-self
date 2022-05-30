@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { ThemeType } from '@themes/clients/baseTheme';
-import Listitem, { ListitemProps } from '@uiToolkit/Listitem';
+import Listitem from '@uiToolkit/Listitem';
 import React, { FC, useState } from 'react';
 
 const Wrapper = styled(Box)(({ theme }: { theme?: ThemeType }) => ({
@@ -11,19 +11,52 @@ const Wrapper = styled(Box)(({ theme }: { theme?: ThemeType }) => ({
   display: 'flex',
 }));
 
+type valueType = number | string;
+
+type itemProp = {
+  title: string;
+  subTitle: string;
+  value: valueType;
+};
+
 export interface ListItemTabBarSelectProps {
-  items: ListitemProps[];
+  items: itemProp[];
   itemStyle?: React.CSSProperties;
   style?: React.CSSProperties;
+  value: valueType;
+  onChange: (newSelectedValue: valueType) => void;
 }
 
-export const ListItemTabBarSelect: FC<ListItemTabBarSelectProps> = ({ style, items, itemStyle }) => {
+export const ListItemTabBarSelect: FC<ListItemTabBarSelectProps> = ({ onChange, value, style, items, itemStyle }) => {
   const a = 12;
-  const [selectedValue, setSelectedValue] = useState();
+  const defaultItemStyle: React.CSSProperties = {
+    minWidth: '176px',
+    marginBottom: '0px',
+    marginRight: '8px',
+    flexGrow: 1,
+    ...itemStyle,
+  };
+  const [selectedValue, setSelectedValue] = useState(value);
+
+  const handleClick = (newSelectedValue: valueType) => {
+    if (selectedValue === newSelectedValue) return;
+    setSelectedValue(newSelectedValue);
+    onChange(newSelectedValue);
+  };
+
   return (
     <Wrapper style={style}>
       {items.map((item, index) => (
-        <Listitem style={itemStyle} key={index} {...item} />
+        <Listitem
+          onClick={() => {
+            handleClick(item.value);
+          }}
+          active={selectedValue === item.value}
+          style={defaultItemStyle}
+          key={index}
+          title={item.title}
+          subTitle={item.subTitle}
+        />
       ))}
     </Wrapper>
   );

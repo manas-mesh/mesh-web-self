@@ -37,6 +37,9 @@ const Wrapper = styled.div<WrapperTypes>`
   &:active {
     background: ${({ theme }) => theme?.colors?.surfaces?.white};
   }
+  &.active-styles {
+    background: ${({ theme }) => theme?.colors?.surfaces?.white};
+  }
 `;
 const Listitem = ({
   rightComponent,
@@ -75,7 +78,7 @@ const Listitem = ({
   );
 
   const handleOnClick = (): void => {
-    if (onClick) {
+    if (onClick && !isDisabled) {
       onClick();
     }
   };
@@ -90,7 +93,13 @@ const Listitem = ({
   };
 
   return (
-    <Wrapper style={style} isDisabled={isDisabled} active={active} onClick={handleOnClick}>
+    <Wrapper
+      className={active && !isDisabled ? 'active-styles' : ''}
+      style={style}
+      isDisabled={isDisabled}
+      active={active}
+      onClick={handleOnClick}
+    >
       <Box display={'flex'}>
         {renderLeftComponent()}
         {renderOtherInfo()}
