@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import { Button } from '@uiToolkit/Button';
 import { Options, valuetype } from '@uiToolkit/Options';
-import { Optionitem } from '@uiToolkit/Options';
+import { OptionItem } from '@uiToolkit/Options';
 import { BUTTON_SIZE } from '@uiToolkit/Button/Button';
-import { Menu, MenuButton } from '@chakra-ui/react';
+import { IconProps, Menu, MenuButton } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { Wrapper } from './ButtonSelect.style';
@@ -13,10 +13,10 @@ import { ExpandLess, ExpandMore } from '@assets/iconComponents';
 export interface ButtonSelectProps {
   isDisabled?: boolean;
   className?: string;
-  options: Optionitem[];
-  onChange: (selectedOption: Optionitem[]) => void;
-  ButtonStartIcon?: FC<any> | undefined;
-  defaultItems?: Optionitem[];
+  options: OptionItem[];
+  onChange: (selectedOption: OptionItem[]) => void;
+  ButtonStartIcon?: FC<IconProps> | undefined;
+  defaultItems?: OptionItem[];
   buttonSelectStyle?: React.CSSProperties;
   allowMultipleSelect?: boolean;
 }
@@ -35,26 +35,15 @@ export const ButtonSelect: FC<ButtonSelectProps> = ({
   const defaultButtonLabel = 'Select';
   const [isOpen, setIsOpen] = useState(false);
   const [buttonLabel, setButtonLabel] = useState(
-    defaultItems.length > 0 ? defaultItems.map((item) => item.label) : [defaultButtonLabel],
+    defaultItems.length > 0 ? defaultItems.map((item) => item.label).join(', ') : defaultButtonLabel,
   );
   const theme: ThemeType = useTheme();
-  const EndIcon: any = () => {
-    if (isOpen) {
-      return <ExpandLess boxSize={'18px'} color={theme.colors.surfaces.white} />;
-    }
-    return <ExpandMore boxSize={'18px'} color={theme.colors.surfaces.white} />;
-  };
-  const StartIcon: any = () => {
-    if (ButtonStartIcon) {
-      return <ButtonStartIcon boxSize={'24px'} color={theme.colors.surfaces.white} />;
-    }
-  };
 
   //onchange event handler
-  const onChangeHandler = (items: Optionitem[]): void => {
+  const onChangeHandler = (items: OptionItem[]): void => {
     if (items.length > 0) {
-      setButtonLabel(items.map((item) => item.label));
-    } else setButtonLabel([defaultButtonLabel]);
+      setButtonLabel(items.map((item) => item.label).join(', '));
+    } else setButtonLabel(defaultButtonLabel);
     if (onChange) onChange(items);
   };
 
@@ -73,27 +62,25 @@ export const ButtonSelect: FC<ButtonSelectProps> = ({
         size={BUTTON_SIZE.large}
         onClick={clickHandler}
         isDisabled={isDisabled}
-        StartIcon={StartIcon}
-        EndIcon={EndIcon}
+        StartIcon={ButtonStartIcon}
+        EndIcon={isOpen ? ExpandLess : ExpandMore}
         selected={isOpen}
       >
-        {buttonLabel.join(', ')}
+        {buttonLabel}
       </Button>
     );
   };
   return (
-    <>
-      <Wrapper className={className} {...props}>
-        <Menu isOpen={isOpen} onClose={closeHandler} closeOnSelect={false}>
-          <MenuButton as={RenderButton} />
-          <Options
-            allowMultipleSelect={allowMultipleSelect}
-            defaultItems={defaultItems}
-            options={options}
-            onChange={(e) => onChangeHandler(e)}
-          />
-        </Menu>
-      </Wrapper>
-    </>
+    <Wrapper className={className} {...props}>
+      <Menu isOpen={isOpen} onClose={closeHandler} closeOnSelect={false}>
+        <MenuButton as={RenderButton} />
+        <Options
+          allowMultipleSelect={allowMultipleSelect}
+          defaultItems={defaultItems}
+          options={options}
+          onChange={onChangeHandler}
+        />
+      </Menu>
+    </Wrapper>
   );
 };

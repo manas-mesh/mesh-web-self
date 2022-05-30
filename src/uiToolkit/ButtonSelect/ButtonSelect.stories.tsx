@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 import { ButtonSelect, ButtonSelectProps } from './ButtonSelect';
 import { AppNavigationOutlined as StartIcon } from '@assets/iconComponents';
-import { Optionitem } from '@uiToolkit/Options';
+import { OptionItem } from '@uiToolkit/Options';
 
 const ButtonSelectStory: Meta = {
   title: 'Core Components/ButtonSelect',
@@ -45,7 +45,7 @@ const nestedOptions = [
   { value: 6, label: 'check4zzzz', isNested: false },
 ];
 
-const options: Optionitem[] = [
+const options: OptionItem[] = [
   { value: 1, label: 'check1', StartIcon: StartIcon },
   { value: 2, label: 'check2', StartIcon: StartIcon },
   { value: 3, label: 'check3', StartIcon: StartIcon },

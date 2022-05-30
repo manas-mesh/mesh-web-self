@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { TextBodyMedium } from 'uiToolkit/Typography';
 import { StyledMenuList, StyledMenuItem, Wrapper, StyledHeader } from './Options.style';
 import { useTheme } from '@emotion/react';
@@ -8,10 +8,10 @@ import { Collapse } from '@chakra-ui/react';
 import { ExpandLess, ExpandMore, Tick } from '@assets/iconComponents';
 
 //value type
-export type valuetype = number | string | Optionitem[];
+export type valuetype = number | string | OptionItem[];
 
 //type of each option item
-export interface Optionitem {
+export interface OptionItem {
   value: valuetype;
   label: string;
   isDisabled?: boolean;
@@ -20,7 +20,7 @@ export interface Optionitem {
 }
 
 //sample nested options data structure
-// const options:Optionitem[] = [{label:'parent1',isNested:true,
+// const options:OptionItem[] = [{label:'parent1',isNested:true,
 // value:[
 //{ label:'child1',isNested:false,value:2}
 //]
@@ -30,14 +30,14 @@ export interface Optionitem {
 
 //options proptype
 export interface OptionsTypeProps {
-  options: Optionitem[];
-  onChange?: (items: Optionitem[]) => void;
-  defaultItems?: Optionitem[];
+  options: OptionItem[];
+  onChange?: (items: OptionItem[]) => void;
+  defaultItems?: OptionItem[];
   allowMultipleSelect?: boolean;
 }
 
 type RenderItemProps = {
-  item: Optionitem;
+  item: OptionItem;
   index: number;
   renderMenuListItem: Function;
 };
@@ -83,10 +83,10 @@ export const Options: FC<BoxProps & OptionsTypeProps> = ({
   ...props
 }) => {
   const theme: ThemeType = useTheme();
-  const [selectedOption, setSelectedOption] = useState<Optionitem[]>(defaultItems);
+  const [selectedOption, setSelectedOption] = useState<OptionItem[]>(defaultItems);
 
   //onchange event handler
-  const onChangeHandler = (item: Optionitem): void => {
+  const onChangeHandler = (item: OptionItem): void => {
     const { value } = item;
     let updatedOptions;
     if (!allowMultipleSelect) {
@@ -101,13 +101,13 @@ export const Options: FC<BoxProps & OptionsTypeProps> = ({
   };
 
   //function to check if given value is checked/unchecked
-  const isOptionSelected = (value: valuetype, selectedOption: Optionitem[]): boolean => {
+  const isOptionSelected = (value: valuetype, selectedOption: OptionItem[]): boolean => {
     const found = selectedOption.some((option) => option.value === value);
     return found;
   };
 
   //render each option object
-  const renderMenuListItem = (item: Optionitem, index: number): JSX.Element => {
+  const renderMenuListItem = (item: OptionItem, index: number): JSX.Element => {
     const { label, value, isDisabled, StartIcon } = item;
     let iconProp;
     if (StartIcon) {
@@ -126,7 +126,7 @@ export const Options: FC<BoxProps & OptionsTypeProps> = ({
       >
         <Box width={'100%'} display={'flex'} justifyContent={'space-between'}>
           <TextBodyMedium>{label}</TextBodyMedium>
-          {isOptionSelected(value, selectedOption) && <Tick style={{ marginRight: '2px' }} boxSize={'18px'} />}
+          {isOptionSelected(value, selectedOption) && <Tick mr={'2px'} boxSize={'18px'} />}
         </Box>
       </StyledMenuItem>
     );
@@ -135,7 +135,7 @@ export const Options: FC<BoxProps & OptionsTypeProps> = ({
   return (
     <Wrapper {...props}>
       <StyledMenuList mt={'4px'}>
-        {options.map((item: Optionitem, index: number) => (
+        {options.map((item: OptionItem, index: number) => (
           <RenderItem key={index} item={item} index={index} renderMenuListItem={renderMenuListItem} />
         ))}
       </StyledMenuList>

@@ -1,7 +1,6 @@
 import { Menu } from '@chakra-ui/react';
 import { Meta, Story } from '@storybook/react';
-import React from 'react';
-import { Optionitem, Options, OptionsTypeProps } from './Options';
+import { OptionItem, Options, OptionsTypeProps } from './Options';
 import { AppNavigationOutlined as StartIcon } from '@assets/iconComponents';
 import { BoxProps } from '@chakra-ui/react';
 
@@ -16,7 +15,7 @@ const OptionsTemplate: Story<BoxProps & OptionsTypeProps> = (args) => (
     <Options {...args} />;
   </Menu>
 );
-const options: Optionitem[] = [
+const options: OptionItem[] = [
   { value: 1, label: 'check1', StartIcon: StartIcon },
   { value: 2, label: 'check2', StartIcon: StartIcon },
   { value: 3, label: 'check3', StartIcon: StartIcon },
