@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Story } from '@storybook/react';
 
-import { Textarea } from './Textarea';
+import Textarea from './Textarea';
 import type { TextareaProps } from './Textarea';
 
 import { AppNavigationOutlined } from '@iconComponents';
@@ -20,7 +20,7 @@ const TextareaTemplate: Story<TextareaProps> = (args) => {
 
   return (
     <div style={{ width: '200px' }}>
-      <Textarea withBackground={true} {...args} value={value} handleChange={handleChange} />
+      <Textarea withBackground={true} value={value} handleChange={handleChange} {...args} />
     </div>
   );
 };

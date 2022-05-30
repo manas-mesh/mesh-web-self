@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "jsxImportSource": "@emotion/react",
     "incremental": true,
+    "strictPropertyInitialization": false,
     "baseUrl": "./src",
     "paths": {
       "@pages/*": ["pages/*"],

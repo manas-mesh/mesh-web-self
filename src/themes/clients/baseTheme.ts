@@ -34,6 +34,7 @@ export const baseTheme = {
       transparent: 'transparent',
     },
     surfaces: {
+      lightBlue: 'hsla(205, 100%, 96%, 1)',
       white: colors.white,
       g20: colors.neutral.gray[20],
       g86: colors.neutral.gray[86],
@@ -69,6 +70,7 @@ export const baseTheme = {
       bg60: colors.neutral.blueGray[60],
       tw24: colors.neutral.transparentWhite[24],
       tw0: colors.neutral.transparentWhite[0],
+      tw4: colors.neutral.transparentWhite[4],
       g92: colors.neutral.gray[92],
     },
     nav: {

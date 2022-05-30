@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Story } from '@storybook/react';
 
-import { Input } from './Input';
+import Input from './Input';
 import type { InputProps } from './Input';
 
 import { AppNavigationOutlined } from '@iconComponents';
@@ -20,7 +20,7 @@ const InputTemplate: Story<InputProps> = (args) => {
 
   return (
     <div style={{ width: '200px' }}>
-      <Input withBackground={true} {...args} value={value} handleChange={handleChange} />
+      <Input {...args} value={value} onChange={handleChange} />
     </div>
   );
 };
@@ -31,75 +31,61 @@ Basic.args = {
   type: 'text',
   label: 'Name',
   placeholder: 'Enter Name',
+  withBackground: true,
 };
 
 export const WithoutBackground = InputTemplate.bind({});
 WithoutBackground.args = {
-  name: 'Name',
-  type: 'text',
-  label: 'Name',
-  placeholder: 'Enter Name',
+  ...Basic.args,
   withBackground: false,
 };
 
 export const WithoutLabel = InputTemplate.bind({});
 WithoutLabel.args = {
-  name: 'Name',
-  type: 'text',
-  placeholder: 'Enter Name',
+  ...Basic.args,
+  label: undefined,
 };
 
 export const WithHelperText = InputTemplate.bind({});
 WithHelperText.args = {
-  name: 'Name',
-  type: 'text',
-  label: 'Name',
-  placeholder: 'Enter Name',
+  ...Basic.args,
+
   helperText: 'Helper Text',
 };
 
 export const WithEndIcon = InputTemplate.bind({});
 WithEndIcon.args = {
-  name: 'Name',
-  type: 'text',
-  label: 'Name',
-  placeholder: 'Enter Name',
+  ...Basic.args,
+
   endIcon: <AppNavigationOutlined />,
 };
 
 export const WithoutLabelAndWithEndIcon = InputTemplate.bind({});
 WithoutLabelAndWithEndIcon.args = {
-  name: 'Name',
-  type: 'text',
-  placeholder: 'Enter Name',
+  ...Basic.args,
+  label: undefined,
   endIcon: <AppNavigationOutlined />,
 };
 
 export const Disabled = InputTemplate.bind({});
 Disabled.args = {
-  name: 'Name',
-  type: 'text',
-  label: 'Name',
-  placeholder: 'Enter Name',
+  ...Basic.args,
+
   value: 'Jane Doe',
   isDisabled: true,
 };
 
 export const WithoutLabelAndDisabled = InputTemplate.bind({});
 WithoutLabelAndDisabled.args = {
-  name: 'Name',
-  type: 'text',
-  placeholder: 'Enter Name',
+  ...Basic.args,
+  label: undefined,
   value: 'Jane Doe',
   isDisabled: true,
 };
 
 export const WithError = InputTemplate.bind({});
 WithError.args = {
-  name: 'Name',
-  type: 'text',
-  label: 'Name',
-  placeholder: 'Enter Name',
+  ...Basic.args,
   error: 'This is an error',
 };
 
