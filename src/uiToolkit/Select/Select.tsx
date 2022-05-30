@@ -7,13 +7,12 @@ import { InputGroup } from '@chakra-ui/react';
 import { TextLabelSmall, TextBodySmall } from '@uiToolkit/Typography';
 
 // Icons
-import { ArrowDropDown } from '@assets/iconComponents/ArrowDropDown';
+import { ArrowDropDown } from '@assets/iconComponents';
 
 // Styles
 import { StyledFormControl, StyledFormHelperText, StyledFormLabel, StyledReactSelect } from './Select.styles';
 
 export type SelectProps = {
-  type: string;
   name: string;
   label?: string;
   placeholder?: string;
@@ -43,7 +42,6 @@ const reactSelectComponents = {
 };
 
 const Select: React.FC<SelectProps> = ({
-  type = 'text',
   name,
   label,
   placeholder,

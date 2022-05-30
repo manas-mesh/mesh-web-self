@@ -42,7 +42,7 @@ export const StyledReactSelect = styled(ReactSelect)`
     margin-left: -5%;
     background: ${(props) => props.theme.colors.selectMenu.bg};
     padding: 8px;
-    border: ${(props) => `1px solid ${props.theme.colors.border.tw04}`};
+    border: ${(props) => `1px solid ${props.theme.colors.border.tw4}`};
     border-radius: 8px;
     box-shadow: ${(props) => props.theme.shadows.light};
 

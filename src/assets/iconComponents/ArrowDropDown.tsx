@@ -5,6 +5,6 @@ import { Icon } from '@chakra-ui/react';
   }
   export const ArrowDropDown = (props: Dictionary<any>) => (
     <Icon viewBox="0 0 24 24" {...props}>
-<path d="M7 10L12 15L17 10H7Z" fill="black"/>
+<path d="M7 10L12 15L17 10H7Z" fill="currentColor"/>
 </Icon>
     );
