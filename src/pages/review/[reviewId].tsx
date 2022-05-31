@@ -31,13 +31,14 @@ const Review = ({}: IProps) => {
   ];
 
   const handle = (value: any) => {
-    console.log(value);
     setfirst(value);
   };
 
   return (
     <Wrapper style={{ marginLeft: '40px', marginTop: '40px' }}>
-      <Checkbox />
+      {OPTIONS.map((o, i) => (
+        <Checkbox options={o} key={i} onChange={(value: string) => {}} value={''} />
+      ))}
     </Wrapper>
   );
 };

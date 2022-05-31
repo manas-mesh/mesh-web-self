@@ -7,6 +7,11 @@ const RadioButtonStory = {
   component: Checkbox,
 };
 
-export const Normal = () => <Checkbox />;
+const options = {
+  label: 'delhi',
+  uid: 1,
+};
+
+export const Normal = () => <Checkbox onChange={(value: string) => {}} value={''} options={options} />;
 
 export default RadioButtonStory;
