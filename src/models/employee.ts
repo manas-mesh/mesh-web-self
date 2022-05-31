@@ -181,3 +181,46 @@ class Employee {
 }
 
 export default Employee;
+
+export class BasicEmployee {
+  id: string;
+  displayName: string;
+  designation: string;
+  profilePhotoSrc: string;
+
+  constructor({
+    id,
+    displayName,
+    designation,
+    profilePhotoSrc,
+  }: {
+    id: string;
+    displayName: string;
+    designation: string;
+    profilePhotoSrc: string;
+  }) {
+    this.id = id;
+    this.displayName = displayName;
+    this.profilePhotoSrc = profilePhotoSrc;
+    this.designation = designation;
+  }
+
+  static fromJSON({
+    id,
+    displayName,
+    designation,
+    profilePhoto: profilePhotoSrc,
+  }: {
+    id: string;
+    displayName: string;
+    designation: string;
+    profilePhoto: string;
+  }) {
+    return new BasicEmployee({
+      id,
+      displayName,
+      designation,
+      profilePhotoSrc,
+    });
+  }
+}

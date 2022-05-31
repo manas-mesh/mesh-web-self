@@ -15,14 +15,14 @@ import {
 } from './Textarea.styles';
 
 export type TextareaProps = {
-  type: string;
+  type?: string;
   name: string;
   label?: string;
   placeholder?: string;
   helperText?: string;
-  withBackground: boolean;
+  withBackground?: boolean;
   value: string;
-  handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   rows?: number;
   endIcon?: React.ReactNode;
   isDisabled?: boolean;

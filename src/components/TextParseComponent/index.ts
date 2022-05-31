@@ -1,0 +1,1 @@
+export { TextParseComponent } from './TextParseComponent';

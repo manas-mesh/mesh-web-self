@@ -3,7 +3,7 @@ import Employee from 'models/employee';
 
 export const authenticate = ({ landingPageType = '', landingPageUuid = '' }) =>
   authenticateApi({ landingPageType, landingPageUuid }).then((res: any) => {
-    const data = res.data;
+    const data = res.data.entity;
     const employee = new Employee(null, {
       ...data.employee,
       authToken: data.authToken,

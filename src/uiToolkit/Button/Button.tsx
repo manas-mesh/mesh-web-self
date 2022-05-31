@@ -188,7 +188,7 @@ export const Button: FC<ButtonProps & AdditionalButtonProps> = ({
       ButtonComp = TextButton;
       break;
     case BUTTON_VARIANT.link:
-      ButtonComp = BaseButton;
+      ButtonComp = Button;
       break;
     case BUTTON_VARIANT.solid:
     default:

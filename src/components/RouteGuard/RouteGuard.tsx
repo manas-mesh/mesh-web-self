@@ -28,10 +28,10 @@ function RouteGuard({ children }: { children: ReactNode }) {
 
   // if not protected path, render
   if (isPublicRoute) {
-    return children;
+    return <>{children}</>;
   }
   // else if protected path render only if also authenticated
-  return isAuthenticated && children;
+  return isAuthenticated ? <>{children}</> : null;
 }
 
 export { RouteGuard };

@@ -13,8 +13,8 @@ const buttonGroupMarginStyles = {
 const StyledHoverContainer = styled(Box)(({ theme, ...props }) => ({
   // check with Sree to apply on not in this component as buttons have their own hover style
   // '&:hover': {
-  //   backgroundColor: props.disabled ? 'unset' : theme.colors.surfaces.bg96,
-  //   cursor: props.disabled ? 'not-allowed' : 'pointer',
+  //   backgroundColor: props.isDisabled ? 'unset' : theme.colors.surfaces.bg96,
+  //   cursor: props.isDisabled ? 'not-allowed' : 'pointer',
   // },
   // '&:active': {
   //   backgroundColor: theme.colors.surfaces.white,
@@ -28,7 +28,7 @@ type PropTypes = {
   withBackground?: boolean;
   startText?: string;
   endText?: string;
-  disabled?: boolean;
+  isDisabled?: boolean;
   isRequired?: boolean;
   enableValidation?: boolean;
   label?: string;
@@ -41,7 +41,7 @@ export const ScaleInput = ({
   label = '',
   startText = '',
   endText = '',
-  disabled = false,
+  isDisabled = false,
   withBackground = true,
   isRequired = false,
   enableValidation = false,
@@ -58,7 +58,7 @@ export const ScaleInput = ({
       sx={{
         ...buttonGroupMarginStyles,
       }}
-      // disabled={disabled}
+      // isDisabled={isDisabled}
     >
       {(label || validationErrorText) && (
         <TextLabelSmall color={validationErrorText ? theme.colors.errors.fields : theme.colors.text.bg40}>
