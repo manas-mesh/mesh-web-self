@@ -23,7 +23,7 @@ export interface ButtonSelectProps {
 //filter selected options
 const findOptionItem = (values: valuetype[], optionItems: OptionItem[]) => {
   const flattenedOptions: OptionItem[] = optionItems
-    .reduce((result, obj) => result.concat({ value: obj.value, label: obj.label }, obj.values), [])
+    .reduce((result, obj) => result.concat({ value: obj.value, label: obj.label }, obj.subItems), [])
     .filter((item) => item !== undefined);
   const items = flattenedOptions.filter((item) => values.includes(item.value));
   return items;

@@ -26,7 +26,7 @@ const nestedOptions = [
     label: 'parent1',
     StartIcon: StartIcon,
     isNested: true,
-    values: [
+    subItems: [
       { value: 1, label: 'check1', StartIcon: StartIcon, isNested: false },
       { value: 2, label: 'check2', StartIcon: StartIcon, isNested: false },
       { value: 3, label: 'check3', StartIcon: StartIcon, isNested: false },
@@ -37,7 +37,7 @@ const nestedOptions = [
     label: 'parent2',
     StartIcon: StartIcon,
     isNested: true,
-    values: [
+    subItems: [
       { value: 4, label: 'check4', StartIcon: StartIcon, isNested: false },
       { value: 7, label: 'check7', StartIcon: StartIcon, isNested: false, isDisabled: true },
     ],
@@ -47,7 +47,7 @@ const nestedOptions = [
     label: 'parent3',
     StartIcon: StartIcon,
     isNested: true,
-    values: [
+    subItems: [
       { value: 8, label: 'check8', StartIcon: StartIcon, isNested: false },
       { value: 9, label: 'check9', StartIcon: StartIcon, isNested: false },
     ],

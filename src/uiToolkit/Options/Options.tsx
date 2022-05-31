@@ -17,12 +17,12 @@ export interface OptionItem {
   isDisabled?: boolean;
   StartIcon?: FC<any> | undefined;
   isNested?: boolean;
-  values?: OptionItem[];
+  subItems?: OptionItem[];
 }
 
 //sample nested options data structure
 // const options:OptionItem[] = [{label:'parent1',isNested:true,value:3,
-// values:[
+// subItems:[
 //{ label:'child1',isNested:false,value:2}
 //]
 //},
@@ -47,7 +47,7 @@ type RenderItemProps = {
 const RenderItem = ({ item, index, renderMenuListItem }: RenderItemProps): JSX.Element => {
   const theme: ThemeType = useTheme();
   const [show, setShow] = useState<boolean>(false);
-  const { label, value, isNested = false, values = [] } = item;
+  const { label, value, isNested = false, subItems = [] } = item;
   const EndIcon: any = () => {
     if (show) {
       return <ExpandLess boxSize={'18px'} />;
@@ -58,7 +58,7 @@ const RenderItem = ({ item, index, renderMenuListItem }: RenderItemProps): JSX.E
   const toggleHeader = (): void => {
     setShow(!show);
   };
-  if (isNested && values?.length > 0) {
+  if (isNested && subItems?.length > 0) {
     return (
       <>
         <StyledHeader onClick={toggleHeader} _hover={{ background: theme.colors.surfaces.bg94 }}>
@@ -67,7 +67,7 @@ const RenderItem = ({ item, index, renderMenuListItem }: RenderItemProps): JSX.E
         </StyledHeader>
 
         <Collapse in={show} animateOpacity>
-          {values.map((item, index) => renderMenuListItem(item, index))}
+          {subItems.map((item, index) => renderMenuListItem(item, index))}
         </Collapse>
       </>
     );
