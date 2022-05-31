@@ -8,7 +8,7 @@ import { Collapse } from '@chakra-ui/react';
 import { ExpandLess, ExpandMore, Tick } from '@assets/iconComponents';
 
 //value type
-export type valuetype = number | string | OptionItem[];
+export type valuetype = number | string;
 
 //type of each option item
 export interface OptionItem {
@@ -17,11 +17,12 @@ export interface OptionItem {
   isDisabled?: boolean;
   StartIcon?: FC<any> | undefined;
   isNested?: boolean;
+  values?: OptionItem[];
 }
 
 //sample nested options data structure
-// const options:OptionItem[] = [{label:'parent1',isNested:true,
-// value:[
+// const options:OptionItem[] = [{label:'parent1',isNested:true,value:3,
+// values:[
 //{ label:'child1',isNested:false,value:2}
 //]
 //},
@@ -31,8 +32,8 @@ export interface OptionItem {
 //options proptype
 export interface OptionsTypeProps {
   options: OptionItem[];
-  onChange?: (items: OptionItem[]) => void;
-  defaultItems?: OptionItem[];
+  onChange?: (items: valuetype[]) => void;
+  defaultValues?: valuetype[];
   allowMultipleSelect?: boolean;
 }
 
@@ -46,7 +47,7 @@ type RenderItemProps = {
 const RenderItem = ({ item, index, renderMenuListItem }: RenderItemProps): JSX.Element => {
   const theme: ThemeType = useTheme();
   const [show, setShow] = useState<boolean>(false);
-  const { label, value, isNested = false } = item;
+  const { label, value, isNested = false, values = [] } = item;
   const EndIcon: any = () => {
     if (show) {
       return <ExpandLess boxSize={'18px'} />;
@@ -57,7 +58,7 @@ const RenderItem = ({ item, index, renderMenuListItem }: RenderItemProps): JSX.E
   const toggleHeader = (): void => {
     setShow(!show);
   };
-  if (isNested && Array.isArray(value) && value.length > 0) {
+  if (isNested && values?.length > 0) {
     return (
       <>
         <StyledHeader onClick={toggleHeader} _hover={{ background: theme.colors.surfaces.bg94 }}>
@@ -66,7 +67,7 @@ const RenderItem = ({ item, index, renderMenuListItem }: RenderItemProps): JSX.E
         </StyledHeader>
 
         <Collapse in={show} animateOpacity>
-          {value.map((item, index) => renderMenuListItem(item, index))}
+          {values.map((item, index) => renderMenuListItem(item, index))}
         </Collapse>
       </>
     );
@@ -78,31 +79,31 @@ const RenderItem = ({ item, index, renderMenuListItem }: RenderItemProps): JSX.E
 export const Options: FC<BoxProps & OptionsTypeProps> = ({
   options = [],
   onChange,
-  defaultItems = [],
+  defaultValues = [],
   allowMultipleSelect = false,
   ...props
 }) => {
   const theme: ThemeType = useTheme();
-  const [selectedOption, setSelectedOption] = useState<OptionItem[]>(defaultItems);
+  const [selectedOption, setSelectedOption] = useState<valuetype[]>(defaultValues);
 
   //onchange event handler
   const onChangeHandler = (item: OptionItem): void => {
     const { value } = item;
     let updatedOptions;
     if (!allowMultipleSelect) {
-      updatedOptions = [item];
+      updatedOptions = [value];
     } else if (isOptionSelected(value, selectedOption)) {
-      updatedOptions = selectedOption.filter((option) => option.value !== value);
+      updatedOptions = selectedOption.filter((option) => option !== value);
     } else {
-      updatedOptions = [...selectedOption, item];
+      updatedOptions = [...selectedOption, value];
     }
     setSelectedOption(updatedOptions);
     if (onChange) onChange(updatedOptions);
   };
 
   //function to check if given value is checked/unchecked
-  const isOptionSelected = (value: valuetype, selectedOption: OptionItem[]): boolean => {
-    const found = selectedOption.some((option) => option.value === value);
+  const isOptionSelected = (value: valuetype, selectedOption: valuetype[]): boolean => {
+    const found = selectedOption.includes(value);
     return found;
   };
 

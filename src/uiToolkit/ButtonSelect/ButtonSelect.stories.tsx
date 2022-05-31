@@ -17,29 +17,32 @@ const nestedOptions = [
     label: 'parent1',
     StartIcon: StartIcon,
     isNested: true,
-    value: [
+    values: [
       { value: 1, label: 'check1', StartIcon: StartIcon, isNested: false },
       { value: 2, label: 'check2', StartIcon: StartIcon, isNested: false },
       { value: 3, label: 'check3', StartIcon: StartIcon, isNested: false },
     ],
+    value: 10,
   },
   {
     label: 'parent2',
     StartIcon: StartIcon,
     isNested: true,
-    value: [
+    values: [
       { value: 4, label: 'check4', StartIcon: StartIcon, isNested: false },
-      { value: 7, label: 'check7', StartIcon: StartIcon, isNested: false },
+      { value: 7, label: 'check7', StartIcon: StartIcon, isNested: false, isDisabled: true },
     ],
+    value: 11,
   },
   {
     label: 'parent3',
     StartIcon: StartIcon,
     isNested: true,
-    value: [
+    values: [
       { value: 8, label: 'check8', StartIcon: StartIcon, isNested: false },
       { value: 9, label: 'check9', StartIcon: StartIcon, isNested: false },
     ],
+    value: 13,
   },
   { value: 5, label: 'check5', StartIcon: StartIcon, isNested: false },
   { value: 6, label: 'check4zzzz', isNested: false },
@@ -81,7 +84,7 @@ WithDefaultValue.args = {
   options,
   onChange: (e: any) => console.log(e),
   ButtonStartIcon: StartIcon,
-  defaultItems: [options[2]],
+  defaultValues: [2],
 };
 
 export const ButtonWithNestedOptions = ButtonSelectTemplate.bind({});

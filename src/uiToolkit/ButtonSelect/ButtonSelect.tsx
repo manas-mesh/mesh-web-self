@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Button } from '@uiToolkit/Button';
-import { Options, valuetype } from '@uiToolkit/Options';
-import { OptionItem } from '@uiToolkit/Options';
+import { Options, valuetype, OptionItem } from '@uiToolkit/Options';
 import { BUTTON_SIZE } from '@uiToolkit/Button/Button';
 import { IconProps, Menu, MenuButton } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
@@ -14,12 +13,21 @@ export interface ButtonSelectProps {
   isDisabled?: boolean;
   className?: string;
   options: OptionItem[];
-  onChange: (selectedOption: OptionItem[]) => void;
+  onChange: (selectedOption: valuetype[]) => void;
   ButtonStartIcon?: FC<IconProps> | undefined;
-  defaultItems?: OptionItem[];
+  defaultValues?: valuetype[];
   buttonSelectStyle?: React.CSSProperties;
   allowMultipleSelect?: boolean;
 }
+
+//filter selected options
+const findOptionItem = (values: valuetype[], optionItems: OptionItem[]) => {
+  const flattenedOptions: OptionItem[] = optionItems
+    .reduce((result, obj) => result.concat({ value: obj.value, label: obj.label }, obj.values), [])
+    .filter((item) => item !== undefined);
+  const items = flattenedOptions.filter((item) => values.includes(item.value));
+  return items;
+};
 
 //BUTTON SELECT COMPONENT STARTS HERE
 export const ButtonSelect: FC<ButtonSelectProps> = ({
@@ -27,7 +35,7 @@ export const ButtonSelect: FC<ButtonSelectProps> = ({
   className = '',
   options = [],
   onChange,
-  defaultItems = [],
+  defaultValues = [],
   ButtonStartIcon,
   allowMultipleSelect = false,
   ...props
@@ -35,14 +43,19 @@ export const ButtonSelect: FC<ButtonSelectProps> = ({
   const defaultButtonLabel = 'Select';
   const [isOpen, setIsOpen] = useState(false);
   const [buttonLabel, setButtonLabel] = useState(
-    defaultItems.length > 0 ? defaultItems.map((item) => item.label).join(', ') : defaultButtonLabel,
+    defaultValues.length > 0
+      ? findOptionItem(defaultValues, options)
+          .map((item) => item.label)
+          .join(', ')
+      : defaultButtonLabel,
   );
   const theme: ThemeType = useTheme();
 
   //onchange event handler
-  const onChangeHandler = (items: OptionItem[]): void => {
+  const onChangeHandler = (items: valuetype[]): void => {
     if (items.length > 0) {
-      setButtonLabel(items.map((item) => item.label).join(', '));
+      const selectedItems = findOptionItem(items, options);
+      setButtonLabel(selectedItems.map((item) => item.label).join(', '));
     } else setButtonLabel(defaultButtonLabel);
     if (onChange) onChange(items);
   };
@@ -76,9 +89,9 @@ export const ButtonSelect: FC<ButtonSelectProps> = ({
         <MenuButton as={RenderButton} />
         <Options
           allowMultipleSelect={allowMultipleSelect}
-          defaultItems={defaultItems}
+          defaultValues={defaultValues}
           options={options}
-          onChange={onChangeHandler}
+          onChange={(e) => onChangeHandler(e)}
         />
       </Menu>
     </Wrapper>
