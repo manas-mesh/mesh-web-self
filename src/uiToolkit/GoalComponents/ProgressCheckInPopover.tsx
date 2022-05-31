@@ -2,32 +2,53 @@ import { Slider, SliderProps } from '@uiToolkit/Slider';
 import { FC, useEffect, useState } from 'react';
 import { CheckInPopover, CheckInPopoverProps } from './CheckInPopover';
 import React, { useRef } from 'react';
-import { useOutsideClick } from '@chakra-ui/react';
+import { Box, useOutsideClick } from '@chakra-ui/react';
+import { GOAL_CLOSED_OPTIONS, GOAL_IN_PROGRESS_OPTIONS } from '@constants/projectConstants';
+import styled from '@emotion/styled';
 
+export type goalStatusProps = {
+  value: number | string;
+  label: string;
+  progressLevel: string;
+  order?: number;
+};
 export interface ProgressCheckInPopoverProps {
   SliderProps?: SliderProps;
   CheckInPopoverProps?: CheckInPopoverProps;
 }
 
-//MAIN COMPONENT STARTS HERE
-export const ProgressCheckInPopover: FC<ProgressCheckInPopoverProps> = ({ SliderProps }) => {
-  const sliderRef = useRef(null); //progresscheckinpopover wrapper ref
-  const [openCheckInPopup, setOpenCheckInPopup] = useState(false);
-  const [value, setValue] = useState(12);
-  const [stringifiedValue, setStringifiedValue] = useState(String(value));
+const Wrapper = styled(Box)`
+  position: relative;
+`;
 
+//MAIN COMPONENT STARTS HERE
+export const ProgressCheckInPopover: FC<ProgressCheckInPopoverProps> = ({}) => {
+  const sliderRef = useRef(null); //progressCheckInPopover wrapper ref
+  const [openCheckInPopup, setOpenCheckInPopup] = useState(false);
+  const [value, setValue] = useState(12); //this can be replaced by original value when integrating
+  const [stringifiedValue, setStringifiedValue] = useState(String(value));
+  const [stringifiedMax, setStringifiedMax] = useState(String(100));
+  const goalStatuses: goalStatusProps[] = [...GOAL_IN_PROGRESS_OPTIONS, ...GOAL_CLOSED_OPTIONS];
+  const [selectedGoalStatus, setSelectedGoalStatus] = useState(goalStatuses[0]);
+  const [addANote, setAddANote] = useState('');
+  const [percentageCompleted, setPercentageCompleted] = useState(
+    Math.round((value / parseInt(stringifiedMax)) * 100 * 100) / 100,
+  );
   const min = 0;
-  const max = 100;
 
   useEffect(() => {
     if (parseInt(stringifiedValue) !== value) setStringifiedValue(String(value));
   }, [value]);
 
-  const closeCheckinPopup = (): void => {
+  useEffect(() => {
+    setPercentageCompleted(Math.round((value / parseInt(stringifiedMax)) * 100 * 100) / 100);
+  }, [value, stringifiedMax]);
+
+  const closeCheckInPopup = (): void => {
     setOpenCheckInPopup(false);
   };
 
-  //check if value is wthin min and max range
+  //check if value is within min and max range
   const checkIfValueInRange = (value: number, min: number, max: number): number => {
     if (isNaN(value) || value <= min) return min;
     else if (value >= max) return max;
@@ -44,26 +65,37 @@ export const ProgressCheckInPopover: FC<ProgressCheckInPopoverProps> = ({ Slider
   //close popover outside click
   useOutsideClick({
     ref: sliderRef,
-    handler: closeCheckinPopup,
+    handler: closeCheckInPopup,
   });
 
   //cancel button onclick event handler
   const onCancel = (): void => {
-    closeCheckinPopup();
+    closeCheckInPopup();
   };
-  //checkin button onclick event handler
+  //checkIn button onclick event handler
   const onCheckIn = (): void => {
-    console.log(value, 'value');
-    closeCheckinPopup();
+    //console.log(value, 'value');
+    closeCheckInPopup();
     // TODO
     //  API INTEGRATION TO UPDATE ACHIEVED VALUE
   };
+
+  //add a note onChange handler
+  const handleAddANote = (e: string) => {
+    setAddANote(e);
+  };
+
+  //goal status select onChange handler
+  const handleSelect = (item: goalStatusProps) => {
+    setSelectedGoalStatus(item);
+  };
+
   const sliderProps: SliderProps = {
     value: value,
     stringifiedValue: stringifiedValue,
     isDisabled: false,
     min: min,
-    max: max,
+    max: parseInt(stringifiedMax),
     onChangeStart: (e) => {
       setOpenCheckInPopup(true);
     },
@@ -74,10 +106,12 @@ export const ProgressCheckInPopover: FC<ProgressCheckInPopoverProps> = ({ Slider
       setValue(e);
     },
     onChangeTextField: (e) => {
-      setStringifiedValue(e);
+      setStringifiedMax(e);
     },
     onBlurTextField: (num, min, max) => {
-      handleBlur(num, min, max);
+      const maxValue = checkIfValueInRange(num, min, max);
+      setStringifiedMax(String(maxValue));
+      handleBlur(value, min, maxValue);
     },
   };
   const checkInPopoverProps: CheckInPopoverProps = {
@@ -89,13 +123,19 @@ export const ProgressCheckInPopover: FC<ProgressCheckInPopoverProps> = ({ Slider
       setStringifiedValue(e);
     },
     achievedInputOnBlur: (num) => {
-      handleBlur(num, min, max);
+      handleBlur(num, min, parseInt(stringifiedMax));
     },
+    percentageCompleted,
+    goalStatuses: goalStatuses,
+    selectedGoalStatus,
+    handleGoalSelect: handleSelect,
+    addANote,
+    onChangeAddANote: handleAddANote,
   };
   return (
-    <div ref={sliderRef} style={{ position: 'relative' }}>
+    <Wrapper ref={sliderRef}>
       <Slider {...sliderProps} />
       <CheckInPopover {...checkInPopoverProps} />
-    </div>
+    </Wrapper>
   );
 };

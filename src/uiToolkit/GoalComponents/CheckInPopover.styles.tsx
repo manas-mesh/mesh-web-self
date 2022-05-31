@@ -2,21 +2,21 @@ import { Box, Fade, ScaleFade, Slide, SlideFade } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { ThemeType } from '@themes/clients/baseTheme';
 
-const commonstyles = {
+const commonStyles = {
   padding: '8px',
 };
 
 export const FadeWrapper = styled(Fade)(({ theme }: { theme?: ThemeType }) => ({
   position: 'absolute',
   left: '50%',
-  top: '48px',
+  top: '40px',
   zIndex: 100,
   transform: 'translateX(-50%)',
   minWidth: '416px',
 }));
 
 export const Wrapper = styled(Box)(({ theme }: { theme?: ThemeType }) => ({
-  ...commonstyles,
+  ...commonStyles,
   width: '100%',
   background: theme?.colors.surfaces.bg94,
   borderRadius: '12px',
@@ -24,18 +24,18 @@ export const Wrapper = styled(Box)(({ theme }: { theme?: ThemeType }) => ({
 }));
 
 export const Header = styled(Box)(({ theme }: { theme?: ThemeType }) => ({
-  ...commonstyles,
+  ...commonStyles,
   paddingRight: '12px',
   display: 'flex',
   justifyContent: 'space-between',
 }));
 
 export const LeftSegment = styled(Box)(({ theme }: { theme?: ThemeType }) => ({
-  ...commonstyles,
+  ...commonStyles,
 }));
 
 export const RightSegment = styled(Box)(({ theme }: { theme?: ThemeType }) => ({
-  ...commonstyles,
+  ...commonStyles,
 }));
 
 export const AchievedWrapper = styled(Box)(({ theme }: { theme?: ThemeType }) => ({

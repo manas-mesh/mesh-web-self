@@ -16,26 +16,34 @@ import { Button } from '@uiToolkit/Button';
 import { BUTTON_SIZE, BUTTON_VARIANT } from '@uiToolkit/Button/Button';
 import { commonInputHandler } from '@utils/commonEventHandler';
 import { isValidNumberRegExp } from '@constants/index';
+import Select from '@uiToolkit/Select/Select';
+import { goalStatusProps } from './ProgressCheckInPopover';
 
 //checkin popover props
 export interface CheckInPopoverProps {
   isOpen?: boolean;
   style?: React.CSSProperties;
   achievedValue?: string;
+  goalStatuses: goalStatusProps[];
+  selectedGoalStatus: goalStatusProps;
+  percentageCompleted: number;
+  addANote: string;
   onCancel?: () => void;
   onCheckIn?: () => void;
   achievedInputHandler?: (val: string) => void;
   achievedInputOnBlur?: (num: number) => void;
+  onChangeAddANote: (note: string) => void;
+  handleGoalSelect: (statusItem: goalStatusProps) => void;
 }
 
 //header content
-const HeaderWrapper = () => (
+const HeaderWrapper = ({ percentageCompleted }: { percentageCompleted: number }) => (
   <Header>
     <LeftSegment>
       <TextTitleSmall fontWeight={500}>New Check In</TextTitleSmall>
     </LeftSegment>
     <RightSegment>
-      <TextTitleMedium fontWeight={500}>80%</TextTitleMedium>
+      <TextTitleMedium fontWeight={500}>{percentageCompleted}%</TextTitleMedium>
     </RightSegment>
   </Header>
 );
@@ -45,14 +53,20 @@ interface achievedSectionProps {
   handleAchievedInputBlur: (event: React.FocusEvent<HTMLDivElement, Element>) => void;
   achievedTextInputHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   achievedValue?: string;
+  goalStatuses: goalStatusProps[];
+  selectedStatus: goalStatusProps;
+  handleGoalSelect: (e: goalStatusProps) => void;
 }
 //achieved section
 const AchievedSectionWrapper = ({
   handleAchievedInputBlur,
   achievedTextInputHandler,
   achievedValue = '',
+  selectedStatus,
+  goalStatuses,
+  handleGoalSelect,
 }: achievedSectionProps) => (
-  <AchievedWrapper>
+  <AchievedWrapper alignItems={'center'}>
     <LeftSegment style={{ padding: 0 }} onBlur={handleAchievedInputBlur}>
       <Textarea
         label="Achieved"
@@ -64,15 +78,14 @@ const AchievedSectionWrapper = ({
         handleChange={achievedTextInputHandler}
       />
     </LeftSegment>
-    <RightSegment style={{ padding: 0 }}>
-      <Textarea
-        rows={1}
-        label="Achieved"
-        type="string"
-        name="achieved-text-area"
+    <RightSegment style={{ padding: 0, flex: 1 }}>
+      <Select
+        label="Status"
+        handleChange={(e) => handleGoalSelect(e)}
+        value={selectedStatus}
+        options={goalStatuses}
         withBackground={false}
-        value={'80%'}
-        handleChange={() => {}}
+        name="goal-status-select"
       />
     </RightSegment>
   </AchievedWrapper>
@@ -84,9 +97,15 @@ export const CheckInPopover: FC<CheckInPopoverProps> = ({
   style,
   onCancel,
   achievedValue = '',
+  percentageCompleted,
   achievedInputHandler,
   achievedInputOnBlur,
+  selectedGoalStatus,
+  goalStatuses = [],
+  handleGoalSelect,
   onCheckIn,
+  addANote,
+  onChangeAddANote,
 }) => {
   //onCancel handler
   const onCancelHandler = (): void => {
@@ -113,11 +132,14 @@ export const CheckInPopover: FC<CheckInPopoverProps> = ({
   return (
     <FadeWrapper style={style} unmountOnExit in={isOpen}>
       <Wrapper>
-        <HeaderWrapper />
+        <HeaderWrapper percentageCompleted={percentageCompleted} />
         <AchievedSectionWrapper
           handleAchievedInputBlur={handleAchievedInputBlur}
           achievedTextInputHandler={achievedTextInputHandler}
           achievedValue={achievedValue}
+          goalStatuses={goalStatuses}
+          selectedStatus={selectedGoalStatus}
+          handleGoalSelect={handleGoalSelect}
         />
         <AddNoteWrapper>
           <Textarea
@@ -127,8 +149,8 @@ export const CheckInPopover: FC<CheckInPopoverProps> = ({
             type="string"
             name="add-note-text-area"
             withBackground={false}
-            value={''}
-            handleChange={(e) => {}}
+            value={addANote}
+            handleChange={(e) => onChangeAddANote(e.target.value)}
           />
         </AddNoteWrapper>
         <HelperTextWrapper>

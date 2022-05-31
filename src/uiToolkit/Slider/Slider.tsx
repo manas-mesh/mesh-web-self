@@ -19,7 +19,6 @@ import { commonInputHandler } from '@utils/commonEventHandler';
 export interface SliderProps {
   isDisabled?: boolean;
   value: number;
-  stringifiedValue?: string; //only use this if textfield is enabled
   min?: number;
   showTextField?: boolean;
   max?: number;
@@ -40,7 +39,6 @@ const Slider: React.FC<SliderProps> = ({
   isDisabled = false,
   className = '',
   value,
-  stringifiedValue = '',
   style = {},
   min = 0,
   max = 100,
@@ -53,8 +51,7 @@ const Slider: React.FC<SliderProps> = ({
 }) => {
   const theme: ThemeType = useTheme();
 
-  //value is stored as string so that it can be used in both slider and textarea component
-
+  const stringifiedMax = isNaN(max) ? '' : String(max);
   //left text area props
   const leftTextAreaProps: TextareaProps = {
     isDisabled: true,
@@ -69,11 +66,11 @@ const Slider: React.FC<SliderProps> = ({
   //right text area props
   const rightTextAreaProps: TextareaProps = {
     isDisabled: isDisabled,
-    value: stringifiedValue,
+    value: stringifiedMax,
     type: 'number',
     name: 'right-text-area',
     handleChange: (e) => {
-      //only allow digits , '-' and '.'  (whole numbers, negative integers, decimals)
+      //only allow digits
       if (e.target.value.match(isValidNumberRegExp)) {
         commonInputHandler(onChangeTextField, [e.target.value]);
       }
@@ -97,11 +94,8 @@ const Slider: React.FC<SliderProps> = ({
   };
 
   //textarea onBlur event handler
-  //round the value to the nearest limit when value is out of the range
   const handleInputBlur = (): void => {
-    //rounding value to 2 decimal places
-    const convertedNumber = Math.round((parseFloat(stringifiedValue) + Number.EPSILON) * 100) / 100;
-    commonInputHandler(onBlurTextField, [convertedNumber, min, max]);
+    commonInputHandler(onBlurTextField, [max, min, Number.MAX_SAFE_INTEGER]);
   };
 
   //slider track render
