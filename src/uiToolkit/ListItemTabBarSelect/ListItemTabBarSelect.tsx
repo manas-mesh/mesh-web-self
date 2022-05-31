@@ -9,6 +9,7 @@ const Wrapper = styled(Box)(({ theme }: { theme?: ThemeType }) => ({
   paddingRight: '0px',
   background: theme?.colors.surfaces.g94,
   display: 'flex',
+  borderRadius: '8px',
 }));
 
 type valueType = number | string;
