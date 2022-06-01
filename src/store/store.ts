@@ -3,11 +3,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import loggedInEmployeeReducer from './reduxFeatures/loggedInEmployee-slice';
-import orgData from './reduxFeatures/orgData-slice';
+import orgDataReducer from './reduxFeatures/orgData-slice';
+import reviewFormFillingReducer from './reduxFeatures/reviewFormFilling-slice';
 
 const reducers = {
   loggedInEmployee: loggedInEmployeeReducer,
-  orgData: orgData,
+  orgData: orgDataReducer,
+  reviewFormFilling: reviewFormFillingReducer,
 };
 
 const store = configureStore({

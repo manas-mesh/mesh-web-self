@@ -1,15 +1,16 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
-import { useAppDispatch } from '@hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
 import React, { useCallback, useEffect, useState } from 'react';
+import { shallowEqual } from 'react-redux';
 import { getQAForm, updateQuestionResponse } from 'services/performanceReview';
+import { forceUpdate, showPeerFeedback } from 'store/reduxFeatures/reviewFormFilling-slice';
 import { InteractionContainer } from 'uiToolkit/InteractionContainer';
 
 import { FeedbackComp, QuestionComp, ReviewInputComp } from '../common';
 import { PeerFeedbackComp } from '../common/PeerFeedbackComp';
-import { useReview } from '../ReviewContext';
 
 const commonColumnsList = [
   {
@@ -46,11 +47,10 @@ const QAQuestion = ({ question, submitAnswer }) => {
     isTextRequired,
   } = question;
   const {
-    state: { peerFeedback, selectedReviewInfo },
-    showPeerFeedback,
+    reviewState: { peerFeedback, selectedReviewInfo },
     isManagerView,
     isSubmitClicked,
-  } = useReview();
+  } = useAppSelector((state) => state.reviewFormFilling, shallowEqual);
 
   const onSelectQuestion = () => {
     showPeerFeedback({
@@ -106,7 +106,7 @@ const QAQuestion = ({ question, submitAnswer }) => {
 export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false, responseId, renderFooter }) => {
   const [loading, setLoading] = useState(false);
   const [questionList, setQuestionList] = useState([]);
-  const { showPeerFeedback, isManagerView, forceUpdate } = useReview();
+  const { isManagerView } = useAppSelector((state) => state.reviewFormFilling);
   const theme: ThemeType = useTheme();
 
   const dispatch = useAppDispatch();
@@ -233,7 +233,7 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
 
   return (
     <Grid templateColumns="repeat(12, 1fr)" height="100%" width="100%">
-      <GridItem colSpan={isManagerView ? 8 : 12} sx={{ overflowY: 'auto', height: '100%' }}>
+      <GridItem p={3} colSpan={isManagerView ? 8 : 12} sx={{ overflowY: 'auto', height: '100%' }}>
         {questionList.map((question, index) => (
           <QAQuestion key={question.id} question={question} questionNo={index + 1} submitAnswer={answerQuestion} />
         ))}

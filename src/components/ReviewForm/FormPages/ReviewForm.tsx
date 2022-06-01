@@ -10,7 +10,6 @@ import { Checkbox } from 'uiToolkit/Checkbox';
 import { Button } from 'uiToolkit/Button';
 import { TextBodyMedium } from 'uiToolkit/Typography';
 
-import { useReview } from '../ReviewContext';
 import { BehaviorForm } from './BehaviorForm';
 import { GoalForm } from './GoalForm';
 import { QAForm } from './QAForm';
@@ -22,6 +21,12 @@ import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ArrowLeft, ArrowRight } from '@assets/iconComponents';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { useTheme } from '@emotion/react';
+import {
+  clearPeerFeedback,
+  forceUpdate,
+  setIsSubmitClicked,
+  setSelectedReviewSubmissionStatus,
+} from 'store/reduxFeatures/reviewFormFilling-slice';
 
 export const REVIEW_STAGE_COMPONENT_MAP = {
   [REVIEW_FORMS_TYPE_MAP.GOAL]: {
@@ -160,14 +165,10 @@ export const ReviewForm = ({
   const navigate = router.push;
 
   const {
-    state: { selectedReviewInfo },
-    clearPeerFeedback,
-    setSelectedReviewSubmissionStatus,
+    reviewState: { selectedReviewInfo },
     isSubmitClicked,
-    setIsSubmitClicked,
     forceUpdateValue,
-    forceUpdate,
-  } = useReview();
+  } = useAppSelector((state) => state.reviewFormFilling);
 
   const { id: loggedInEmployeeId } = useAppSelector(selectLoggedInEmployeeData, shallowEqual);
 

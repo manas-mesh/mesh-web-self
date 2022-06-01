@@ -9,11 +9,12 @@ import { ScaleInput } from 'uiToolkit/ScaleInput';
 import { TextBodyMedium, TextLabelLarge, TextLabelSmall } from 'uiToolkit/Typography';
 import { toTitleCase } from 'utils/stringHelper';
 
-import { useReview } from '../ReviewContext';
 import { BaseStarRating } from '@uiToolkit/BaseStarRating/BaseStarRating';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { useTheme } from '@emotion/react';
 import Avatar from '@uiToolkit/Avatar';
+import { useAppSelector } from '@hooks/reduxHooks';
+import { shallowEqual } from 'react-redux';
 
 const NO_DATA_MSG = 'No data to display';
 const ERROR_MSG = 'Request to fetch peer feedback failed!';
@@ -151,9 +152,7 @@ const PlaceHolderComp = () => (
 );
 
 const PeerFeedbackComp = ({ reviewId, employeeId }: { reviewId: string; employeeId: string }) => {
-  const {
-    state: { peerFeedback },
-  } = useReview();
+  const { peerFeedback } = useAppSelector((state) => state.reviewFormFilling.reviewState, shallowEqual);
   const theme: ThemeType = useTheme();
   const { goalId, competencyId, questionId, answerType, answerOptions } = peerFeedback;
   const [loading, setLoading] = useState(false);

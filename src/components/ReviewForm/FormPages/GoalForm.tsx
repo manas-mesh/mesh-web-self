@@ -11,10 +11,11 @@ import { TextBodyMedium } from 'uiToolkit/Typography';
 
 import { FeedbackComp, QuestionComp, ReviewInputComp } from '../common';
 import { PeerFeedbackComp } from '../common/PeerFeedbackComp';
-import { useReview } from '../ReviewContext';
-import { useAppDispatch } from '@hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { useTheme } from '@emotion/react';
+import { shallowEqual } from 'react-redux';
+import { forceUpdate, showPeerFeedback } from 'store/reduxFeatures/reviewFormFilling-slice';
 
 const commonColumnsList = [
   {
@@ -92,11 +93,10 @@ const GoalQuestion = ({
     maxOptions,
   } = question;
   const {
-    state: { peerFeedback, selectedReviewInfo },
-    showPeerFeedback,
+    reviewState: { peerFeedback, selectedReviewInfo },
     isManagerView,
     isSubmitClicked,
-  }: any = useReview();
+  }: any = useAppSelector((state) => state.reviewFormFilling, shallowEqual);
 
   //   const { showSidePanel, hideSidePanel } = useGoalsWeight();
   const router = useRouter();
@@ -222,7 +222,7 @@ export const GoalForm = ({
   // only implementing 'questions view' for now as goals are not there yet
   const [columnsView, setColumnsView] = useState(VIEW_TYPES.questionsView);
   const [goalRating, setGoalRating] = useState(null);
-  const { showPeerFeedback, isManagerView, forceUpdate } = useReview();
+  const isManagerView = useAppSelector((state) => state.reviewFormFilling.isManagerView, shallowEqual);
   const theme: ThemeType = useTheme();
 
   // const dispatch = useAppDispatch();
@@ -395,7 +395,7 @@ export const GoalForm = ({
 
   return (
     <Grid templateColumns="repeat(12, 1fr)" height="100%" width="100%">
-      <GridItem colSpan={isManagerView ? 8 : 12} sx={{ overflowY: 'auto', height: '100%', p: 1.5 }}>
+      <GridItem p={3} colSpan={isManagerView ? 8 : 12} sx={{ overflowY: 'auto', height: '100%' }}>
         {goals.map(({ goal, questions }) =>
           questions.map((question) => (
             <GoalQuestion

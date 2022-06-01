@@ -1,8 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
-import { ReviewProvider } from 'components/ReviewForm';
 import { ReviewForm } from 'components/ReviewForm/FormPages';
-import { useReview } from 'components/ReviewForm/ReviewContext';
 import useAsync from 'hooks/useAsync';
 // import { GoalsWeightProvider } from 'components/GoalsWeight/GoalsWeightContext';
 // import GoalsWeightSidepanel from 'components/GoalsWeight/GoalsWeightSidepanel';
@@ -14,6 +12,7 @@ import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { useTheme } from '@emotion/react';
+import { setIsManagerView, setSelectedReviewDetails } from 'store/reduxFeatures/reviewFormFilling-slice';
 // import { showErrorSnackbar } from 'services/snackbar';
 
 const ReviewFormPage: React.FC = () => {
@@ -37,10 +36,8 @@ const ReviewFormPage: React.FC = () => {
   const theme: ThemeType = useTheme();
 
   const {
-    state: { selectedReviewInfo },
-    setSelectedReviewDetails,
-    setIsManagerView,
-  } = useReview();
+    reviewState: { selectedReviewInfo },
+  } = useAppSelector((state) => state.reviewFormFilling);
 
   const fetchData = useCallback(
     () =>
@@ -115,10 +112,4 @@ const ReviewFormPage: React.FC = () => {
   );
 };
 
-const ReviewFormPageWithContext = () => (
-  <ReviewProvider>
-    <ReviewFormPage />
-  </ReviewProvider>
-);
-
-export default ReviewFormPageWithContext;
+export default ReviewFormPage;

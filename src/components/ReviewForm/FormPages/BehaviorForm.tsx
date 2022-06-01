@@ -1,17 +1,18 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
-import { useAppDispatch } from '@hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
 import React, { useCallback, useEffect, useState } from 'react';
+import { shallowEqual } from 'react-redux';
 import { getBehaviorForm, updateQuestionResponse } from 'services/performanceReview';
+import { forceUpdate, showPeerFeedback } from 'store/reduxFeatures/reviewFormFilling-slice';
 // import { InfoOutlined } from '@material-ui/icons';
 // import { openCompetencySidePanelAction } from 'actions/competencySidePanelActions';
 import { InteractionContainer } from 'uiToolkit/InteractionContainer';
 
 import { FeedbackComp, QuestionComp, ReviewInputComp } from '../common';
 import { PeerFeedbackComp } from '../common/PeerFeedbackComp';
-import { useReview } from '../ReviewContext';
 
 const commonColumnsList = [
   {
@@ -50,11 +51,10 @@ const BehaviorQuestion = ({ tag, question, submitAnswer, employeeId }) => {
 
   const dispatch = useAppDispatch();
   const {
-    state: { peerFeedback, selectedReviewInfo },
-    showPeerFeedback,
+    reviewState: { peerFeedback, selectedReviewInfo },
     isManagerView,
     isSubmitClicked,
-  } = useReview();
+  } = useAppSelector((state) => state.reviewFormFilling, shallowEqual);
 
   const TooltipWithBehavior = (
     <Box display="flex" alignItems="center">
@@ -160,7 +160,8 @@ export const BehaviorForm = ({ reviewId, employeeId, providerId, isSummaryView =
   const [loading, setLoading] = useState(true);
   const [behaviors, setBehaviors] = useState([]);
 
-  const { showPeerFeedback, isManagerView, forceUpdate } = useReview();
+  const isManagerView = useAppSelector((state) => state.reviewFormFilling.isManagerView, shallowEqual);
+
   const theme: ThemeType = useTheme();
 
   const dispatch = useAppDispatch();
@@ -351,7 +352,7 @@ export const BehaviorForm = ({ reviewId, employeeId, providerId, isSummaryView =
 
   return (
     <Grid templateColumns="repeat(12, 1fr)" height="100%" width="100%">
-      <GridItem colSpan={isManagerView ? 8 : 12} sx={{ overflowY: 'auto', height: '100%' }}>
+      <GridItem p={3} colSpan={isManagerView ? 8 : 12} sx={{ overflowY: 'auto', height: '100%' }}>
         {behaviors.map(({ tag, questions }) =>
           questions.map((question) => (
             <BehaviorQuestion
