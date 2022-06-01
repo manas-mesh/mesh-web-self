@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ColorCodedDate from 'models/common/ColorCodedDate';
 
 export default class Review {

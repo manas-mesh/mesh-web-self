@@ -9,15 +9,17 @@ interface PropsI {
   children?: React.ReactNode;
 }
 
-export const StyledBox = styled(Box)(
+export const StyledBox = styled(Box, {
+  shouldForwardProp: (prop: string) => !['overrideBG', 'clickable'].includes(prop),
+})(
   ({ theme, ...props }) => `
-  cursor: ${props.$clickable ? 'pointer' : 'inherit'};
-  background-color: ${props.$overrideBG ? props.$overrideBG : theme.colors.surfaces.g94};
+  cursor: ${props.clickable ? 'pointer' : 'inherit'};
+  background-color: ${props.overrideBG ? props.overrideBG : theme.colors.surfaces.g94};
   border-radius: 12px;
   padding: 12px;
   margin-bottom: 12px;
 
-  ${props.$overrideBG ? '' : `&:hover {background-color:${theme.colors.surfaces.g96}`}}
+  ${props.overrideBG ? '' : `&:hover {background-color:${theme.colors.surfaces.g96}`}}
 
 `,
 );
@@ -38,7 +40,7 @@ export const InteractionContainer: React.FC<PropsI> = ({
   }
 
   return (
-    <StyledBox $overrideBG={overrideBG} onClick={onClick} $clickable={!!onClick}>
+    <StyledBox overrideBG={overrideBG} onClick={onClick} clickable={!!onClick}>
       {children}
     </StyledBox>
   );

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Grid, GridItem } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react';
 import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
@@ -12,6 +13,8 @@ import { FeedbackComp, QuestionComp, ReviewInputComp } from '../common';
 import { PeerFeedbackComp } from '../common/PeerFeedbackComp';
 import { useReview } from '../ReviewContext';
 import { useAppDispatch } from '@hooks/reduxHooks';
+import { ThemeType } from '@themes/clients/baseTheme';
+import { useTheme } from '@emotion/react';
 
 const commonColumnsList = [
   {
@@ -220,6 +223,7 @@ export const GoalForm = ({
   const [columnsView, setColumnsView] = useState(VIEW_TYPES.questionsView);
   const [goalRating, setGoalRating] = useState(null);
   const { showPeerFeedback, isManagerView, forceUpdate } = useReview();
+  const theme: ThemeType = useTheme();
 
   // const dispatch = useAppDispatch();
 
@@ -390,7 +394,7 @@ export const GoalForm = ({
   }
 
   return (
-    <Grid templateColumns="repeat(12, 1fr)">
+    <Grid templateColumns="repeat(12, 1fr)" height="100%" width="100%">
       <GridItem colSpan={isManagerView ? 8 : 12} sx={{ overflowY: 'auto', height: '100%', p: 1.5 }}>
         {goals.map(({ goal, questions }) =>
           questions.map((question) => (
@@ -422,7 +426,7 @@ export const GoalForm = ({
         {renderFooter()}
       </GridItem>
       {isManagerView && (
-        <GridItem colSpan={4} sx={{ height: '100%', overflowY: 'auto', p: 1.5, bgcolor: 'surfaces.g94' }}>
+        <GridItem p={3} bg={theme.colors.surfaces.g94} colSpan={4} sx={{ height: '100%', overflowY: 'auto' }}>
           <PeerFeedbackComp reviewId={reviewId} employeeId={employeeId} />
         </GridItem>
       )}

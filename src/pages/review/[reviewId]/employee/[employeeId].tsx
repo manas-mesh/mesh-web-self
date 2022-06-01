@@ -12,6 +12,8 @@ import { selectLoggedInEmployeeData } from 'store/selectors/loggedInEmployee';
 import { getSummaryStats } from 'services/performanceReview';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
+import { ThemeType } from '@themes/clients/baseTheme';
+import { useTheme } from '@emotion/react';
 // import { showErrorSnackbar } from 'services/snackbar';
 
 const ReviewFormPage: React.FC = () => {
@@ -32,6 +34,7 @@ const ReviewFormPage: React.FC = () => {
   }));
   const { isLoading, isIdle, run } = useAsync();
   const dispatch = useAppDispatch();
+  const theme: ThemeType = useTheme();
 
   const {
     state: { selectedReviewInfo },
@@ -93,7 +96,7 @@ const ReviewFormPage: React.FC = () => {
   }, [fetchData, run]);
 
   return (
-    <Box sx={{ bgcolor: 'surfaces.g92', height: '100%' }}>
+    <Box bg={theme.colors.surfaces.g92} sx={{ height: '100%' }}>
       {/* <GoalsWeightProvider> */}
 
       {isLoading || reviewForms === null ? (

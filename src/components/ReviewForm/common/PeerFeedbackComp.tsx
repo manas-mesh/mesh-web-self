@@ -4,7 +4,6 @@ import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
 import { REVIEW_ANSWER_TYPE_MAP } from 'constants/reviewConstants';
 import React, { useCallback, useEffect, useState } from 'react';
 import { getPeerFeedback } from 'services/performanceReview';
-// import { Avatar } from 'uiToolkit/Avatar';
 import { Button } from 'uiToolkit/Button';
 import { ScaleInput } from 'uiToolkit/ScaleInput';
 import { TextBodyMedium, TextLabelLarge, TextLabelSmall } from 'uiToolkit/Typography';
@@ -12,6 +11,9 @@ import { toTitleCase } from 'utils/stringHelper';
 
 import { useReview } from '../ReviewContext';
 import { BaseStarRating } from '@uiToolkit/BaseStarRating/BaseStarRating';
+import { ThemeType } from '@themes/clients/baseTheme';
+import { useTheme } from '@emotion/react';
+import Avatar from '@uiToolkit/Avatar';
 
 const NO_DATA_MSG = 'No data to display';
 const ERROR_MSG = 'Request to fetch peer feedback failed!';
@@ -39,9 +41,10 @@ const PeerFeedbackDisplayCard: React.FC<PeerFeedbackDisplayCardI> = ({
   let someDataPresent = false;
   someDataPresent = selectedAnswerOptions && selectedAnswerOptions.length > 0;
   someDataPresent = someDataPresent || (!!feedbackText && feedbackText.length > 0);
+  const theme: ThemeType = useTheme();
 
   return (
-    <Box sx={{ bgcolor: 'surfaces.g96', borderRadius: '12px', p: 1.5, mb: 1.5 }}>
+    <Box bg={theme.colors.surfaces.g96} sx={{ borderRadius: '12px', p: 3, mb: 3 }}>
       <FeedbackHeader employee={employee} providerType={providerType} />
       <RatingComponent
         selectedAnswerOptions={selectedAnswerOptions}
@@ -59,9 +62,9 @@ const PeerFeedbackDisplayCard: React.FC<PeerFeedbackDisplayCardI> = ({
 const FeedbackHeader = ({ employee, providerType }: { employee: any; providerType: string }) => {
   const { displayName, designation, profilePhotoSrc } = employee;
   return (
-    <Box sx={{ display: 'flex', mb: 1.5 }}>
-      {/* <Avatar src={profilePhotoSrc} size="mediumLarge" /> */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, ml: 1 }}>
+    <Box sx={{ display: 'flex', mb: 3 }}>
+      <Avatar src={profilePhotoSrc} size="mediumLarge" />
+      <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, ml: 2 }}>
         <TextLabelLarge>{displayName}</TextLabelLarge>
         <TextLabelSmall>{designation}</TextLabelSmall>
       </Box>
@@ -103,7 +106,7 @@ const RatingComponent = ({
             <ScaleInput
               onChange={noOp}
               value={selectedAnswerOptions?.[0]?.id}
-              disabled
+              isDisabled
               options={options}
               startText={startText}
               endText={endText}
@@ -114,7 +117,7 @@ const RatingComponent = ({
       }
       default:
         return selectedAnswerOptions.map(({ description, id }) => (
-          <Box sx={{ mb: 1.5 }} key={id}>
+          <Box mb={3} key={id}>
             <TextLabelSmall>Score</TextLabelSmall>
             <TextBodyMedium whiteSpace="pre-line">{description}</TextBodyMedium>
           </Box>
@@ -129,7 +132,7 @@ const FeedbackComponent = ({ feedbackText, answerType }: { feedbackText: string;
     {feedbackText && feedbackText.length ? (
       <Box>
         {answerType !== REVIEW_ANSWER_TYPE_MAP.NONE && <TextLabelSmall>Comments/examples</TextLabelSmall>}
-        <TextBodyMedium sx={{ whiteSpace: 'pre-line' }}>{feedbackText}</TextBodyMedium>
+        <TextBodyMedium whiteSpace={'pre-line'}>{feedbackText}</TextBodyMedium>
       </Box>
     ) : null}
   </>
@@ -138,8 +141,8 @@ const FeedbackComponent = ({ feedbackText, answerType }: { feedbackText: string;
 const NoFeedbackComponent = () => <TextBodyMedium>{NO_FEEDBACK_YET}</TextBodyMedium>;
 
 const PlaceHolderComp = () => (
-  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 4 }}>
-    <TextLabelSmall sx={{ textAlign: 'center' }}>
+  <Box p={8} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <TextLabelSmall textAlign={'center'}>
       Select a question to view
       <br />
       self and peer feedback
@@ -151,6 +154,7 @@ const PeerFeedbackComp = ({ reviewId, employeeId }: { reviewId: string; employee
   const {
     state: { peerFeedback },
   } = useReview();
+  const theme: ThemeType = useTheme();
   const { goalId, competencyId, questionId, answerType, answerOptions } = peerFeedback;
   const [loading, setLoading] = useState(false);
   const [peerFeedbacks, setPeerFeedbacks] = useState<any[] | null>(null);
@@ -179,10 +183,7 @@ const PeerFeedbackComp = ({ reviewId, employeeId }: { reviewId: string; employee
 
   const showNoData = useCallback(() => <TextLabelSmall>{NO_DATA_MSG}</TextLabelSmall>, []);
 
-  const showErrorMessage = useCallback(
-    () => <TextLabelSmall sx={{ color: 'errors.fields' }}>{ERROR_MSG}</TextLabelSmall>,
-    [],
-  );
+  const showErrorMessage = () => <TextLabelSmall color={theme.colors.errors.fields}>{ERROR_MSG}</TextLabelSmall>;
 
   useEffect(() => {
     if (questionId) fetchData();

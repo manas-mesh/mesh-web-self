@@ -11,20 +11,27 @@ export const ReviewSelect = ({
   isSectionEditable = true,
   onSelectQuestion = () => {},
 }) => {
-  const value = selectedAnswerOptions?.[0]?.id ?? '';
+  let value = null;
+  if (selectedAnswerOptions[0]) {
+    value = { value: selectedAnswerOptions[0].id, label: selectedAnswerOptions[0].description };
+  }
   const selectOptions = useMemo(
     () => answerOptions.map((option) => ({ label: option.description, value: option.id })),
     [answerOptions],
   );
 
   const onSelectionChange = useCallback(
-    (e) => {
-      const selectedId = e.target.value;
+    ({ label, value }) => {
+      const selectedId = value;
       const selectedOption = answerOptions.filter((option) => option.id === selectedId);
       submitAnswer('rating', selectedOption);
     },
     [answerOptions, submitAnswer],
   );
+
+  const labelText = 'Select';
+
+  const validationErrorText = isSubmitClicked && isRequired && !value ? `${labelText} (Required)` : '';
 
   return (
     <Select
@@ -32,9 +39,9 @@ export const ReviewSelect = ({
       handleChange={onSelectionChange}
       value={value}
       disabled={isSubmitted || !isSectionEditable}
-      label="Select"
+      label={labelText}
       isRequired={isRequired}
-      enableValidation={isSubmitClicked}
+      error={validationErrorText}
     />
   );
 };

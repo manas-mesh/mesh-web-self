@@ -1,4 +1,4 @@
-import { TEAM_TYPE } from 'constants/ProjectConstants';
+// @ts-nocheck
 
 export default class ReviewQuestion {
   constructor({

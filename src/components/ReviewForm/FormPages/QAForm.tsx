@@ -1,5 +1,7 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { useTheme } from '@emotion/react';
 import { useAppDispatch } from '@hooks/reduxHooks';
+import { ThemeType } from '@themes/clients/baseTheme';
 import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
 import React, { useCallback, useEffect, useState } from 'react';
 import { getQAForm, updateQuestionResponse } from 'services/performanceReview';
@@ -105,6 +107,7 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
   const [loading, setLoading] = useState(false);
   const [questionList, setQuestionList] = useState([]);
   const { showPeerFeedback, isManagerView, forceUpdate } = useReview();
+  const theme: ThemeType = useTheme();
 
   const dispatch = useAppDispatch();
 
@@ -229,7 +232,7 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
   }
 
   return (
-    <Grid templateColumns="repeat(12, 1fr)">
+    <Grid templateColumns="repeat(12, 1fr)" height="100%" width="100%">
       <GridItem colSpan={isManagerView ? 8 : 12} sx={{ overflowY: 'auto', height: '100%' }}>
         {questionList.map((question, index) => (
           <QAQuestion key={question.id} question={question} questionNo={index + 1} submitAnswer={answerQuestion} />
@@ -237,7 +240,7 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
         {renderFooter()}
       </GridItem>
       {isManagerView && (
-        <GridItem colSpan={4} sx={{ height: '100%', overflowY: 'auto', p: 1.5, bgcolor: 'surfaces.g94' }}>
+        <GridItem p={3} bg={theme.colors.surfaces.g94} colSpan={4} sx={{ height: '100%', overflowY: 'auto' }}>
           <PeerFeedbackComp reviewId={reviewId} employeeId={employeeId} />
         </GridItem>
       )}

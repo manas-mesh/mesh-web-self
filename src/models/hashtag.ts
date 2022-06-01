@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getDateFromEpoch } from 'constants/helpers';
 
 export default class HashTag {

@@ -10,7 +10,7 @@ export const ReviewStarRating = ({
   isSubmitClicked = false,
   isRequired = false,
 }) => {
-  const onChangeHandler = (newValue) => {
+  const onChangeHandler = (newValue: number) => {
     submitAnswer(
       'rating',
       answerOptions.filter((ans) => ans.displayOrder === newValue),

@@ -45,7 +45,7 @@ export const getSummaryStatsApi = ({
 }: {
   employeeId: string;
   reviewId: string;
-  providerId: string;
+  providerId?: string;
 }) => {
   const url = ENDPOINTS.performanceReview.summaryStats;
   return axios.get(url, {
@@ -123,26 +123,6 @@ export const getArchivedReviewsApi = ({
   });
 };
 
-export const getTeamReviewsApi = ({
-  limit,
-  offset,
-  requestedReviewCycle,
-}: {
-  limit: number;
-  offset: number;
-  requestedReviewCycle: any;
-}) => {
-  const url = ENDPOINTS.performanceReview.teamReviews;
-  return axios.get(url, {
-    withCredentials: true,
-    params: {
-      limit,
-      offset,
-      requested_review_cycle: requestedReviewCycle,
-    },
-  });
-};
-
 export const getRequestedReviewsApi = ({
   limit,
   offset,
@@ -200,203 +180,9 @@ export const submitReviewApi = ({ employeeId, reviewId }: { employeeId: string; 
   });
 };
 
-export const getReviewProvidersApi = ({ employeeId, reviewId }: { employeeId: string; reviewId: string }) => {
-  const url = ENDPOINTS.performanceReview.reviewProviders;
-  return axios.get(url, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-      emp_id: employeeId,
-    },
-  });
-};
-
-export const acknowledgeReviewApi = ({ providerId, reviewId }: { providerId: string; reviewId: string }) => {
-  const url = ENDPOINTS.performanceReview.acknowledge;
-  return axios.post(url, undefined, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-      provider_id: providerId,
-    },
-  });
-};
-
-export const getNominatedPeersApi = ({ reviewId, empId }: { reviewId: string; empId: string }) => {
-  const url = ENDPOINTS.performanceReview.nominatePeers;
-  return axios.get(url, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-      emp_id: empId,
-    },
-  });
-};
-
-export const getPeerPoolApi = ({ reviewId, empId }: { reviewId: string; empId: string }) => {
-  const url = ENDPOINTS.performanceReview.peerPoolDetails;
-  return axios.get(url, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-      emp_id: empId,
-    },
-  });
-};
-
-export const nominatePeerApi = ({
-  employees,
-  reviewId,
-  empId,
-}: {
-  employees: any;
-  reviewId: string;
-  empId: string;
-}) => {
-  const url = ENDPOINTS.performanceReview.nominatePeers;
-  return axios.put(url, employees, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-      emp_id: empId,
-    },
-  });
-};
-
-export const removeNominationApi = ({ employee, reviewId }: { employee: any; reviewId: string }) => {
-  const url = ENDPOINTS.performanceReview.nominatePeers;
-  return axios.delete(url, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-    },
-    data: employee,
-  });
-};
-
-export const acceptNominationApi = ({ employeeId, reviewId }: { employeeId: string; reviewId: string }) => {
-  const url = ENDPOINTS.performanceReview.acceptNomination;
-  return axios.post(url, undefined, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-      emp_id: employeeId,
-    },
-  });
-};
-
-export const rejectNominationApi = ({ employeeId, reviewId }: { employeeId: string; reviewId: string }) => {
-  const url = ENDPOINTS.performanceReview.rejectNomination;
-  return axios.post(url, undefined, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-      emp_id: employeeId,
-    },
-  });
-};
-
-export const getPeerStatusApi = () => {
-  const url = ENDPOINTS.performanceReview.peerStatus;
-  return axios.get(url, {
-    withCredentials: true,
-  });
-};
-
-export const getUpwardStatusApi = () => {
-  const url = ENDPOINTS.performanceReview.upwardStatus;
-  return axios.get(url, {
-    withCredentials: true,
-  });
-};
-
-export const getEmployeeCohortApi = ({ reviewId, body }: { reviewId: string; body: any }) => {
-  const url = ENDPOINTS.performanceReview.peerType;
-  return axios.post(url, body, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-    },
-  });
-};
-
 export const getActiveReviewsCountApi = () => {
   const url = ENDPOINTS.performanceReview.activeReviewsCount;
   return axios.get(url, {
     withCredentials: true,
-  });
-};
-
-export const getPastFeedbacksApi = ({
-  offset,
-  limit,
-  includeCount,
-  receiverEmployeeId,
-}: {
-  limit: number;
-  offset: number;
-  includeCount: boolean;
-  receiverEmployeeId: string;
-}) => {
-  const url = ENDPOINTS.performanceReview.pastFeedbacks;
-  return axios.get(url, {
-    withCredentials: true,
-    params: {
-      offset: offset,
-      limit: limit,
-      include_count: includeCount,
-      receiver_employee_id: receiverEmployeeId,
-    },
-  });
-};
-
-export const getReviewHelpDocumentsApi = ({ reviewId }: { reviewId: string }) => {
-  const url = ENDPOINTS.performanceReview.documents;
-  return axios.get(url, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-    },
-  });
-};
-
-export const getReviewHelpFAQsApi = ({ reviewId }: { reviewId: string }) => {
-  const url = ENDPOINTS.performanceReview.faqs;
-  return axios.get(url, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-    },
-  });
-};
-export const getReviewHelpTimelineApi = ({ reviewId }: { reviewId: string }) => {
-  const url = ENDPOINTS.performanceReview.timeline;
-  return axios.get(url, {
-    withCredentials: true,
-    params: {
-      review_id: reviewId,
-    },
-  });
-};
-
-export const publishReview = ({ reviewCycleId, empId }: { reviewCycleId: string; empId: string }) => {
-  const url = ENDPOINTS.performanceReview.publish;
-  return axios.put(url, undefined, {
-    withCredentials: true,
-    params: {
-      review_cycle_id: reviewCycleId,
-      receiver_employee_id: empId,
-    },
-  });
-};
-
-export const unPublishReview = ({ reviewCycleId, empId }: { reviewCycleId: string; empId: string }) => {
-  const url = ENDPOINTS.performanceReview.unpublish;
-  return axios.put(url, undefined, {
-    withCredentials: true,
-    params: {
-      review_cycle_id: reviewCycleId,
-      receiver_employee_id: empId,
-    },
   });
 };

@@ -19,6 +19,9 @@ import { ROUTES } from '@constants/routes';
 import { useRouter } from 'next/router';
 import { addNavBarCustomItem, removeNavBarCustomItem } from 'store/reduxFeatures/navBarCustomItem-slice';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
+import { ArrowLeft, ArrowRight } from '@assets/iconComponents';
+import { ThemeType } from '@themes/clients/baseTheme';
+import { useTheme } from '@emotion/react';
 
 export const REVIEW_STAGE_COMPONENT_MAP = {
   [REVIEW_FORMS_TYPE_MAP.GOAL]: {
@@ -68,7 +71,7 @@ export const REVIEW_STAGE_COMPONENT_MAP = {
 };
 
 export const ReviewProgressStages = ({ selectForm, selectedForm, reviewForms, showErrorMessage }) => (
-  <Grid container justify="center" alignItems="center">
+  <Grid justify="center" alignItems="center">
     {reviewForms.map((form, index) => {
       const { formName, status, unansweredQuestions } = form;
       const { id, title } = REVIEW_STAGE_COMPONENT_MAP[formName];
@@ -97,7 +100,6 @@ const FormFooter = ({
 }) => {
   const [confirmSubmission, setConfirmSubmission] = useState(false);
   const isFinalForm = selectedForm.formName === finalForm.formName;
-
   const selectedFormIndex = reviewForms.findIndex(({ formName }) => formName === selectedForm.formName);
   const prevFormName = selectedFormIndex < 1 ? '' : reviewForms[selectedFormIndex - 1].formName;
   const nextFormName = isFinalForm ? '' : reviewForms[selectedFormIndex + 1].formName;
@@ -114,23 +116,27 @@ const FormFooter = ({
       {isFinalForm && (
         <Box sx={{ px: 3, py: 1.5, mb: 1.5 }}>
           <Checkbox
-            label="I agree that I want to submit this form and will not be able to edit it later on"
-            checked={confirmSubmission}
-            handleChange={() => {
+            options={{
+              label: 'I agree that I want to submit this form and will not be able to edit it later on',
+              uid: '1',
+            }}
+            // doesn't matter as it is just toggle, keeping it to silence TS as per component api
+            value="val"
+            onChange={() => {
               setConfirmSubmission((prev) => !prev);
             }}
           />
         </Box>
       )}
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button onClick={handleBackClick} startIconName="arrowLeft">
+        <Button onClick={handleBackClick} StartIcon={ArrowLeft}>
           {prevButtonText}
         </Button>
 
         <Button
           onClick={handleSubmitClick}
           disabled={isSubmissionDisabled || sendingResponse}
-          endIconName={!isFinalForm ? 'arrowRight' : ''}
+          EndIcon={!isFinalForm ? ArrowRight : undefined}
         >
           {nextButtonText}
         </Button>
@@ -169,6 +175,7 @@ export const ReviewForm = ({
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [sendingResponse, setSendingResponse] = useState(false);
   const [selectedForm, setSelectedForm] = useState(reviewForms[0]);
+  const theme: ThemeType = useTheme();
 
   const selectForm = useCallback((form) => {
     setSelectedForm(form);
@@ -285,7 +292,7 @@ export const ReviewForm = ({
 
   return (
     <Box sx={{ display: 'flex', height: '100%', flexDirection: 'column' }}>
-      <Grid container sx={{ bgcolor: 'surfaces.g98', flexGrow: 1, overflowY: 'auto' }}>
+      <Grid bg={theme.colors.surfaces.g98} sx={{ flexGrow: 1, overflowY: 'auto' }}>
         {REVIEW_STAGE_COMPONENT_MAP[selectedForm.formName].component({
           employeeId,
           reviewId,

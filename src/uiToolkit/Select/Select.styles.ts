@@ -75,7 +75,9 @@ export const StyledReactSelect = styled(ReactSelect)`
   }
 `;
 
-export const StyledFormControl = styled(FormControl)`
+export const StyledFormControl = styled(FormControl, {
+  shouldForwardProp: (prop: string) => !['withBackground'].includes(prop),
+})`
   background: ${(props) =>
     props.withBackground ? props.theme.colors.formFields.bg : props.theme.colors.formFields.transparentBg};
   padding: 12px;

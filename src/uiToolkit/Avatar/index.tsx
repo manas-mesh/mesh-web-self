@@ -38,9 +38,17 @@ const AVATAR_SIZE: IAvatarSize = {
     height: '18px',
     width: '18px',
   },
+  smallMedium: {
+    height: '20px',
+    width: '20px',
+  },
   medium: {
     height: '32px',
     width: '32px',
+  },
+  mediumLarge: {
+    height: '36px',
+    width: '36px',
   },
   large: {
     height: '40px',
@@ -63,6 +71,7 @@ const Avatar = ({ size, src, showStarIcon = false, ...rest }: AvatarProps) => {
         src={src}
         alt="avatar"
         layout={'fixed'}
+        objectFit={'cover'}
         height={dimension.height}
         width={dimension.height}
         {...rest}

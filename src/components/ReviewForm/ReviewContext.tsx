@@ -31,9 +31,9 @@ export interface SelectedReviewInfoI {
 }
 
 export interface ReviewI {
-  competencyInfo: CompetencyInfoI;
-  peerFeedback: PeerFeedbackI;
-  selectedReviewInfo: SelectedReviewInfoI;
+  competencyInfo: CompetencyInfoI | {};
+  peerFeedback: PeerFeedbackI | {};
+  selectedReviewInfo: SelectedReviewInfoI | {};
 }
 
 // creating a context for easy prop passing.
@@ -98,7 +98,7 @@ const selectedReviewInfoActions = {
   CLEAR_SELECTED_REVIEW_DETAILS: 'CLEAR_SELECTED_REVIEW_DETAILS',
 };
 
-const competencyActionsReducer = (state: any, action: any) => {
+const competencyActionsReducer = (state: ReviewI, action: any) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -126,7 +126,7 @@ const competencyActionsReducer = (state: any, action: any) => {
   }
 };
 
-const PeerFeedbackActionsReducer = (state: any, action: any) => {
+const PeerFeedbackActionsReducer = (state: ReviewI, action: any) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -157,7 +157,7 @@ const PeerFeedbackActionsReducer = (state: any, action: any) => {
   }
 };
 
-const selectedReviewInfoActionsReducer = (state: any, action: any) => {
+const selectedReviewInfoActionsReducer = (state: ReviewI, action: any) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -210,12 +210,12 @@ const selectedReviewInfoActionsReducer = (state: any, action: any) => {
   }
 };
 
-const combinedReducer = (state: any, action: any) => {
+const combinedReducer = (state: ReviewI, action: any) => {
   const { type } = action;
 
-  if (PeerFeedbackActions[type]) {
+  if ((PeerFeedbackActions as any)[type]) {
     return PeerFeedbackActionsReducer(state, action);
-  } else if (competencyActions[type]) {
+  } else if ((competencyActions as any)[type]) {
     return competencyActionsReducer(state, action);
   } else {
     return selectedReviewInfoActionsReducer(state, action);
@@ -302,7 +302,7 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
-  const memoizedContextValue: ReviewI = useMemo(
+  const memoizedContextValue = useMemo(
     () => ({
       state: reviewState,
       showPeerFeedback,

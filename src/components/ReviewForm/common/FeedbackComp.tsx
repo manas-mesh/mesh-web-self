@@ -3,7 +3,7 @@ import Textarea from '@uiToolkit/Textarea';
 
 interface FeedbackCompI {
   feedbackText: string;
-  submitAnswer: () => void;
+  submitAnswer: (key: string, value: string) => void;
   loading: boolean;
   isSubmitted: boolean;
   enableFeedbackText: boolean;
@@ -13,8 +13,6 @@ interface FeedbackCompI {
   isSectionEditable: boolean;
   placeholder?: string;
   rows: number;
-  maxRows: number;
-  minRows: number;
 }
 
 export const FeedbackComp: React.FC<FeedbackCompI> = ({
@@ -29,22 +27,24 @@ export const FeedbackComp: React.FC<FeedbackCompI> = ({
   isSectionEditable = true,
   placeholder = null,
   rows,
-  maxRows,
-  minRows,
 }) => {
+  const labelText = 'Comments';
+
   if (!enableFeedbackText) return null;
+  const validationErrorText = isSubmitClicked && isTextRequired && !feedbackText ? `${labelText} (Required)` : '';
+
   return (
     <Textarea
       label="Comments"
-      disabled={isSubmitted || !isSectionEditable}
+      name="feedback-text-section"
+      isDisabled={isSubmitted || !isSectionEditable}
       defaultValue={feedbackText}
       placeholder={placeholder || `Please provide a basis for your assessment. If possible, with an example.`}
       onBlur={(e) => submitAnswer('feedbackText', e.target.value)}
       rows={rows}
-      maxRows={maxRows}
-      minRows={minRows}
       isRequired={isTextRequired}
-      enableValidation={isSubmitClicked}
+      error={validationErrorText}
+      // name={'comments-feedback'}
     />
   );
 };
