@@ -5,7 +5,7 @@ export interface PeerFeedbackI {
   competencyId: string | null;
   questionId: string | null;
   answerType: string | null;
-  answerOptions: any[] | null;
+  answerOptions: any[];
 }
 
 export interface SelectedReviewInfoI {
@@ -47,7 +47,7 @@ const initialReviewState = {
     competencyId: null,
     questionId: null,
     answerType: null,
-    answerOptions: null,
+    answerOptions: [],
   },
   /*
     selectedReviewInfo is used to store and retrieve info about a particular review 
@@ -78,7 +78,7 @@ const initialState: ReviewFormI = {
 };
 
 const reviewFormFilling = createSlice({
-  name: 'orgData',
+  name: 'reviewFormFilling',
   initialState,
   reducers: {
     showPeerFeedback(state, action) {
@@ -109,6 +109,9 @@ const reviewFormFilling = createSlice({
     setIsManagerView(state, action) {
       state.isManagerView = action.payload;
     },
+    resetReviewFormFilling(state) {
+      state = initialState;
+    },
   },
 });
 
@@ -120,6 +123,7 @@ export const {
   setIsSubmitClicked,
   setSelectedReviewSubmissionStatus,
   forceUpdate,
+  resetReviewFormFilling,
 } = reviewFormFilling.actions;
 
 export default reviewFormFilling.reducer;

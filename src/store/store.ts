@@ -3,6 +3,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import loggedInEmployeeReducer from './reduxFeatures/loggedInEmployee-slice';
+import navBarCustomItems from './reduxFeatures/navBarCustomItems-slice';
 import orgDataReducer from './reduxFeatures/orgData-slice';
 import reviewFormFillingReducer from './reduxFeatures/reviewFormFilling-slice';
 
@@ -10,6 +11,7 @@ const reducers = {
   loggedInEmployee: loggedInEmployeeReducer,
   orgData: orgDataReducer,
   reviewFormFilling: reviewFormFillingReducer,
+  navBarCustomItems: navBarCustomItems,
 };
 
 const store = configureStore({

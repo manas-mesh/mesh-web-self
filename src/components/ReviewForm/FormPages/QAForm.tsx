@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
@@ -51,13 +53,16 @@ const QAQuestion = ({ question, submitAnswer }) => {
     isManagerView,
     isSubmitClicked,
   } = useAppSelector((state) => state.reviewFormFilling, shallowEqual);
+  const dispatch = useAppDispatch();
 
   const onSelectQuestion = () => {
-    showPeerFeedback({
-      questionId: question.id,
-      answerType: question.answerType,
-      answerOptions: question.answerOptions,
-    });
+    dispatch(
+      showPeerFeedback({
+        questionId: question.id,
+        answerType: question.answerType,
+        answerOptions: question.answerOptions,
+      }),
+    );
   };
 
   return (
@@ -123,21 +128,23 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
       .then((questions) => {
         setQuestionList(questions.map((question) => ({ ...question, loading: false })));
         try {
-          showPeerFeedback({
-            questionId: questions[0].id,
-            answerType: questions[0].answerType,
-            answerOptions: questions[0].answerOptions,
-          });
+          dispatch(
+            showPeerFeedback({
+              questionId: questions[0].id,
+              answerType: questions[0].answerType,
+              answerOptions: questions[0].answerOptions,
+            }),
+          );
         } catch (e) {}
       })
       .catch((err) => {
         console.log(err);
-        // dispatch(showErrorSnackbar(err.message || 'Some Error Occured while fetching QA Form'));
+        // dispatch(showErrorSnackbar(err.message || 'Some Error occurred while fetching QA Form'));
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, employeeId, providerId, responseId, reviewId, showPeerFeedback]);
+  }, [employeeId, providerId, responseId, reviewId]);
 
   const answerQuestion = useCallback(
     ({ questionId, field, answer }) => {
@@ -192,7 +199,7 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
             return null;
           });
           // to update review fill stats: like how many are answered
-          forceUpdate();
+          dispatch(forceUpdate());
         })
         .catch((err) => {
           setQuestionList((questions) => {
@@ -210,11 +217,11 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
           });
 
           // dispatch(
-          //   showErrorSnackbar(err.message || 'Some Error Occured while fetching Behavior Form')
+          //   showErrorSnackbar(err.message || 'Some Error occurred while fetching Behavior Form')
           // );
         });
     },
-    [employeeId, forceUpdate, reviewId],
+    [employeeId, reviewId],
   );
 
   const showLoader = () => (

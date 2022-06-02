@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
@@ -34,7 +35,14 @@ R: result - describe what was achieved by the action and why it was effective.`,
   },
 ];
 
-const BehaviorQuestion = ({ tag, question, submitAnswer, employeeId }) => {
+interface BehaviorQuestionI {
+  tag: any;
+  question: any;
+  submitAnswer: (answerData: any) => void;
+  employeeId: string;
+}
+
+const BehaviorQuestion = ({ tag, question, submitAnswer, employeeId }: BehaviorQuestionI) => {
   const {
     id,
     answerOptions,
@@ -66,12 +74,14 @@ const BehaviorQuestion = ({ tag, question, submitAnswer, employeeId }) => {
   const onSelectQuestion = () => {
     if (peerFeedback.questionId && peerFeedback.questionId === question.id && peerFeedback.competencyId === tag.id)
       return;
-    showPeerFeedback({
-      competencyId: tag.id,
-      questionId: question.id,
-      answerType: question.answerType,
-      answerOptions: question.answerOptions,
-    });
+    dispatch(
+      showPeerFeedback({
+        competencyId: tag.id,
+        questionId: question.id,
+        answerType: question.answerType,
+        answerOptions: question.answerOptions,
+      }),
+    );
   };
 
   return (
@@ -183,23 +193,25 @@ export const BehaviorForm = ({ reviewId, employeeId, providerId, isSummaryView =
           })),
         );
         try {
-          showPeerFeedback({
-            competencyId: res[0].tag.id,
-            questionId: res[0].questions[0].id,
-            answerType: res[0].questions[0].answerType,
-            answerOptions: res[0].questions[0].answerOptions,
-          });
+          dispatch(
+            showPeerFeedback({
+              competencyId: res[0].tag.id,
+              questionId: res[0].questions[0].id,
+              answerType: res[0].questions[0].answerType,
+              answerOptions: res[0].questions[0].answerOptions,
+            }),
+          );
         } catch (e) {}
       })
       .catch((err) => {
         // dispatch(
-        //   showErrorSnackbar(err.message || 'Some Error Occured while fetching Behavior Form')
+        //   showErrorSnackbar(err.message || 'Some Error occurred while fetching Behavior Form')
         // );
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [employeeId, providerId, responseId, reviewId, showPeerFeedback]);
+  }, [employeeId, providerId, responseId, reviewId]);
 
   const answerQuestion = useCallback(
     ({ competencyId, questionId, field, answer }) => {
@@ -279,7 +291,7 @@ export const BehaviorForm = ({ reviewId, employeeId, providerId, isSummaryView =
             return null;
           });
           // to update review fill stats: like how many are answered
-          forceUpdate();
+          dispatch(forceUpdate());
         })
         .catch((err) => {
           setBehaviors((behaviors) => {
@@ -307,11 +319,11 @@ export const BehaviorForm = ({ reviewId, employeeId, providerId, isSummaryView =
             return null;
           });
           // dispatch(
-          //   showErrorSnackbar(err.message || 'Some Error Occured while fetching Behavior Form')
+          //   showErrorSnackbar(err.message || 'Some Error occurred while fetching Behavior Form')
           // );
         });
     },
-    [employeeId, forceUpdate, reviewId],
+    [employeeId, reviewId],
   );
 
   const showLoader = () => (

@@ -184,11 +184,11 @@ export const getPeerFeedback = ({
   reviewId,
   employeeId,
 }: {
-  reviewId: string;
-  employeeId: string;
-  goalId: string;
-  competencyId: string;
-  questionId: string;
+  reviewId: string | null;
+  employeeId: string | null;
+  goalId: string | null;
+  competencyId: string | null;
+  questionId: string | null;
 }) =>
   getPeerFeedbackApi({
     goalId,

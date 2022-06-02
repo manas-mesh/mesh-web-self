@@ -6,8 +6,8 @@ interface NavBarCustomItem {
 
 const initialState: NavBarCustomItem = {};
 
-const navBarCustomItem = createSlice({
-  name: 'loggedInEmployee',
+const navBarCustomItems = createSlice({
+  name: 'navBarCustomItems',
   initialState,
   reducers: {
     addNavBarCustomItem(state, action) {
@@ -26,5 +26,5 @@ const navBarCustomItem = createSlice({
   },
 });
 
-export const { addNavBarCustomItem, removeNavBarCustomItem, clearAllNavBarCustomItem } = navBarCustomItem.actions;
-export default navBarCustomItem.reducer;
+export const { addNavBarCustomItem, removeNavBarCustomItem, clearAllNavBarCustomItem } = navBarCustomItems.actions;
+export default navBarCustomItems.reducer;

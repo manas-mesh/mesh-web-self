@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box } from '@chakra-ui/react';
 import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
 import { ReviewForm } from 'components/ReviewForm/FormPages';
@@ -12,7 +13,11 @@ import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { useTheme } from '@emotion/react';
-import { setIsManagerView, setSelectedReviewDetails } from 'store/reduxFeatures/reviewFormFilling-slice';
+import {
+  resetReviewFormFilling,
+  setIsManagerView,
+  setSelectedReviewDetails,
+} from 'store/reduxFeatures/reviewFormFilling-slice';
 // import { showErrorSnackbar } from 'services/snackbar';
 
 const ReviewFormPage: React.FC = () => {
@@ -32,12 +37,8 @@ const ReviewFormPage: React.FC = () => {
     isSectionEditable: true,
   }));
   const { isLoading, isIdle, run } = useAsync();
-  const dispatch = useAppDispatch();
   const theme: ThemeType = useTheme();
-
-  const {
-    reviewState: { selectedReviewInfo },
-  } = useAppSelector((state) => state.reviewFormFilling);
+  const dispatch = useAppDispatch();
 
   const fetchData = useCallback(
     () =>
@@ -52,7 +53,7 @@ const ReviewFormPage: React.FC = () => {
             isShowGoalRating: res.isShowGoalRating,
             isSectionEditable: res.isGoalSectionEditable,
           });
-          const statObject = {
+          const statObject: any = {
             startDate: res.startDate,
             endDate: res.endDate,
             goalSummaryStats: res.goalSummaryStats,
@@ -66,31 +67,34 @@ const ReviewFormPage: React.FC = () => {
             oneOnOneAccordionStats: res.oneOnOneAccordionStats,
           };
           setStats(statObject);
-          setSelectedReviewDetails({
-            reviewId,
-            employeeId,
-            submissionStatus: res.review.submissionStatus,
-            reviewProviderType: res.review.providerType,
-            reviewStage: res.review.feedbackForm.currentStage,
-            isPublished: res.review.isPublished,
-            reviewName: res.review.feedbackForm.name,
-            providerEmployeeId: res.review.providerEmployeeId,
-            employeeName: res.employee.displayName,
-            reviewCycleName: res.review.feedbackForm.reviewCycle ? res.review.feedbackForm.reviewCycle.name : '',
-            isShowRatingPanel: res?.isShowRatingPanel,
-          });
+          dispatch(
+            setSelectedReviewDetails({
+              reviewId,
+              employeeId,
+              submissionStatus: res.review.submissionStatus,
+              reviewProviderType: res.review.providerType,
+              reviewStage: res.review.feedbackForm.currentStage,
+              isPublished: res.review.isPublished,
+              reviewName: res.review.feedbackForm.name,
+              providerEmployeeId: res.review.providerEmployeeId,
+              employeeName: res.employee.displayName,
+              reviewCycleName: res.review.feedbackForm.reviewCycle ? res.review.feedbackForm.reviewCycle.name : '',
+              isShowRatingPanel: res?.isShowRatingPanel,
+            }),
+          );
           setReviewForms(res.reviewForms);
-          setIsManagerView(res.isSidebarEnabled);
+          dispatch(setIsManagerView(res.isSidebarEnabled));
         })
         .catch((err: Error) => {
           //   dispatch(showErrorSnackbar(err.message || 'stats fetch request failed'));
         }),
-    [dispatch, employeeId, providerId, reviewId, setIsManagerView, setSelectedReviewDetails],
+    [dispatch, employeeId, providerId, reviewId],
   );
 
   useEffect(() => {
     run(fetchData());
-  }, [fetchData, run]);
+    return () => dispatch(resetReviewFormFilling());
+  }, [dispatch, fetchData, run]);
 
   return (
     <Box bg={theme.colors.surfaces.g92} sx={{ height: '100%' }}>

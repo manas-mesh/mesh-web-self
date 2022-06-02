@@ -102,6 +102,7 @@ const GoalQuestion = ({
   const router = useRouter();
   const { pathname, query } = router;
   const { employeeId } = router.query;
+  const dispatch = useAppDispatch();
 
   const goToTaskDetails = (e: any, { taskId, type }: any) => {
     e.stopPropagation();
@@ -135,12 +136,14 @@ const GoalQuestion = ({
 
   const onSelectQuestion = () => {
     if (peerFeedback.questionId && peerFeedback.questionId === id && (!goal || peerFeedback.goalId === goal.id)) return;
-    showPeerFeedback({
-      goalId: goal ? goal.id : null,
-      questionId: id,
-      answerType: answerType,
-      answerOptions: answerOptions,
-    });
+    dispatch(
+      showPeerFeedback({
+        goalId: goal ? goal.id : null,
+        questionId: id,
+        answerType: answerType,
+        answerOptions: answerOptions,
+      }),
+    );
   };
 
   return (
@@ -224,6 +227,7 @@ export const GoalForm = ({
   const [goalRating, setGoalRating] = useState(null);
   const isManagerView = useAppSelector((state) => state.reviewFormFilling.isManagerView, shallowEqual);
   const theme: ThemeType = useTheme();
+  const dispatch = useAppDispatch();
 
   // const dispatch = useAppDispatch();
 
@@ -251,12 +255,14 @@ export const GoalForm = ({
           res.goalQuestions.filter((r) => r.goal).length === 0 ? VIEW_TYPES.questionsView : VIEW_TYPES.goalsView,
         );
         try {
-          showPeerFeedback({
-            goalId: res.goalQuestions[0].goal.id,
-            questionId: res.goalQuestions[0].questions[0].id,
-            answerType: res.goalQuestions[0].questions[0].answerType,
-            answerOptions: res.goalQuestions[0].questions[0].answerOptions,
-          });
+          dispatch(
+            showPeerFeedback({
+              goalId: res.goalQuestions[0].goal.id,
+              questionId: res.goalQuestions[0].questions[0].id,
+              answerType: res.goalQuestions[0].questions[0].answerType,
+              answerOptions: res.goalQuestions[0].questions[0].answerOptions,
+            }),
+          );
         } catch (e) {}
       })
       .catch((err) => {
@@ -265,7 +271,7 @@ export const GoalForm = ({
       .finally(() => {
         setLoading(false);
       });
-  }, [employeeId, providerId, responseId, reviewId, showPeerFeedback]);
+  }, [dispatch, employeeId, providerId, responseId, reviewId]);
 
   const answerQuestion = useCallback(
     ({ goalId, questionId, field, answer }) => {
@@ -347,7 +353,7 @@ export const GoalForm = ({
             return null;
           });
           // to update review fill stats: like how many are answered
-          forceUpdate();
+          dispatch(forceUpdate());
         })
         .catch((err) => {
           setGoals((goals) => {
@@ -376,7 +382,7 @@ export const GoalForm = ({
           // dispatch(showErrorSnackbar(err.message || 'Some Error ocurred while fetching Goal Form'));
         });
     },
-    [employeeId, forceUpdate, reviewId],
+    [dispatch, employeeId, reviewId],
   );
 
   const showLoader = () => (

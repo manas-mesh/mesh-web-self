@@ -24,7 +24,7 @@ interface PeerFeedbackDisplayCardI {
   employee: any;
   feedbackText: string;
   selectedAnswerOptions: any[];
-  answerType: string;
+  answerType: string | null;
   providerType: string;
   isLastItem: boolean;
   answerOptions: any[];
@@ -84,7 +84,7 @@ const RatingComponent = ({
   answerOptions,
 }: {
   selectedAnswerOptions: any[];
-  answerType: string;
+  answerType: string | null;
   answerOptions: any[];
 }) => {
   const getAnswerComponent = () => {
@@ -128,7 +128,7 @@ const RatingComponent = ({
   return <>{selectedAnswerOptions && selectedAnswerOptions.length ? getAnswerComponent() : null}</>;
 };
 
-const FeedbackComponent = ({ feedbackText, answerType }: { feedbackText: string; answerType: string }) => (
+const FeedbackComponent = ({ feedbackText, answerType }: { feedbackText: string; answerType: string | null }) => (
   <>
     {feedbackText && feedbackText.length ? (
       <Box>

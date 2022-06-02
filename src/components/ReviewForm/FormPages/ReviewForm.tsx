@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Grid } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react';
 import { CUSTOM_NAV_BAR_COMP_KEYS } from 'layouts/NavBarLayout/NavBarCustomFeatureItems';
@@ -16,7 +17,7 @@ import { QAForm } from './QAForm';
 import { REVIEW_FORMS_TYPE_MAP } from '@constants/reviewConstants';
 import { ROUTES } from '@constants/routes';
 import { useRouter } from 'next/router';
-import { addNavBarCustomItem, removeNavBarCustomItem } from 'store/reduxFeatures/navBarCustomItem-slice';
+import { addNavBarCustomItem, removeNavBarCustomItem } from 'store/reduxFeatures/navBarCustomItems-slice';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ArrowLeft, ArrowRight } from '@assets/iconComponents';
 import { ThemeType } from '@themes/clients/baseTheme';
@@ -156,8 +157,6 @@ export const ReviewForm = ({
   availableReviewForms,
   isShowGoalWeightage,
   isShowGoalRating,
-  autoNavigate,
-  setAutoNavigate,
   isSectionEditable,
 }) => {
   const dispatch = useAppDispatch();
@@ -215,14 +214,16 @@ export const ReviewForm = ({
         const { reviewForms, review, message } = res;
         if (review.submissionStatus === 'SUBMITTED') {
           // dispatch(showSuccessSnackbar(message, 2000));
-          setSelectedReviewSubmissionStatus({
-            submissionStatus: 'SUBMITTED',
-          });
+          dispatch(
+            setSelectedReviewSubmissionStatus({
+              submissionStatus: 'SUBMITTED',
+            }),
+          );
         } else {
           setReviewForms(reviewForms);
-          forceUpdate();
+          dispatch(forceUpdate());
           setShowErrorMessage(true);
-          setIsSubmitClicked(true);
+          dispatch(setIsSubmitClicked(true));
           throw new Error(message);
         }
       })
@@ -236,8 +237,8 @@ export const ReviewForm = ({
   };
 
   useEffect(() => {
-    setIsSubmitClicked(false);
-  }, [reviewId, setIsSubmitClicked]);
+    dispatch(setIsSubmitClicked(false));
+  }, [dispatch, reviewId]);
 
   useEffect(() => {
     setShowErrorMessage(false);
@@ -253,11 +254,11 @@ export const ReviewForm = ({
         console.log('Some error occurred while fetching updated state of reviewForms');
         console.log(err);
       });
-  }, [clearPeerFeedback, employeeId, reviewId, selectedForm, forceUpdateValue]);
+  }, [employeeId, reviewId, selectedForm, forceUpdateValue]);
 
   useEffect(() => {
-    clearPeerFeedback();
-  }, [clearPeerFeedback, employeeId, reviewId, selectedForm]);
+    dispatch(clearPeerFeedback());
+  }, [dispatch, employeeId, reviewId, selectedForm]);
 
   const handleBackClick = () => {
     const currentFormIndex = reviewForms.map((form) => form.formName).indexOf(selectedForm.formName);

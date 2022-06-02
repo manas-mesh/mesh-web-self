@@ -150,11 +150,11 @@ export const getPeerFeedbackApi = ({
   employeeId,
   reviewId,
 }: {
-  goalId: string;
-  competencyId: string;
-  questionId: string;
-  employeeId: string;
-  reviewId: string;
+  goalId: string | null;
+  competencyId: string | null;
+  questionId: string | null;
+  employeeId: string | null;
+  reviewId: string | null;
 }) => {
   const url = ENDPOINTS.performanceReview.peerFeedback;
   return axios.get(url, {
