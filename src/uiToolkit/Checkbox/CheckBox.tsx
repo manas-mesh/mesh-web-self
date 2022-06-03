@@ -4,9 +4,10 @@ import { TextLabelLarge } from '@uiToolkit/Typography';
 import { ThemeType } from '@themes/clients/baseTheme';
 
 interface ICheckbox {
-  onChange?: () => void;
-  value?: any;
-  options?: any;
+  onChange: (value: string) => void;
+  value: string;
+  options: any;
+  doNotShowLabel?: boolean;
 }
 
 const StyledLabel = styled.label`
@@ -61,21 +62,23 @@ const Input = styled.input<InputTypes>`
   }
 `;
 
-export const Checkbox = ({ options, onChange }: ICheckbox) => {
-  const [val, setVal] = React.useState('');
-
+export const Checkbox = ({ options, onChange, value, doNotShowLabel = false }: ICheckbox) => {
   const handleOnChange = (e: any) => {
-    console.log(e.target.value, 'ass');
-    setVal(e.target.value);
     if (onChange) {
-      onChange();
+      onChange(e.target.value);
+    }
+  };
+
+  const renderLabel = (): JSX.Element | undefined => {
+    if (!doNotShowLabel) {
+      return <StyledLabel htmlFor={options.uid}>{options.label}</StyledLabel>;
     }
   };
 
   return (
     <Wrapper>
-      <Input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onChange={handleOnChange} />
-      <StyledLabel htmlFor="vehicle1"> I have a bike</StyledLabel>
+      <Input type="checkbox" id={options.uid} value={value} onChange={handleOnChange} />
+      {renderLabel()}
     </Wrapper>
   );
 };
