@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { noOp } from '@constants/common';
 import React from 'react';
 import { AppLayoutDummyWrapper } from 'uiToolkit/AppLayoutDummyWrapper';
 import { Button } from 'uiToolkit/Button';
@@ -14,11 +15,7 @@ const ExpandableContainer = {
 export default ExpandableContainer;
 
 const DemoInnerComp = () => {
-  const {
-    isExpanded = false,
-    onExpandClick = () => {},
-    onShrinkClick,
-  }: ExpandableContainerI = useExpandableContainer();
+  const { isExpanded = false, onExpandClick = noOp, onShrinkClick }: ExpandableContainerI = useExpandableContainer();
   const heading = "Hello , the container is '" + (isExpanded ? "Expanded'" : "Not Expanded'");
   return (
     <Box bg="burlywood" p={2}>

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { SliderTrack, SliderFilledTrack, SliderThumb, Box, Slider } from '@chakra-ui/react';
 import { ThemeType } from '@themes/clients/baseTheme';
-import { Textarea } from '@uiToolkit/Textarea';
+import Textarea from '@uiToolkit/Textarea';
 
 export const Wrapper = styled(Box)`
   display: flex;

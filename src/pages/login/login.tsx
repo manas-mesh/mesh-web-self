@@ -15,7 +15,7 @@ import { useTheme } from '@emotion/react';
 import Input from '@uiToolkit/Input';
 import { TextLink } from '@uiToolkit/TextLink';
 import { Divider } from '@uiToolkit/commonComps';
-import { BREAKPOINTS } from '@constants/mediaQueries';
+import { BREAKPOINTS } from 'constants/mediaQueries';
 import Image from 'next/image';
 
 const containerCSS = {
@@ -81,8 +81,7 @@ const RightFormView = ({
       })
       .catch((err: Error) => {
         setLoading(false);
-      })
-      .finally(() => {});
+      });
   }, [invitationId, orgName]);
 
   useEffect(() => {

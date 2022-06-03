@@ -1,4 +1,4 @@
-import { ROUTES } from '@constants/routes';
+import { ROUTES } from 'constants/routes';
 import { match as matchPath } from 'node-match-path';
 
 export function getTeamMatch(path: string) {
