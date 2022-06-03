@@ -9,8 +9,9 @@ import {
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { TextBodyLargeBold } from '@uiToolkit/Typography/Typography';
-import { FAQ_URL, SUPPORT_EMAIL } from '@constants/projectConstants';
+import { FAQ_URL, SUPPORT_EMAIL } from 'constants/projectConstants';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { noOp } from 'constants/common';
 
 interface Props {
   children: ReactNode;
@@ -37,7 +38,7 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       //render fallback UI
       return (
-        <StyledDialog closeOnEsc={false} aria-labelledby="simple-dialog-title" isOpen={true} onClose={() => {}}>
+        <StyledDialog closeOnEsc={false} aria-labelledby="simple-dialog-title" isOpen={true} onClose={noOp}>
           <DialogContainer>
             <div>
               <TextBodyLargeBold>For some reason, Mesh couldn’t process 😢</TextBodyLargeBold>

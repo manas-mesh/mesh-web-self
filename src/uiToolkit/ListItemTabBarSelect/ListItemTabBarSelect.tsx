@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { ThemeType } from '@themes/clients/baseTheme';
-import Listitem from '@uiToolkit/Listitem';
+import { Listitem } from '@uiToolkit/Listitem';
 import React, { FC, useState } from 'react';
 
 const Wrapper = styled(Box)(({ theme }: { theme?: ThemeType }) => ({
@@ -29,7 +29,6 @@ export interface ListItemTabBarSelectProps {
 }
 
 export const ListItemTabBarSelect: FC<ListItemTabBarSelectProps> = ({ onChange, value, style, items, itemStyle }) => {
-  const a = 12;
   const defaultItemStyle: React.CSSProperties = {
     minWidth: '176px',
     marginBottom: '0px',

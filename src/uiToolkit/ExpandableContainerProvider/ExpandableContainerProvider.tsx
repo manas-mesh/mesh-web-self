@@ -5,6 +5,7 @@ import { createContext, FC, ReactNode, useCallback, useContext, useRef, useState
 import { Button } from 'uiToolkit/Button';
 import { BUTTON_SIZE } from '@uiToolkit/Button/Button';
 import { Minimize } from '@assets/iconComponents';
+import { noOp } from 'constants/common';
 
 export interface ExpandableContainerI {
   isExpanded: boolean;
@@ -14,8 +15,8 @@ export interface ExpandableContainerI {
 
 const initialContextValue = {
   isExpanded: false,
-  onExpandClick: () => {},
-  onShrinkClick: () => {},
+  onExpandClick: noOp,
+  onShrinkClick: noOp,
 };
 
 const ExpandableContainerContext = createContext<ExpandableContainerI>(initialContextValue);
