@@ -17,7 +17,7 @@ export enum FONT_SIZE_VARIANTS {
 export enum FONT_WEIGHT_VARIANTS {
   light = 'light',
   regular = 'regular',
-  bold = 'bold',
+  medium = 'medium',
 }
 
 export type ThemeType = typeof baseTheme;
