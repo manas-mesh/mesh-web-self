@@ -3,10 +3,10 @@ import React from 'react';
 
 import Avatar from '@uiToolkit/Avatar';
 import { ArrowDropDown } from '@assets/iconComponents';
-import { Listitem } from './ListItem';
+import { Listitem } from './Listitem';
 
 const ListItemStory = {
-  title: 'Core Components/ListItem',
+  title: 'Core Components/Listitem',
   component: Listitem,
 };
 

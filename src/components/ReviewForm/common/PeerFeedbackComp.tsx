@@ -58,8 +58,8 @@ const PeerFeedbackDisplayCard: React.FC<PeerFeedbackDisplayCardI> = ({
   );
 };
 
-// BaseListItem should have been used here as per mock but, the already created ListItem does not handle all cases yet
-// could be swapped back after the BaseListItem and ListItem is properly done
+// BaseListItem should have been used here as per mock but, the already created Listitem does not handle all cases yet
+// could be swapped back after the BaseListItem and Listitem is properly done
 const FeedbackHeader = ({ employee, providerType }: { employee: any; providerType: string }) => {
   const { displayName, designation, profilePhotoSrc } = employee;
   return (
