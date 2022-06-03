@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import { CheckInPopover, CheckInPopoverProps } from './CheckInPopover';
 import React, { useRef } from 'react';
 import { Box, useOutsideClick } from '@chakra-ui/react';
-import { GOAL_CLOSED_OPTIONS, GOAL_IN_PROGRESS_OPTIONS } from '@constants/projectConstants';
+import { GOAL_CLOSED_OPTIONS, GOAL_IN_PROGRESS_OPTIONS } from 'constants/projectConstants';
 import styled from '@emotion/styled';
 
 export type goalStatusProps = {

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import {
   AchievedWrapper,
   AddNoteWrapper,
@@ -6,18 +6,16 @@ import {
   FooterWrapper,
   Header,
   HelperTextWrapper,
-  LeftSegment,
-  RightSegment,
   Wrapper,
 } from './CheckInPopover.styles';
 import { TextBodySmall, TextTitleMedium, TextTitleSmall } from '@uiToolkit/Typography';
 import Textarea from '@uiToolkit/Textarea';
 import { Button } from '@uiToolkit/Button';
 import { BUTTON_SIZE, BUTTON_VARIANT } from '@uiToolkit/Button/Button';
-import { commonInputHandler } from '@utils/commonEventHandler';
-import { isValidNumberRegExp } from '@constants/index';
+import { isValidNumberRegExp, noOp } from '@constants/common';
 import Select from '@uiToolkit/Select/Select';
 import { goalStatusProps } from './ProgressCheckInPopover';
+import { Box } from '@chakra-ui/react';
 
 //checkin popover props
 export interface CheckInPopoverProps {
@@ -39,12 +37,12 @@ export interface CheckInPopoverProps {
 //header content
 const HeaderWrapper = ({ percentageCompleted }: { percentageCompleted: number }) => (
   <Header>
-    <LeftSegment>
-      <TextTitleSmall fontWeight={500}>New Check In</TextTitleSmall>
-    </LeftSegment>
-    <RightSegment>
-      <TextTitleMedium fontWeight={500}>{percentageCompleted}%</TextTitleMedium>
-    </RightSegment>
+    <Box p={2}>
+      <TextTitleSmall>New Check In</TextTitleSmall>
+    </Box>
+    <Box p={2}>
+      <TextTitleMedium>{percentageCompleted}%</TextTitleMedium>
+    </Box>
   </Header>
 );
 
@@ -67,7 +65,7 @@ const AchievedSectionWrapper = ({
   handleGoalSelect,
 }: achievedSectionProps) => (
   <AchievedWrapper alignItems={'center'}>
-    <LeftSegment style={{ padding: 0 }} onBlur={handleAchievedInputBlur}>
+    <Box onBlur={handleAchievedInputBlur}>
       <Textarea
         label="Achieved"
         type="number"
@@ -77,8 +75,8 @@ const AchievedSectionWrapper = ({
         rows={1}
         handleChange={achievedTextInputHandler}
       />
-    </LeftSegment>
-    <RightSegment style={{ padding: 0, flex: 1 }}>
+    </Box>
+    <Box p={2} style={{ padding: 0, flex: 1 }}>
       <Select
         label="Status"
         handleChange={(e) => handleGoalSelect(e)}
@@ -87,7 +85,7 @@ const AchievedSectionWrapper = ({
         withBackground={false}
         name="goal-status-select"
       />
-    </RightSegment>
+    </Box>
   </AchievedWrapper>
 );
 
@@ -98,8 +96,8 @@ export const CheckInPopover: FC<CheckInPopoverProps> = ({
   onCancel,
   achievedValue = '',
   percentageCompleted,
-  achievedInputHandler,
-  achievedInputOnBlur,
+  achievedInputHandler = noOp,
+  achievedInputOnBlur = noOp,
   selectedGoalStatus,
   goalStatuses = [],
   handleGoalSelect,
@@ -107,26 +105,17 @@ export const CheckInPopover: FC<CheckInPopoverProps> = ({
   addANote,
   onChangeAddANote,
 }) => {
-  //onCancel handler
-  const onCancelHandler = (): void => {
-    commonInputHandler(onCancel);
-  };
-
   //textarea handler
   const achievedTextInputHandler = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     if (e.target.value.match(isValidNumberRegExp)) {
-      commonInputHandler(achievedInputHandler, [e.target.value]);
+      achievedInputHandler(e.target.value);
     }
   };
 
   //onBlur handler
   const handleAchievedInputBlur = (): void => {
     const convertedNumber = Math.round((parseFloat(achievedValue) + Number.EPSILON) * 100) / 100;
-    commonInputHandler(achievedInputOnBlur, [convertedNumber]);
-  };
-  //onclick checkin button handler
-  const onCheckInHandler = (): void => {
-    commonInputHandler(onCheckIn);
+    achievedInputOnBlur(convertedNumber);
   };
 
   return (
@@ -157,16 +146,10 @@ export const CheckInPopover: FC<CheckInPopoverProps> = ({
           <TextBodySmall>You can increase progress to {'"100%"'} &#8226; Expected:100%</TextBodySmall>
         </HelperTextWrapper>
         <FooterWrapper>
-          <Button
-            mr={'12px'}
-            onClick={onCancelHandler}
-            fontWeight={500}
-            size={BUTTON_SIZE.large}
-            variant={BUTTON_VARIANT.outlined}
-          >
+          <Button mr={'12px'} onClick={onCancel} size={BUTTON_SIZE.large} variant={BUTTON_VARIANT.outlined}>
             Cancel
           </Button>
-          <Button onClick={onCheckInHandler} size={BUTTON_SIZE.large} variant={BUTTON_VARIANT.solid}>
+          <Button onClick={onCheckIn} size={BUTTON_SIZE.large} variant={BUTTON_VARIANT.solid}>
             Checkin
           </Button>
         </FooterWrapper>

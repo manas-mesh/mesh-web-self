@@ -6,6 +6,7 @@ import { useAppDispatch } from '@hooks/reduxHooks';
 import { updateLoggedInEmployee } from 'store/reduxFeatures/loggedInEmployee-slice';
 import { addOrgData } from 'store/reduxFeatures/orgData-slice';
 import { AxiosError } from 'axios';
+import { noOp } from '@constants/common';
 
 export interface AuthI {
   isAuthenticated: boolean | null;
@@ -14,8 +15,8 @@ export interface AuthI {
 }
 const initialContextValue = {
   isAuthenticated: false,
-  onLogin: () => {},
-  onLogout: () => {},
+  onLogin: noOp,
+  onLogout: noOp,
 };
 const AuthContext = createContext<AuthI>(initialContextValue);
 

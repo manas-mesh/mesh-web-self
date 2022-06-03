@@ -10,10 +10,9 @@ import {
 } from './Slider.styles';
 import { SliderThumbIcon } from '@iconComponents';
 import { TextareaProps } from '@uiToolkit/Textarea/Textarea';
-import { isValidNumberRegExp } from '@constants/index';
+import { isValidNumberRegExp, noOp } from '@constants/common';
 import { useTheme } from '@emotion/react';
 import { ThemeType } from '@themes/clients/baseTheme';
-import { commonInputHandler } from '@utils/commonEventHandler';
 
 //slider proptype
 export interface SliderProps {
@@ -46,8 +45,8 @@ const Slider: React.FC<SliderProps> = ({
   onChange,
   onChangeStart,
   onChangeEnd,
-  onChangeTextField,
-  onBlurTextField,
+  onChangeTextField = noOp,
+  onBlurTextField = noOp,
 }) => {
   const theme: ThemeType = useTheme();
 
@@ -72,30 +71,16 @@ const Slider: React.FC<SliderProps> = ({
     handleChange: (e) => {
       //only allow digits
       if (e.target.value.match(isValidNumberRegExp)) {
-        commonInputHandler(onChangeTextField, [e.target.value]);
+        onChangeTextField(e.target.value);
       }
     },
     withBackground: false,
     rows: 1,
   };
 
-  //slider onChangeStart event handler
-  const onChangeStartHandler = (e: number): void => {
-    commonInputHandler(onChangeStart, [e]);
-  };
-  //slider onChange event handler
-  const onChangeHandler = (e: number): void => {
-    commonInputHandler(onChange, [e]);
-  };
-
-  //slider onChangeEnd event handler
-  const onChangeEndHandler = (e: number): void => {
-    commonInputHandler(onChangeEnd, [e]);
-  };
-
   //textarea onBlur event handler
   const handleInputBlur = (): void => {
-    commonInputHandler(onBlurTextField, [max, min, Number.MAX_SAFE_INTEGER]);
+    onBlurTextField(max, min, Number.MAX_SAFE_INTEGER);
   };
 
   //slider track render
@@ -133,9 +118,9 @@ const Slider: React.FC<SliderProps> = ({
           min={min}
           max={max}
           step={step}
-          onChangeStart={onChangeStartHandler}
-          onChange={onChangeHandler}
-          onChangeEnd={onChangeEndHandler}
+          onChangeStart={onChangeStart}
+          onChange={onChange}
+          onChangeEnd={onChangeEnd}
           value={value}
           isDisabled={isDisabled}
           focusThumbOnChange={false}
