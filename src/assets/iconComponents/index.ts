@@ -4,4 +4,10 @@ export { Test } from './Test';
 export { Minimize } from './Minimize';
 export { SliderThumbIcon } from './SliderThumbIcon';
 export { Close } from './Close';
+export { TableSort } from './TableSort';
+export { ExpandMore } from './ExpandMore';
+export { ExpandLess } from './ExpandLess';
+export { Tick } from './Tick';
+export { EmptyStar } from './EmptyStar'
+export { FilledStar } from './FilledStar'
 export { ArrowDropDown } from './ArrowDropDown';

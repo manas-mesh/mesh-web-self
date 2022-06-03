@@ -10,12 +10,17 @@ const Wrapper = styled(Box)`
   position: relative;
 `;
 
-const StyledNextImage = styled(Image)`
+type ImageProps = {
+  isBordered?: boolean;
+};
+
+const StyledNextImage = styled(Image)<ImageProps>`
   user-drag: none;
   user-select: none;
   border-radius: 4px;
-  border: 1px solid #f0b51e !important;
+  border: 1px solid ${({ isBordered }) => (isBordered ? '#f0b51e' : 'unset')}; !important;
   box-sizing: border-box !important;
+  object-fit: cover;
 `;
 
 export interface AvatarProps {
@@ -65,6 +70,7 @@ const Avatar = ({ size, src, showStarIcon = false, ...rest }: AvatarProps) => {
         layout={'fixed'}
         height={dimension.height}
         width={dimension.height}
+        isBordered={showStarIcon}
         {...rest}
       />
       {showStarIcon && renderOwnerMark()}
