@@ -1,5 +1,9 @@
+// Libraries
 import styled from '@emotion/styled';
 import { Thead, Tbody, Tr, Th, Td, Box } from '@chakra-ui/react';
+
+// UIKit
+import { Button } from '@uiToolkit/Button';
 
 export const TableWrapper = styled(Box)`
   background: ${(props) => props.theme.colors.surfaces.g94};
@@ -52,4 +56,8 @@ export const StyledTd = styled(Td)`
 
 export const SortOption = styled.span`
   margin-left: 8px;
+`;
+
+export const StyledButton = styled(Button)`
+  margin-top: 24px;
 `;

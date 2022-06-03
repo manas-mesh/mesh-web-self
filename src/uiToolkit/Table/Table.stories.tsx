@@ -9,41 +9,56 @@ const TableStory = {
   component: Table,
 };
 
+const mockData = [
+  {
+    firstname: 'John',
+    lastname: 'Doe',
+    height: 180,
+  },
+  {
+    firstname: 'Jane',
+    lastname: 'Doe',
+    height: 173,
+  },
+  {
+    firstname: 'Richard',
+    lastname: 'Roe',
+    height: 175,
+  },
+  {
+    firstname: 'Jane',
+    lastname: 'Smith',
+    height: 185,
+  },
+  {
+    firstname: 'Richard',
+    lastname: 'Smith',
+    height: 165,
+  },
+];
+
 const TableTemplate: Story<TableProps> = (args) => {
-  const data = useMemo(
-    () => [
-      {
-        fromUnit: 'inches',
-        toUnit: 'millimetres (mm)',
-        factor: 25.4,
-      },
-      {
-        fromUnit: 'feet',
-        toUnit: 'centimetres (cm)',
-        factor: 30.48,
-      },
-      {
-        fromUnit: 'yards',
-        toUnit: 'metres (m)',
-        factor: 0.91444,
-      },
-    ],
-    [],
-  );
+  let tableData = mockData;
+
+  if (args.infiniteLoading) {
+    tableData = [...mockData, ...mockData, ...mockData, ...mockData, ...mockData, ...mockData, ...mockData];
+  }
+
+  const data = useMemo(() => tableData, [tableData]);
 
   const columns = useMemo(
     () => [
       {
-        Header: 'To convert',
-        accessor: 'fromUnit',
+        Header: 'Firstname',
+        accessor: 'firstname',
       },
       {
-        Header: 'Into',
-        accessor: 'toUnit',
+        Header: 'Lastname',
+        accessor: 'lastname',
       },
       {
-        Header: 'Multiply by',
-        accessor: 'factor',
+        Header: 'Height',
+        accessor: 'height',
       },
     ],
     [],
@@ -58,6 +73,18 @@ Basic.args = {};
 export const WithSorting = TableTemplate.bind({});
 WithSorting.args = {
   withSorting: true,
+};
+
+export const WithMoreRowsButton = TableTemplate.bind({});
+WithMoreRowsButton.args = {
+  showMoreRowsBtn: true,
+  onShowMoreRowsBtnClick: () => alert('More rows button clicked'),
+  moreRowsCount: 12,
+};
+
+export const WithInfiniteLoading = TableTemplate.bind({});
+WithInfiniteLoading.args = {
+  infiniteLoading: true,
 };
 
 export default TableStory;
