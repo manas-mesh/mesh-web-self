@@ -25,7 +25,8 @@ const Wrapper = styled(Box)`
 export const ProgressCheckInPopover: FC<ProgressCheckInPopoverProps> = ({}) => {
   const sliderRef = useRef(null); //progressCheckInPopover wrapper ref
   const [openCheckInPopup, setOpenCheckInPopup] = useState(false);
-  const [value, setValue] = useState(12); //this can be replaced by original value when integrating
+  const [previousValue, setPreviousValue] = useState(12); //this can be replaced by original value when integrating
+  const [value, setValue] = useState(previousValue); //this can be replaced by original value when integrating
   const [stringifiedValue, setStringifiedValue] = useState(String(value));
   const [stringifiedMax, setStringifiedMax] = useState(String(100));
   const goalStatuses: goalStatusProps[] = [...GOAL_IN_PROGRESS_OPTIONS, ...GOAL_CLOSED_OPTIONS];
@@ -44,7 +45,9 @@ export const ProgressCheckInPopover: FC<ProgressCheckInPopoverProps> = ({}) => {
     setPercentageCompleted(Math.round((value / parseInt(stringifiedMax)) * 100 * 100) / 100);
   }, [value, stringifiedMax]);
 
-  const closeCheckInPopup = (): void => {
+  const closeCheckInPopup = (from: 'checkIn' | 'cancel'): void => {
+    if (from == 'checkIn') setPreviousValue(value);
+    else setValue(previousValue);
     setOpenCheckInPopup(false);
   };
 
@@ -65,17 +68,17 @@ export const ProgressCheckInPopover: FC<ProgressCheckInPopoverProps> = ({}) => {
   //close popover outside click
   useOutsideClick({
     ref: sliderRef,
-    handler: closeCheckInPopup,
+    handler: (e: any) => closeCheckInPopup(e),
   });
 
   //cancel button onclick event handler
   const onCancel = (): void => {
-    closeCheckInPopup();
+    closeCheckInPopup('cancel');
   };
   //checkIn button onclick event handler
   const onCheckIn = (): void => {
     //console.log(value, 'value');
-    closeCheckInPopup();
+    closeCheckInPopup('checkIn');
     // TODO
     //  API INTEGRATION TO UPDATE ACHIEVED VALUE
   };
@@ -92,7 +95,6 @@ export const ProgressCheckInPopover: FC<ProgressCheckInPopoverProps> = ({}) => {
 
   const sliderProps: SliderProps = {
     value: value,
-    stringifiedValue: stringifiedValue,
     isDisabled: false,
     min: min,
     max: parseInt(stringifiedMax),
