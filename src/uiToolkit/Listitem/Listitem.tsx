@@ -36,10 +36,7 @@ const Wrapper = styled.div<WrapperTypes>`
     background: ${({ theme, isDisabled }) => (isDisabled ? 'unset' : theme?.colors?.surfaces?.bg96)};
     cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
   }
-  &:active {
-    background: ${({ theme }) => theme?.colors?.surfaces?.white};
-  }
-  &.active-styles {
+  &:active, &.active-styles {
     background: ${({ theme }) => theme?.colors?.surfaces?.white};
   }
 `;
