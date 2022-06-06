@@ -14,6 +14,7 @@ interface ListitemProps {
   leftComponent?: React.ReactNode;
   rightComponent?: React.ReactNode;
   onClick?: () => {};
+  style: React.CSSProperties;
 }
 
 type WrapperTypes = {
@@ -35,7 +36,7 @@ const Wrapper = styled.div<WrapperTypes>`
     background: ${({ theme, isDisabled }) => (isDisabled ? 'unset' : theme?.colors?.surfaces?.bg96)};
     cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
   }
-  &:active {
+  &:active, &.active-styles {
     background: ${({ theme }) => theme?.colors?.surfaces?.white};
   }
 `;
@@ -49,6 +50,7 @@ export const Listitem = ({
   onClick,
   isDisabled,
   active,
+  style,
 }: ListitemProps) => {
   const theme: ThemeType = useTheme();
 
@@ -93,7 +95,13 @@ export const Listitem = ({
   };
 
   return (
-    <Wrapper isDisabled={isDisabled} active={active} onClick={handleOnClick}>
+    <Wrapper
+      style={style}
+      className={active ? `${className} active-styles` : className}
+      isDisabled={isDisabled}
+      active={active}
+      onClick={handleOnClick}
+    >
       <Box display={'flex'}>
         {renderLeftComponent()}
         {renderOtherInfo()}
