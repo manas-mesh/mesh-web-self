@@ -17,6 +17,8 @@ export const StyledChakraInput = styled(ChakraInput, {
   background: ${(props) => props.theme.colors.formFields.transparentBg};
   outline: none;
   width: ${(props) => (props.endIcon ? `calc(100% - 16px)` : `100%`)};
+  & + div {
+    position: unset;
 
   &:hover {
     border-color: ${(props) => props.theme.colors.border.bg60};
@@ -28,7 +30,7 @@ export const StyledFormControl = styled(FormControl, {
 })`
   background: ${(props) =>
     props.withBackground ? props.theme.colors.formFields.bg : props.theme.colors.formFields.transparentBg};
-  padding: 12px;
+  //  padding: 12px;
   border-radius: 8px;
 
   &:hover {

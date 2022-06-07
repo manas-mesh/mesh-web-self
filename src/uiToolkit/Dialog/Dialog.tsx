@@ -40,7 +40,9 @@ export const Dialog: React.FC<DialogProps> = ({ isOpen, onClose, children, showC
             Close
           </Button>
         )}
-        <Box overflowY="auto">{children}</Box>
+        <Box overflowY="auto" borderRadius={'inherit'}>
+          {children}
+        </Box>
       </DrawerContent>
     </Drawer>
   );
