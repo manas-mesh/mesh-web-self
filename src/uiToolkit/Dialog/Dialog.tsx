@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Box, Drawer, DrawerContent, DrawerOverlay, Grid, GridItem, ScaleFade } from '@chakra-ui/react';
 import { useTheme } from '@chakra-ui/react';
 import { ThemeType } from '@themes/clients/baseTheme';
@@ -11,7 +11,7 @@ interface DialogProps {
   onClose: () => void;
   children?: React.ReactNode;
   showCloseButton?: boolean;
-  extensionChildren?: ReactNode;
+  extensionChildren?: React.ReactNode;
   mainContentColWidth?: number;
   extensionContentColWidth?: number;
   isFullSize?: boolean;

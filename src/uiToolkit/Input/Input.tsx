@@ -1,6 +1,6 @@
 // Libraries
 import { useTheme } from '@emotion/react';
-import { InputGroup, InputRightElement, FormLabel, InputProps as ChakraInputProps } from '@chakra-ui/react';
+import { InputGroup } from '@chakra-ui/react';
 
 // Typography
 import { TextLabelSmall, TextBodySmall } from '@uiToolkit/Typography';
@@ -16,7 +16,7 @@ import {
 
 export type InputProps = {
   type?: string;
-  name: string;
+  name?: string;
   label?: string;
   placeholder?: string;
   helperText?: string;
@@ -25,9 +25,10 @@ export type InputProps = {
   endIcon?: React.ReactNode;
   isDisabled?: boolean;
   error?: string;
+  handleChange: (e: React.ChangeEvent) => void;
 };
 
-const Input: React.FC<InputProps & ChakraInputProps> = ({
+const Input = ({
   type = 'text',
   name,
   label,
@@ -37,9 +38,10 @@ const Input: React.FC<InputProps & ChakraInputProps> = ({
   value,
   endIcon,
   isDisabled,
+  handleChange,
   error,
   ...restChakraInputProps
-}) => {
+}: InputProps) => {
   const theme = useTheme();
 
   return (
@@ -57,6 +59,7 @@ const Input: React.FC<InputProps & ChakraInputProps> = ({
           placeholder={placeholder}
           value={value}
           endIcon={endIcon}
+          onChange={handleChange}
           {...restChakraInputProps}
         />
         <StyledInputRightElement>{endIcon}</StyledInputRightElement>
