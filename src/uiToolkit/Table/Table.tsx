@@ -11,6 +11,9 @@ import { TextLabelSmall, TextBodyMedium } from '@uiToolkit/Typography';
 // Hooks
 import useInfiniteLoading from '@hooks/useInfiniteLoading';
 
+// Skeleton
+import TableSkeleton from './Table.Skeleton';
+
 // Icons
 import { TableSort } from '@iconComponents';
 
@@ -103,13 +106,17 @@ const Table: React.FC<TableProps> = ({
         </StyledTbody>
       </ChakraTable>
 
+      {withInfiniteLoading && canLoadMore && (
+        <div ref={loadingTriggerRef}>
+          <TableSkeleton cols={columns.length} />
+        </div>
+      )}
+
       {displayMoreRowsBtn && (
         <StyledButton variant={BUTTON_VARIANT.outlined} StartIcon={TableSort} onClick={onShowMoreRowsBtnClick}>
           {moreRowsCount} more rows
         </StyledButton>
       )}
-
-      {withInfiniteLoading && <div ref={loadingTriggerRef}>Loading...</div>}
     </TableWrapper>
   );
 };
