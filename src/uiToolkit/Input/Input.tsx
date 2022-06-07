@@ -1,6 +1,6 @@
 // Libraries
 import { useTheme } from '@emotion/react';
-import { InputGroup, InputRightElement, FormLabel, InputProps as ChakraInputProps } from '@chakra-ui/react';
+import { InputGroup } from '@chakra-ui/react';
 
 // Typography
 import { TextLabelSmall, TextBodySmall } from '@uiToolkit/Typography';
@@ -28,7 +28,7 @@ export type InputProps = {
   handleChange: (e: React.ChangeEvent) => void;
 };
 
-export const Input = ({
+const Input = ({
   type = 'text',
   name,
   label,
@@ -70,3 +70,5 @@ export const Input = ({
     </StyledFormControl>
   );
 };
+
+export default Input;

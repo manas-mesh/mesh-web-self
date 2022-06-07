@@ -5,7 +5,7 @@ import { Input as ChakraInput, FormControl, FormHelperText, FormLabel, InputRigh
 const transientProps: string[] = ['withBackground', 'endIcon'];
 
 export const StyledChakraInput = styled(ChakraInput, {
-  shouldForwardProp: (prop) => !transientProps.includes(prop),
+  shouldForwardProp: (prop: string) => !transientProps.includes(prop),
 })`
   height: auto;
   border: ${(props) => `1px dashed ${props.theme.colors.border.bg60}`};
@@ -26,11 +26,11 @@ export const StyledChakraInput = styled(ChakraInput, {
 `;
 
 export const StyledFormControl = styled(FormControl, {
-  shouldForwardProp: (prop) => !transientProps.includes(prop),
+  shouldForwardProp: (prop: string) => !transientProps.includes(prop),
 })`
   background: ${(props) =>
     props.withBackground ? props.theme.colors.formFields.bg : props.theme.colors.formFields.transparentBg};
-  //  padding: 12px;
+  padding: 12px;
   border-radius: 8px;
 
   &:hover {
