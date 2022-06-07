@@ -23,10 +23,18 @@ type PropTypes = {
   value: TabBarValueType | undefined;
   onChange: (newSelectedValue: TabBarValueType) => void;
   fullWidth?: boolean;
+  buttonFullWidth?: boolean;
   withBackground?: boolean;
 };
 
-export const TabBarSelect = ({ options, value, onChange, fullWidth = false, withBackground = false }: PropTypes) => {
+export const TabBarSelect = ({
+  options,
+  value,
+  onChange,
+  fullWidth = false,
+  buttonFullWidth = true,
+  withBackground = false,
+}: PropTypes) => {
   const [selectedValue, setSelectedValue] = useState(value);
   const theme: ThemeType = useTheme();
 
@@ -53,8 +61,8 @@ export const TabBarSelect = ({ options, value, onChange, fullWidth = false, with
           key={value}
           onClick={() => onChangeHandler(value)}
           variant={BUTTON_VARIANT.ghost}
-          flexGrow={fullWidth ? 1 : 'initial'}
-          mr={'12px'}
+          flexGrow={buttonFullWidth ? 1 : 'initial'}
+          mr={3}
         >
           {label}
         </Button>
