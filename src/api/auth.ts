@@ -1,4 +1,4 @@
-import { ENDPOINTS } from '@constants/endpoints';
+import { ENDPOINTS } from 'constants/endpoints';
 import axios from 'axios';
 
 export const getAuth0LoginUrlApi = ({ orgName, invitationId }: { orgName: string; invitationId: string }) => {

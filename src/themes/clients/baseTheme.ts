@@ -17,7 +17,7 @@ export enum FONT_SIZE_VARIANTS {
 export enum FONT_WEIGHT_VARIANTS {
   light = 'light',
   regular = 'regular',
-  bold = 'bold',
+  medium = 'medium',
 }
 
 export type ThemeType = typeof baseTheme;
@@ -70,6 +70,7 @@ export const baseTheme = {
       bg60: colors.neutral.blueGray[60],
       tw24: colors.neutral.transparentWhite[24],
       tw0: colors.neutral.transparentWhite[0],
+      tw4: colors.neutral.transparentWhite[4],
       g92: colors.neutral.gray[92],
     },
     nav: {

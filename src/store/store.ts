@@ -4,10 +4,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import loggedInEmployeeReducer from './reduxFeatures/loggedInEmployee-slice';
 import orgData from './reduxFeatures/orgData-slice';
+import demo from '../services/demo';
 
 const reducers = {
   loggedInEmployee: loggedInEmployeeReducer,
   orgData: orgData,
+  demo: demo,
 };
 
 const store = configureStore({
