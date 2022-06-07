@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useTable, Column, useSortBy } from 'react-table';
 import { Table as ChakraTable, Tr } from '@chakra-ui/react';
 
+// UIKit
+import { BUTTON_VARIANT } from '@uiToolkit/Button/Button';
+
 // Typography
 import { TextLabelSmall, TextBodyMedium } from '@uiToolkit/Typography';
 
@@ -128,7 +131,7 @@ const Table: React.FC<TableProps> = ({
       </ChakraTable>
 
       {displayMoreRowsBtn && (
-        <StyledButton variant="outlined" StartIcon={TableSort} onClick={onShowMoreRowsBtnClick}>
+        <StyledButton variant={BUTTON_VARIANT.outlined} StartIcon={TableSort} onClick={onShowMoreRowsBtnClick}>
           {moreRowsCount} more rows
         </StyledButton>
       )}
