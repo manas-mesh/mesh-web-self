@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Story } from '@storybook/react';
 
 import Table from './Table';
@@ -38,11 +38,7 @@ const mockData = [
 ];
 
 const TableTemplate: Story<TableProps> = (args) => {
-  let tableData = mockData;
-
-  if (args.infiniteLoading) {
-    tableData = [...mockData, ...mockData, ...mockData, ...mockData, ...mockData, ...mockData, ...mockData];
-  }
+  const tableData = mockData;
 
   const data = useMemo(() => tableData, [tableData]);
 
@@ -67,6 +63,41 @@ const TableTemplate: Story<TableProps> = (args) => {
   return <Table data={data} columns={columns} {...args} />;
 };
 
+const InfiniteLoadingTableTemplate: Story<TableProps> = (args) => {
+  const [tableData, setTableData] = useState(mockData);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onLoadMore = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setTableData((prevData) => [...prevData, ...mockData, ...mockData]);
+      setIsLoading(false);
+    }, 1000);
+  };
+
+  const data = useMemo(() => tableData, [tableData]);
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Firstname',
+        accessor: 'firstname',
+      },
+      {
+        Header: 'Lastname',
+        accessor: 'lastname',
+      },
+      {
+        Header: 'Height',
+        accessor: 'height',
+      },
+    ],
+    [],
+  );
+
+  return <Table data={data} columns={columns} {...args} onLoadMore={onLoadMore} isLoading={isLoading} />;
+};
+
 export const Basic = TableTemplate.bind({});
 Basic.args = {};
 
@@ -82,9 +113,10 @@ WithMoreRowsButton.args = {
   moreRowsCount: 12,
 };
 
-export const WithInfiniteLoading = TableTemplate.bind({});
+export const WithInfiniteLoading = InfiniteLoadingTableTemplate.bind({});
 WithInfiniteLoading.args = {
-  infiniteLoading: true,
+  withInfiniteLoading: true,
+  canLoadMore: true,
 };
 
 export default TableStory;

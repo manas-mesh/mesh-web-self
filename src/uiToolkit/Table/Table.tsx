@@ -1,5 +1,4 @@
 // Libraries
-import { useState, useEffect, useRef } from 'react';
 import { useTable, Column, useSortBy } from 'react-table';
 import { Table as ChakraTable, Tr } from '@chakra-ui/react';
 
@@ -10,7 +9,7 @@ import { BUTTON_VARIANT } from '@uiToolkit/Button/Button';
 import { TextLabelSmall, TextBodyMedium } from '@uiToolkit/Typography';
 
 // Hooks
-import useIntersectionObserver from '@hooks/useIntersectionObserver';
+import useInfiniteLoading from '@hooks/useInfiniteLoading';
 
 // Icons
 import { TableSort } from '@iconComponents';
@@ -34,8 +33,10 @@ export type TableProps = {
   showMoreRowsBtn?: boolean;
   onShowMoreRowsBtnClick?: React.MouseEventHandler<HTMLButtonElement>;
   moreRowsCount?: number;
-  infiniteLoading?: boolean;
-  rowsPerPage?: number;
+  withInfiniteLoading?: boolean;
+  canLoadMore?: boolean;
+  isLoading?: boolean;
+  onLoadMore?: () => void;
 };
 
 const Table: React.FC<TableProps> = ({
@@ -45,35 +46,23 @@ const Table: React.FC<TableProps> = ({
   showMoreRowsBtn,
   onShowMoreRowsBtnClick,
   moreRowsCount = 0,
-  infiniteLoading = false,
-  rowsPerPage = 10,
+  withInfiniteLoading = false,
+  canLoadMore = false,
+  isLoading = false,
+  onLoadMore,
 }) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [canLoadMore, setCanLoadMore] = useState<boolean>(false);
+  const loadingTriggerRef = useInfiniteLoading({
+    isLoading: isLoading,
+    canLoadMore: canLoadMore,
+    onLoadMore: onLoadMore,
+  });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     { columns, data, disableSortBy: !withSorting },
     useSortBy,
   );
 
-  const loaderRef = useRef<HTMLDivElement | null>(null);
-  const loaderObserver = useIntersectionObserver(loaderRef, {});
-
   const displayMoreRowsBtn = showMoreRowsBtn && moreRowsCount > 0;
-
-  useEffect(() => {
-    if (canLoadMore && loaderObserver?.isIntersecting) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
-  }, [canLoadMore, loaderObserver]);
-
-  useEffect(() => {
-    if (infiniteLoading && rows.length > rowsPerPage * currentPage) {
-      setCanLoadMore(true);
-    } else {
-      setCanLoadMore(false);
-    }
-  }, [currentPage, rowsPerPage, infiniteLoading, rows.length]);
 
   return (
     <TableWrapper>
@@ -96,37 +85,21 @@ const Table: React.FC<TableProps> = ({
           ))}
         </StyledThead>
         <StyledTbody {...getTableBodyProps()}>
-          {infiniteLoading
-            ? rows.slice(0, rowsPerPage * currentPage).map((row) => {
-                prepareRow(row);
-                return (
-                  // key prop is provided by destructuring
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              // key prop is provided by destructuring
+              // eslint-disable-next-line react/jsx-key
+              <StyledBodyTr {...row.getRowProps()}>
+                {row.cells.map((cell) => (
                   // eslint-disable-next-line react/jsx-key
-                  <StyledBodyTr {...row.getRowProps()}>
-                    {row.cells.map((cell) => (
-                      // eslint-disable-next-line react/jsx-key
-                      <StyledTd {...cell.getCellProps()}>
-                        <TextBodyMedium>{cell.render('Cell')}</TextBodyMedium>
-                      </StyledTd>
-                    ))}
-                  </StyledBodyTr>
-                );
-              })
-            : rows.map((row) => {
-                prepareRow(row);
-                return (
-                  // key prop is provided by destructuring
-                  // eslint-disable-next-line react/jsx-key
-                  <StyledBodyTr {...row.getRowProps()}>
-                    {row.cells.map((cell) => (
-                      // eslint-disable-next-line react/jsx-key
-                      <StyledTd {...cell.getCellProps()}>
-                        <TextBodyMedium>{cell.render('Cell')}</TextBodyMedium>
-                      </StyledTd>
-                    ))}
-                  </StyledBodyTr>
-                );
-              })}
+                  <StyledTd {...cell.getCellProps()}>
+                    <TextBodyMedium>{cell.render('Cell')}</TextBodyMedium>
+                  </StyledTd>
+                ))}
+              </StyledBodyTr>
+            );
+          })}
         </StyledTbody>
       </ChakraTable>
 
@@ -136,7 +109,7 @@ const Table: React.FC<TableProps> = ({
         </StyledButton>
       )}
 
-      {infiniteLoading && <div ref={loaderRef}></div>}
+      {withInfiniteLoading && <div ref={loadingTriggerRef}>Loading...</div>}
     </TableWrapper>
   );
 };
