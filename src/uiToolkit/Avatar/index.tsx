@@ -25,7 +25,7 @@ const StyledNextImage = styled(Image)<ImageProps>`
 
 export interface AvatarProps {
   size: string;
-  src: string | StaticImageData;
+  src: string;
   showStarIcon?: boolean;
 }
 
@@ -64,16 +64,21 @@ const AVATAR_SIZE: IAvatarSize = {
 const Avatar = ({ size, src, showStarIcon = false, ...rest }: AvatarProps) => {
   const dimension: Size = AVATAR_SIZE[size];
 
-  const renderOwnerMark = () => (
-    <Box sx={{ position: 'absolute', display: 'flex', right: '-7px', bottom: '-5px' }}>
-      <StarIcon />
-    </Box>
-  );
+  const renderOwnerMark = (): JSX.Element | undefined => {
+    if (showStarIcon) {
+      return (
+        <Box sx={{ position: 'absolute', display: 'flex', right: '-7px', bottom: '-5px' }}>
+          <StarIcon />
+        </Box>
+      );
+    }
+  };
 
   return (
     <Wrapper mr={showStarIcon ? '5px' : '0px'}>
       <StyledNextImage
         src={src}
+        loader={() => src}
         alt="avatar"
         layout={'fixed'}
         objectFit={'cover'}
@@ -82,7 +87,7 @@ const Avatar = ({ size, src, showStarIcon = false, ...rest }: AvatarProps) => {
         isBordered={showStarIcon}
         {...rest}
       />
-      {showStarIcon && renderOwnerMark()}
+      {renderOwnerMark()}
     </Wrapper>
   );
 };

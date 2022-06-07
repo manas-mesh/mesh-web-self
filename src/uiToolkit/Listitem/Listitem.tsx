@@ -10,16 +10,19 @@ interface ListitemProps {
   isDisabled?: boolean;
   active?: boolean;
   title: string;
+  isBeingDragged?: boolean;
   subTitle?: string | undefined;
   leftComponent?: React.ReactNode;
   rightComponent?: React.ReactNode;
   onClick?: () => {};
+  style: React.CSSProperties;
 }
 
 type WrapperTypes = {
   theme?: any;
   isDisabled: boolean | undefined;
   active: boolean | undefined;
+  isBeingDragged?: boolean;
 };
 
 const Wrapper = styled.div<WrapperTypes>`
@@ -29,17 +32,18 @@ const Wrapper = styled.div<WrapperTypes>`
   background: ${({ theme, isDisabled }) => (isDisabled ? 'unset' : theme?.colors?.surfaces?.bg92)};
   border-radius: 8px;
   padding: 12px;
+  cursor: ${({ isBeingDragged }) => (isBeingDragged ? 'grab !important' : 'pointer !important')};
   border: 1px solid ${({ theme }) => theme?.colors?.border?.tw24};
   margin-bottom: 12px;
   &:hover {
     background: ${({ theme, isDisabled }) => (isDisabled ? 'unset' : theme?.colors?.surfaces?.bg96)};
     cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
   }
-  &:active {
+  &:active,
+  &.active-styles {
     background: ${({ theme }) => theme?.colors?.surfaces?.white};
   }
 `;
-
 export const Listitem = ({
   rightComponent,
   leftComponent,
@@ -49,6 +53,7 @@ export const Listitem = ({
   onClick,
   isDisabled,
   active,
+  isBeingDragged = false,
 }: ListitemProps) => {
   const theme: ThemeType = useTheme();
 
@@ -93,8 +98,8 @@ export const Listitem = ({
   };
 
   return (
-    <Wrapper isDisabled={isDisabled} active={active} onClick={handleOnClick}>
-      <Box display={'flex'}>
+    <Wrapper isDisabled={isDisabled} active={active} onClick={handleOnClick} isBeingDragged={isBeingDragged}>
+      <Box display={'flex'} alignItems={subTitle ? 'unset' : 'center'}>
         {renderLeftComponent()}
         {renderOtherInfo()}
       </Box>

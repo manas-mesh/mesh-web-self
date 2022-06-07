@@ -11,7 +11,7 @@ import {
 const transientProps: string[] = ['withBackground', 'endIcon'];
 
 export const StyledChakraTextarea = styled(ChakraTextarea, {
-  shouldForwardProp: (prop) => !transientProps.includes(prop),
+  shouldForwardProp: (prop: string) => !transientProps.includes(prop),
 })`
   height: auto;
   border: ${(props) => `1px dashed ${props.theme.colors.border.bg60}`};
@@ -31,7 +31,7 @@ export const StyledChakraTextarea = styled(ChakraTextarea, {
 `;
 
 export const StyledFormControl = styled(FormControl, {
-  shouldForwardProp: (prop) => !transientProps.includes(prop),
+  shouldForwardProp: (prop: string) => !transientProps.includes(prop),
 })`
   background: ${(props) =>
     props.withBackground ? props.theme.colors.formFields.bg : props.theme.colors.formFields.transparentBg};

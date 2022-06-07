@@ -1,7 +1,7 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/router';
 
-import { PUBLIC_PATHS, ROUTES } from '@constants/routes';
+import { PUBLIC_PATHS, ROUTES } from 'constants/routes';
 import { useAuth } from 'components/AuthProvider';
 
 function RouteGuard({ children }: { children: ReactNode }) {

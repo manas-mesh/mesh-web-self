@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
+import { TextBodyMedium } from '@uiToolkit/Typography';
 
 const STATIC_LABEL = 'Drag and drop zone';
 
@@ -15,13 +16,15 @@ interface DropZoneProps {
 const Wrapper = styled.div<WrapperTypes>`
   display: flex;
   border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.colors.surfaces.bg40};
+  border: 1px dashed ${({ theme }) => theme.colors.surfaces.bg40};
+  padding: 10px;
 `;
 
 export const DropZone = ({ onDrop, label }: DropZoneProps) => {
   const onDragOverHandler = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
   }, []);
+
   const onDropHandler = useCallback(
     (e: React.DragEvent) => {
       e.preventDefault();
@@ -33,8 +36,14 @@ export const DropZone = ({ onDrop, label }: DropZoneProps) => {
     [onDrop],
   );
 
-  const onDragEnterHandler = useCallback((e: React.DragEvent) => {
+  const onDragEnter = useCallback((e: React.SyntheticEvent) => {
     e.preventDefault();
+    console.log('onDragEnter');
+  }, []);
+
+  const onDragLeave = useCallback((e: React.SyntheticEvent) => {
+    e.preventDefault();
+    console.log('onDragLeave');
   }, []);
 
   const renderLabel = () => {
@@ -45,8 +54,8 @@ export const DropZone = ({ onDrop, label }: DropZoneProps) => {
   };
 
   return (
-    <Wrapper onDragOver={onDragOverHandler} onDragEnter={onDragEnterHandler} onDrop={onDropHandler}>
-      {/* <TextBodyMedium>{renderLabel()}</TextBodyMedium> */}
+    <Wrapper onDragOver={onDragOverHandler} onDrop={onDropHandler} onDragEnter={onDragEnter} onDragLeave={onDragLeave}>
+      <TextBodyMedium>{renderLabel()}</TextBodyMedium>
     </Wrapper>
   );
 };

@@ -78,7 +78,7 @@ export const TextTitleMedium = (props: TypographyPropTypes & StyleProps) => (
     variant={FONT_VARIANTS.title}
     size={FONT_SIZE_VARIANTS.medium}
     lineHeight={'24px'}
-    weight={FONT_WEIGHT_VARIANTS.bold}
+    weight={FONT_WEIGHT_VARIANTS.medium}
     {...props}
   />
 );
@@ -87,7 +87,7 @@ export const TextTitleSmall = (props: TypographyPropTypes & StyleProps) => (
     variant={FONT_VARIANTS.title}
     size={FONT_SIZE_VARIANTS.small}
     lineHeight={'20px'}
-    weight={FONT_WEIGHT_VARIANTS.bold}
+    weight={FONT_WEIGHT_VARIANTS.medium}
     {...props}
   />
 );
@@ -97,7 +97,7 @@ export const TextLabelLarge = (props: TypographyPropTypes & StyleProps) => (
     variant={FONT_VARIANTS.label}
     size={FONT_SIZE_VARIANTS.large}
     lineHeight={'20px'}
-    weight={FONT_WEIGHT_VARIANTS.bold}
+    weight={FONT_WEIGHT_VARIANTS.medium}
     {...props}
   />
 );
@@ -106,7 +106,7 @@ export const TextLabelMedium = (props: TypographyPropTypes & StyleProps) => (
     variant={FONT_VARIANTS.label}
     size={FONT_SIZE_VARIANTS.medium}
     lineHeight={'16px'}
-    weight={FONT_WEIGHT_VARIANTS.bold}
+    weight={FONT_WEIGHT_VARIANTS.medium}
     {...props}
   />
 );
@@ -117,7 +117,7 @@ export const TextLabelSmall = (props: TypographyPropTypes & StyleProps) => {
       variant={FONT_VARIANTS.label}
       size={FONT_SIZE_VARIANTS.small}
       lineHeight={'16px'}
-      weight={FONT_WEIGHT_VARIANTS.bold}
+      weight={FONT_WEIGHT_VARIANTS.medium}
       color={theme.colors.text.bg40}
       {...props}
     />
@@ -128,19 +128,19 @@ export const TextBodyLarge = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.body} size={FONT_SIZE_VARIANTS.large} lineHeight={'24px'} {...props} />
 );
 export const TextBodyLargeBold = (props: TypographyPropTypes & StyleProps) => (
-  <TextBodyLarge weight={FONT_WEIGHT_VARIANTS.bold} {...props} />
+  <TextBodyLarge weight={FONT_WEIGHT_VARIANTS.medium} {...props} />
 );
 
 export const TextBodyMedium = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.body} size={FONT_SIZE_VARIANTS.medium} lineHeight={'20px'} {...props} />
 );
 export const TextBodyMediumBold = (props: TypographyPropTypes & StyleProps) => (
-  <TextBodyMedium weight={FONT_WEIGHT_VARIANTS.bold} {...props} />
+  <TextBodyMedium weight={FONT_WEIGHT_VARIANTS.medium} {...props} />
 );
 
 export const TextBodySmall = (props: TypographyPropTypes & StyleProps) => (
   <Typography variant={FONT_VARIANTS.body} size={FONT_SIZE_VARIANTS.small} lineHeight={'16px'} {...props} />
 );
 export const TextBodySmallBold = (props: TypographyPropTypes & StyleProps) => (
-  <TextBodySmall weight={FONT_WEIGHT_VARIANTS.bold} {...props} />
+  <TextBodySmall weight={FONT_WEIGHT_VARIANTS.medium} {...props} />
 );
