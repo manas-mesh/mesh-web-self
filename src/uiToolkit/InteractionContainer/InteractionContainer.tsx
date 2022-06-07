@@ -1,11 +1,11 @@
 import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-interface PropsI {
+export interface PropsI {
   readOnly?: boolean;
   isError?: boolean;
   isSelected?: boolean;
-  onClick?: (() => void) | undefined;
+  clickHandler?: (() => void) | undefined;
   children?: React.ReactNode;
 }
 
@@ -29,7 +29,7 @@ export const InteractionContainer: React.FC<PropsI> = ({
   readOnly = false,
   isError = false,
   isSelected = false,
-  onClick = undefined,
+  clickHandler = undefined,
 }) => {
   let overrideBG = '';
   if (readOnly) {
@@ -40,7 +40,7 @@ export const InteractionContainer: React.FC<PropsI> = ({
   }
 
   return (
-    <StyledBox overrideBG={overrideBG} onClick={onClick} clickable={!!onClick}>
+    <StyledBox overrideBG={overrideBG} onClick={clickHandler} clickable={!readOnly && !!clickHandler}>
       {children}
     </StyledBox>
   );

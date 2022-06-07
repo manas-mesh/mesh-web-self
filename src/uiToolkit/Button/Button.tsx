@@ -6,14 +6,14 @@ import { ThemeProps, ThemeType } from '@themes/clients/baseTheme';
 import { TextLabelLarge, TextLabelSmall } from 'uiToolkit/Typography';
 import { useTheme } from '@emotion/react';
 
-export enum BUTTON_VARIANT {
+export const enum BUTTON_VARIANT {
   solid = 'solid',
   outlined = 'outlined',
   ghost = 'ghost',
   link = 'link',
 }
 
-export enum BUTTON_SIZE {
+export const enum BUTTON_SIZE {
   normal = 'normal',
   large = 'large',
 }

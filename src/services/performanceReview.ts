@@ -11,10 +11,10 @@ import {
   updateQuestionResponseApi,
 } from 'api/performanceReview';
 import ColorCodedDate from 'models/common/ColorCodedDate';
-import Employee, { BasicEmployee } from 'models/employee';
-import HashTag from 'models/hashtag';
+import Employee, { BasicEmployee } from 'models/Employee';
+import HashTag from 'models/Hashtag';
 import Review, { ReviewForm } from 'models/performanceReview/Review';
-import ReviewQuestion, { AnswerOption } from 'models/reviewQuestion';
+import ReviewQuestion, { AnswerOption } from 'models/ReviewQuestion';
 
 export const getBehaviorForm = ({
   reviewId,

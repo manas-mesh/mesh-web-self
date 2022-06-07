@@ -1,13 +1,13 @@
 import { noOp } from 'constants/index';
 import { Box } from '@chakra-ui/react';
-import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
+import { SkeletonLoader } from '@uiToolkit/SkeletonLoader';
 import { REVIEW_ANSWER_TYPE_MAP } from 'constants/reviewConstants';
 import React, { useCallback, useEffect, useState } from 'react';
 import { getPeerFeedback } from 'services/performanceReview';
 import { Button } from 'uiToolkit/Button';
 import { ScaleInput } from 'uiToolkit/ScaleInput';
 import { TextBodyMedium, TextLabelLarge, TextLabelSmall } from 'uiToolkit/Typography';
-import { toTitleCase } from 'utils/stringHelper';
+import { toTitleCase } from '@utils/stringHelpers';
 
 import { BaseStarRating } from '@uiToolkit/BaseStarRating/BaseStarRating';
 import { ThemeType } from '@themes/clients/baseTheme';
@@ -178,7 +178,7 @@ const PeerFeedbackComp = ({ reviewId, employeeId }: { reviewId: string; employee
       });
   }, [competencyId, employeeId, goalId, questionId, reviewId]);
 
-  const showLoader = useCallback(() => <SkeletonLoader skeletons={['90%', '90%']} />, []);
+  const showLoader = useCallback(() => <SkeletonLoader skeletons={['10px', '10px']} />, []);
 
   const showNoData = useCallback(() => <TextLabelSmall>{NO_DATA_MSG}</TextLabelSmall>, []);
 

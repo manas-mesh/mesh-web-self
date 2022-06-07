@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { ThemeType } from '@themes/clients/baseTheme';
-import { BUTTON_VARIANT } from '@uiToolkit/Button/Button';
+import { BUTTON_VARIANT } from '@uiToolkit/Button';
 import { useState } from 'react';
 import { Button } from 'uiToolkit/Button';
 

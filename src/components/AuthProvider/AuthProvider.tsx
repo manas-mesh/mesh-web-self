@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { authenticate } from 'services/employee';
 import { useAppDispatch } from '@hooks/reduxHooks';
-import { updateLoggedInEmployee } from 'store/reduxFeatures/loggedInEmployee-slice';
-import { addOrgData } from 'store/reduxFeatures/orgData-slice';
+import { updateLoggedInEmployee } from 'redux/features/loggedInEmployee-slice';
+import { addOrgData } from 'redux/features/orgData-slice';
 import { AxiosError } from 'axios';
 
 export interface AuthI {

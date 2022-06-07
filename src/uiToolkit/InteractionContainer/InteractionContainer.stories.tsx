@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { ComponentStory } from '@storybook/react';
+import { useState } from 'react';
 
 import { InteractionContainer } from '.';
 
@@ -8,15 +9,15 @@ const InteractionContainerStory = {
   component: InteractionContainer,
 };
 
-const RatingTemplate = (args) => {
+const Template: ComponentStory<typeof InteractionContainer> = (args) => {
   const [isSelected, setIsSelected] = useState(false);
 
-  function clickHandler() {
-    setIsSelected(true);
+  function toggleSelected() {
+    setIsSelected((x) => !x);
   }
 
   return (
-    <InteractionContainer onClick={clickHandler} isSelected={isSelected} {...args}>
+    <InteractionContainer clickHandler={toggleSelected} isSelected={isSelected} {...args}>
       <Box
         sx={{
           display: 'flex',
@@ -32,13 +33,13 @@ const RatingTemplate = (args) => {
   );
 };
 
-export const Primary = RatingTemplate.bind({});
-Primary.argTypes = {};
+export const Primary = Template.bind({});
+Primary.args = {};
 
-export const ReadOnly = RatingTemplate.bind({});
-ReadOnly.argTypes = { readOnly: true };
+export const ReadOnly = Template.bind({});
+ReadOnly.args = { readOnly: true };
 
-export const Error = RatingTemplate.bind({});
-Error.argTypes = { isError: true };
+export const Error = Template.bind({});
+Error.args = { isError: true };
 
 export default InteractionContainerStory;

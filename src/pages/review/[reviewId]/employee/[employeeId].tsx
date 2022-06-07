@@ -1,13 +1,13 @@
 // @ts-nocheck
 import { Box } from '@chakra-ui/react';
-import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
+import { SkeletonLoader } from '@uiToolkit/SkeletonLoader';
 import { ReviewForm } from 'components/ReviewForm/FormPages';
 import useAsync from 'hooks/useAsync';
 // import { GoalsWeightProvider } from 'components/GoalsWeight/GoalsWeightContext';
 // import GoalsWeightSidepanel from 'components/GoalsWeight/GoalsWeightSidepanel';
 import React, { useCallback, useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
-import { selectLoggedInEmployeeData } from 'store/selectors/loggedInEmployee';
+import { selectLoggedInEmployeeData } from 'redux/selectors/loggedInEmployee';
 import { getSummaryStats } from 'services/performanceReview';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
@@ -17,7 +17,7 @@ import {
   resetReviewFormFilling,
   setIsManagerView,
   setSelectedReviewDetails,
-} from 'store/reduxFeatures/reviewFormFilling-slice';
+} from 'redux/features/reviewFormFilling-slice';
 // import { showErrorSnackbar } from 'services/snackbar';
 
 const ReviewFormPage: React.FC = () => {

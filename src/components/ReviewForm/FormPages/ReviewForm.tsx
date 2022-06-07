@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react';
 import { CUSTOM_NAV_BAR_COMP_KEYS } from 'layouts/NavBarLayout/NavBarCustomFeatureItems';
 import React, { useCallback, useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
-import { selectLoggedInEmployeeData } from 'store/selectors/loggedInEmployee';
+import { selectLoggedInEmployeeData } from 'redux/selectors/loggedInEmployee';
 import { getUpdatedReviewForms, submitReview } from 'services/performanceReview';
 // import { showErrorSnackbar, showSuccessSnackbar } from 'services/snackbar';
 import { Checkbox } from 'uiToolkit/Checkbox';
@@ -17,7 +17,7 @@ import { QAForm } from './QAForm';
 import { REVIEW_FORMS_TYPE_MAP } from '@constants/reviewConstants';
 import { ROUTES } from '@constants/routes';
 import { useRouter } from 'next/router';
-import { addNavBarCustomItem, removeNavBarCustomItem } from 'store/reduxFeatures/navBarCustomItems-slice';
+import { addNavBarCustomItem, removeNavBarCustomItem } from 'redux/features/navBarCustomItems-slice';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ArrowLeft, ArrowRight } from '@assets/iconComponents';
 import { ThemeType } from '@themes/clients/baseTheme';
@@ -27,7 +27,7 @@ import {
   forceUpdate,
   setIsSubmitClicked,
   setSelectedReviewSubmissionStatus,
-} from 'store/reduxFeatures/reviewFormFilling-slice';
+} from 'redux/features/reviewFormFilling-slice';
 
 export const REVIEW_STAGE_COMPONENT_MAP = {
   [REVIEW_FORMS_TYPE_MAP.GOAL]: {

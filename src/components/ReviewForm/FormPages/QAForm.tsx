@@ -4,11 +4,11 @@ import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ThemeType } from '@themes/clients/baseTheme';
-import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
+import { SkeletonLoader } from '@uiToolkit/SkeletonLoader';
 import React, { useCallback, useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { getQAForm, updateQuestionResponse } from 'services/performanceReview';
-import { forceUpdate, showPeerFeedback } from 'store/reduxFeatures/reviewFormFilling-slice';
+import { forceUpdate, showPeerFeedback } from 'redux/features/reviewFormFilling-slice';
 import { InteractionContainer } from 'uiToolkit/InteractionContainer';
 
 import { FeedbackComp, QuestionComp, ReviewInputComp } from '../common';
@@ -69,7 +69,7 @@ const QAQuestion = ({ question, submitAnswer }) => {
     <InteractionContainer
       key={id}
       isSelected={isManagerView && peerFeedback.questionId === id}
-      onClick={isManagerView ? onSelectQuestion : null}
+      clickHandler={isManagerView ? onSelectQuestion : null}
     >
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', mb: 1.5 }}>
         <Box>
@@ -226,7 +226,7 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
 
   const showLoader = () => (
     <Box>
-      <SkeletonLoader skeletons={['100%', '100%']} />
+      <SkeletonLoader />
     </Box>
   );
 

@@ -3,11 +3,11 @@ import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ThemeType } from '@themes/clients/baseTheme';
-import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
+import { SkeletonLoader } from '@uiToolkit/SkeletonLoader';
 import React, { useCallback, useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { getBehaviorForm, updateQuestionResponse } from 'services/performanceReview';
-import { forceUpdate, showPeerFeedback } from 'store/reduxFeatures/reviewFormFilling-slice';
+import { forceUpdate, showPeerFeedback } from 'redux/features/reviewFormFilling-slice';
 // import { InfoOutlined } from '@material-ui/icons';
 // import { openCompetencySidePanelAction } from 'actions/competencySidePanelActions';
 import { InteractionContainer } from 'uiToolkit/InteractionContainer';
@@ -87,7 +87,7 @@ const BehaviorQuestion = ({ tag, question, submitAnswer, employeeId }: BehaviorQ
   return (
     <InteractionContainer
       key={question.id}
-      onClick={isManagerView ? onSelectQuestion : null}
+      clickHandler={isManagerView ? onSelectQuestion : null}
       isSelected={isManagerView && peerFeedback.questionId === question.id && peerFeedback.competencyId === tag.id}
     >
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', mb: 1.5 }}>
@@ -328,7 +328,7 @@ export const BehaviorForm = ({ reviewId, employeeId, providerId, isSummaryView =
 
   const showLoader = () => (
     <Box>
-      <SkeletonLoader skeletons={['100%', '100%']} />
+      <SkeletonLoader />
     </Box>
   );
 

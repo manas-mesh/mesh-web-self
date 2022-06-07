@@ -1,5 +1,5 @@
 import { authenticateApi } from 'api/employee';
-import Employee from 'models/employee';
+import Employee from 'models/Employee';
 
 export const authenticate = ({ landingPageType = '', landingPageUuid = '' }) =>
   authenticateApi({ landingPageType, landingPageUuid }).then((res: any) => {

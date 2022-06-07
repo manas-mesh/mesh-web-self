@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { Grid, GridItem } from '@chakra-ui/react';
 import { Box } from '@chakra-ui/react';
-import { SkeletonLoader } from '@uiToolkit/commonComps/loaders';
+import { SkeletonLoader } from '@uiToolkit/SkeletonLoader';
 import { getTaskDetailsRoute } from 'constants/helpers';
-import React, { MouseEvent, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getGoalForm, updateQuestionResponse } from 'services/performanceReview';
 import { InteractionContainer } from 'uiToolkit/InteractionContainer';
@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/reduxHooks';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { useTheme } from '@emotion/react';
 import { shallowEqual } from 'react-redux';
-import { forceUpdate, showPeerFeedback } from 'store/reduxFeatures/reviewFormFilling-slice';
+import { forceUpdate, showPeerFeedback } from 'redux/features/reviewFormFilling-slice';
 
 const commonColumnsList = [
   {
@@ -149,7 +149,7 @@ const GoalQuestion = ({
   return (
     <InteractionContainer
       isSelected={isManagerView && peerFeedback.questionId === id && (!goal || peerFeedback.goalId === goal.id)}
-      onClick={isManagerView ? onSelectQuestion : null}
+      clickHandler={isManagerView ? onSelectQuestion : null}
     >
       <Box
         key={id}
@@ -387,7 +387,7 @@ export const GoalForm = ({
 
   const showLoader = () => (
     <Box>
-      <SkeletonLoader skeletons={['100%', '100%']} />
+      <SkeletonLoader />
     </Box>
   );
 
