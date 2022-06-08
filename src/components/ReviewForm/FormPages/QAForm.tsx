@@ -144,7 +144,7 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
       .finally(() => {
         setLoading(false);
       });
-  }, [employeeId, providerId, responseId, reviewId]);
+  }, [dispatch, employeeId, providerId, responseId, reviewId]);
 
   const answerQuestion = useCallback(
     ({ questionId, field, answer }) => {
@@ -221,7 +221,7 @@ export const QAForm = ({ reviewId, employeeId, providerId, isSummaryView = false
           // );
         });
     },
-    [employeeId, reviewId],
+    [dispatch, employeeId, reviewId],
   );
 
   const showLoader = () => (

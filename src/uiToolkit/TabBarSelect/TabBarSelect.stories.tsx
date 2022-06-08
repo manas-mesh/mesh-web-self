@@ -26,4 +26,15 @@ export const FullWidth = () => (
   <TabBarSelect options={options} value="two" onChange={onChangeHandler} withBackground={true} fullWidth />
 );
 
+export const ContainerFullButtonNotFullWidth = () => (
+  <TabBarSelect
+    options={options}
+    value="two"
+    onChange={onChangeHandler}
+    withBackground={true}
+    fullWidth
+    buttonFullWidth={false}
+  />
+);
+
 export const WithoutBackground = () => <TabBarSelect options={options} value="two" onChange={onChangeHandler} />;
