@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Box, Skeleton } from '@chakra-ui/react';
 
 const StyledBox = styled(Box)`
+  margin-top: 12px;
   padding: 0 10px;
   display: grid;
   grid-template-columns: ${(props) => `repeat(${props.cols}, 1fr)`};

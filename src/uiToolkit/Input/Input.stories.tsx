@@ -49,7 +49,6 @@ WithoutLabel.args = {
 export const WithHelperText = InputTemplate.bind({});
 WithHelperText.args = {
   ...Basic.args,
-
   helperText: 'Helper Text',
 };
 
@@ -70,7 +69,6 @@ WithoutLabelAndWithEndIcon.args = {
 export const Disabled = InputTemplate.bind({});
 Disabled.args = {
   ...Basic.args,
-
   value: 'Jane Doe',
   isDisabled: true,
 };
@@ -80,6 +78,15 @@ WithoutLabelAndDisabled.args = {
   ...Basic.args,
   label: undefined,
   value: 'Jane Doe',
+  isDisabled: true,
+};
+
+export const WithHelperTextIconAndDisabled = InputTemplate.bind({});
+WithHelperTextIconAndDisabled.args = {
+  ...Basic.args,
+  value: 'Jane Doe',
+  helperText: 'Helper Text',
+  endIcon: <AppNavigationOutlined />,
   isDisabled: true,
 };
 

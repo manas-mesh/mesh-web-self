@@ -69,6 +69,7 @@ const Textarea: React.FC<TextareaProps> = ({
           onChange={handleChange}
           rows={rows}
           endIcon={endIcon}
+          _disabled={{ opacity: '1' }}
         />
         <StyledInputRightElement>{endIcon}</StyledInputRightElement>
       </InputGroup>
