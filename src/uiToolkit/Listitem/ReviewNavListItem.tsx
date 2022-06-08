@@ -1,4 +1,4 @@
-import { noOp, noOpType } from '@constants/index';
+import { noOp, noOpType } from '@constants/common';
 import styled from '@emotion/styled';
 import { Box, IconProps } from '@chakra-ui/react';
 import { TextLabelLarge, TextLabelSmall } from 'uiToolkit/Typography';

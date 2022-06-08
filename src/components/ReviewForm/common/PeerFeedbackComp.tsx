@@ -1,4 +1,4 @@
-import { noOp } from 'constants/index';
+import { noOp } from 'constants/common';
 import { Box } from '@chakra-ui/react';
 import { SkeletonLoader } from '@uiToolkit/SkeletonLoader';
 import { REVIEW_ANSWER_TYPE_MAP } from 'constants/reviewConstants';
