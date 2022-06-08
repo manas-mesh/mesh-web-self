@@ -51,7 +51,7 @@ const Select: React.FC<SelectProps> = ({
   options,
   handleChange,
   customClassName = '',
-  isMulti,
+  isMulti = false,
   isDisabled,
   error,
 }) => {

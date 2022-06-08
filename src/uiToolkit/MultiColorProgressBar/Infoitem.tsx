@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Box } from '@mui/system';
+import { Box } from '@chakra-ui/react';
+import { ThemeType } from '@themes/clients/baseTheme';
+import { useTheme } from '@emotion/react';
 
 interface InfoItemProps {
   item: any;
@@ -9,11 +11,12 @@ interface InfoItemProps {
 }
 
 const InfoItem = ({ item, index, length }: InfoItemProps) => {
+  const theme: ThemeType = useTheme();
   const renderBullet = (): JSX.Element | undefined => {
     if (index !== length - 1) {
       return (
         <Box
-          bgcolor={'surfaces.bg60'}
+          bg={theme.colors.surfaces.bg60}
           sx={{
             height: '4px',
             width: '4px',

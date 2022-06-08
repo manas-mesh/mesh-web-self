@@ -1,6 +1,6 @@
 // Libraries
 import { useTheme } from '@emotion/react';
-import { InputGroup } from '@chakra-ui/react';
+import { InputGroup, TextareaProps } from '@chakra-ui/react';
 
 // Typography
 import { TextLabelSmall, TextBodySmall } from '@uiToolkit/Typography';
@@ -14,15 +14,15 @@ import {
   StyledInputRightElement,
 } from './Textarea.styles';
 
-export type TextareaProps = {
-  type: string;
+export type TextareaPropsI = {
+  type?: string;
   name: string;
   label?: string;
   placeholder?: string;
   helperText?: string;
-  withBackground: boolean;
-  value: string;
-  handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  withBackground?: boolean;
+  value?: string;
+  handleChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   rows?: number;
   endIcon?: React.ReactNode;
   isDisabled?: boolean;
@@ -30,7 +30,7 @@ export type TextareaProps = {
   className?: string;
 };
 
-const Textarea: React.FC<TextareaProps> = ({
+const Textarea: React.FC<TextareaPropsI & TextareaProps> = ({
   type = 'text',
   className = '',
   name,
@@ -44,6 +44,7 @@ const Textarea: React.FC<TextareaProps> = ({
   endIcon,
   isDisabled,
   error,
+  ...textAreaProps
 }) => {
   const theme = useTheme();
 
@@ -69,6 +70,7 @@ const Textarea: React.FC<TextareaProps> = ({
           onChange={handleChange}
           rows={rows}
           endIcon={endIcon}
+          {...textAreaProps}
         />
         <StyledInputRightElement>{endIcon}</StyledInputRightElement>
       </InputGroup>

@@ -1,11 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
-import { Listitem } from './';
+
 import Avatar from '@uiToolkit/Avatar';
 import { ArrowDropDown } from '@assets/iconComponents';
+import { Listitem } from './Listitem';
 
 const ListItemStory = {
-  title: 'Core Components/ListItem',
+  title: 'Core Components/Listitem',
   component: Listitem,
 };
 

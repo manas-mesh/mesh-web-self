@@ -2,3 +2,4 @@
 export const isValidNumberRegExp: RegExp = /^-?\d*\.?\d{0,6}$/;
 
 export const noOp = () => {};
+export type noOpType = typeof noOp;
