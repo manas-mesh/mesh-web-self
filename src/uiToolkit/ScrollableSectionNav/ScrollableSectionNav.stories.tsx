@@ -6,16 +6,7 @@ const ScrollableSectionNavStory = {
   component: ScrollableSectionNav,
 };
 
-const options = [
-  { value: 'one', label: 'one' },
-  { value: 'two', label: 'two' },
-  { value: 'three', label: 'three' },
-];
-
 const optionsLabels = ['Red', 'Blue', 'Green'];
-
-const onChangeHandler = (newSelectedValue: TabBarValueType) =>
-  console.log(`new selected value is: ${newSelectedValue}`);
 
 export default ScrollableSectionNavStory;
 

@@ -1,27 +1,39 @@
-// @ts-nocheck
 import React, { createRef, useEffect, useState } from 'react';
 
 import { Box } from '@chakra-ui/react';
 import { TabBarSelect } from '@uiToolkit/TabBarSelect';
+import { TabBarValueType } from '@uiToolkit/TabBarSelect/TabBarSelect';
 
-const scrollToComponentTop = (ref) => {
+type divRefType = React.RefObject<HTMLDivElement>;
+
+const scrollToComponentTop = (ref: divRefType | undefined) => {
   if (!ref) return;
-  ref.current.scrollIntoView({
+  ref.current?.scrollIntoView({
     behavior: 'smooth',
   });
 };
 
-const ScrollableSectionNav = ({ optionsLabels = [], selectedOptionLabel = optionsLabels[0], children = null }) => {
+interface PropsI {
+  optionsLabels: string[];
+  selectedOptionLabel?: string | undefined;
+  children: React.ReactNode;
+}
+
+const ScrollableSectionNav: React.FC<PropsI> = ({
+  optionsLabels = [],
+  selectedOptionLabel = optionsLabels[0],
+  children = null,
+}) => {
   const [selectedOptionValue, setSelectedOptionValue] = useState(selectedOptionLabel);
-  const [navCompRefs, setNavCompRefs] = useState([]);
+  const [navCompRefs, setNavCompRefs] = useState<divRefType[]>([]);
 
   const tabBarOptions = optionsLabels.map((label) => ({ value: label, label }));
 
   useEffect(() => {
-    setNavCompRefs((refs) => {
-      const newRefs = [];
+    setNavCompRefs((refs: divRefType[]) => {
+      const newRefs: divRefType[] = [];
       optionsLabels.forEach((_, index) => {
-        newRefs[index] = refs[index] || createRef();
+        newRefs[index] = refs[index] || createRef<HTMLDivElement>();
       });
       return newRefs;
     });
@@ -32,7 +44,7 @@ const ScrollableSectionNav = ({ optionsLabels = [], selectedOptionLabel = option
     scrollToComponentTop(navCompRefs?.[selectedOptionLabelIndex]);
   }, [navCompRefs, optionsLabels, selectedOptionLabel]);
 
-  const onChangeHandler = (newSelectedValue: string) => {
+  const onChangeHandler = (newSelectedValue: TabBarValueType) => {
     setSelectedOptionValue(newSelectedValue);
     const selectedOptionLabelIndex = optionsLabels.findIndex((label) => label === newSelectedValue);
     scrollToComponentTop(navCompRefs?.[selectedOptionLabelIndex]);
@@ -50,7 +62,7 @@ const ScrollableSectionNav = ({ optionsLabels = [], selectedOptionLabel = option
       />
       <Box h={'100%'} overflowY="auto">
         {React.Children.map(children, (child, index) => (
-          <Box ref={navCompRefs[index]}>{child}</Box>
+          <div ref={navCompRefs[index]}>{child}</div>
         ))}
       </Box>
     </Box>

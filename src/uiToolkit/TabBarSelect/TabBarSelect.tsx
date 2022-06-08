@@ -11,7 +11,7 @@ const buttonGroupMarginStyles = {
   },
 };
 
-export type TabBarValueType = number | string;
+export type TabBarValueType = string;
 
 export type TabBarOptionType = {
   label: string;

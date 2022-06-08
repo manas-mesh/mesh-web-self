@@ -9,14 +9,7 @@ const Home: NextPage = () => {
   const data = useFetch<any[]>('https://jsonplaceholder.typicode.com/posts', undefined, { retry: false });
 
   // console.log(data, 'data');
-  return (
-    <ScrollableSectionNav>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </ScrollableSectionNav>
-  );
+
   return <TextBodyLargeBold>Develop</TextBodyLargeBold>;
 };
 
