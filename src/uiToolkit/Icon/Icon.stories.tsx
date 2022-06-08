@@ -17,4 +17,4 @@ export const Colored = () => {
   return <DemoIcon color={theme.colors.icon.red400} />;
 };
 
-export const Size = () => <DemoIcon boxSize={56} />;
+export const Size = () => <DemoIcon boxSize="56px" />;

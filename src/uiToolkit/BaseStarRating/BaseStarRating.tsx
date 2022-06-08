@@ -15,6 +15,7 @@ export interface RatingPropsI {
   disabled?: boolean;
   enableValidation?: boolean;
   isRequired?: boolean;
+  handleChange?: (newValue: number) => void;
 }
 export const BaseStarRating = ({
   precision = 1,
@@ -26,10 +27,11 @@ export const BaseStarRating = ({
   disabled = false,
   isRequired = false,
   enableValidation = false,
+  handleChange = () => {},
 }: RatingPropsI) => {
   const [activeStar, setActiveStar] = useState<number>(rating);
 
-  const validationErrorText = enableValidation && isRequired ? `${label} (Required)` : '';
+  const validationErrorText = enableValidation && isRequired && !rating ? `${label} (Required)` : '';
   const theme: ThemeType = useTheme();
 
   useEffect(() => {
@@ -50,8 +52,10 @@ export const BaseStarRating = ({
 
   const handleClick = (e: React.MouseEvent) => {
     if (!disabled) {
+      const newRating = calculateRating(e);
       setIsHovered(false);
-      setActiveStar(calculateRating(e));
+      setActiveStar(newRating);
+      handleChange(newRating);
     }
   };
 
@@ -89,9 +93,9 @@ export const BaseStarRating = ({
           const showEmptyIcon = activeState === -1 || activeState < index + 1;
 
           return showEmptyIcon ? (
-            <EmptyIcon boxSize="16px" color={theme.colors.surfaces.bg40} />
+            <EmptyIcon key={index} boxSize="16px" color={theme.colors.surfaces.bg40} />
           ) : (
-            <FilledIcon boxSize="16px" color={theme.colors.surfaces.bg40} />
+            <FilledIcon key={index} boxSize="16px" color={theme.colors.surfaces.bg40} />
           );
         })}
       </Box>

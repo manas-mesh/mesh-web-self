@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { useTheme } from '@emotion/react';
 import { ThemeType } from '@themes/clients/baseTheme';
-import { BUTTON_VARIANT } from '@uiToolkit/Button/Button';
+import { BUTTON_VARIANT } from '@uiToolkit/Button';
 import { useState } from 'react';
 import { Button } from 'uiToolkit/Button';
 
@@ -38,7 +38,7 @@ export const TabBarSelect = ({ options, value, onChange, fullWidth = false, with
 
   return (
     <Box
-      p={12}
+      p={3}
       bg={withBackground ? theme.colors.surfaces.bg92 : theme.colors.common.transparent}
       borderRadius={8}
       display="inline-flex"
@@ -53,7 +53,8 @@ export const TabBarSelect = ({ options, value, onChange, fullWidth = false, with
           key={value}
           onClick={() => onChangeHandler(value)}
           variant={BUTTON_VARIANT.ghost}
-          sx={{ mr: 12, flexGrow: fullWidth ? 1 : 'initial' }}
+          flexGrow={fullWidth ? 1 : 'initial'}
+          mr={'12px'}
         >
           {label}
         </Button>

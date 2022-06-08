@@ -2,14 +2,16 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import loggedInEmployeeReducer from './reduxFeatures/loggedInEmployee-slice';
-import orgData from './reduxFeatures/orgData-slice';
-import demo from '../services/demo';
+import loggedInEmployeeReducer from '../features/loggedInEmployee-slice';
+import navBarCustomItems from '../features/navBarCustomItems-slice';
+import orgDataReducer from '../features/orgData-slice';
+import reviewFormFillingReducer from '../features/reviewFormFilling-slice';
 
 const reducers = {
   loggedInEmployee: loggedInEmployeeReducer,
-  orgData: orgData,
-  demo: demo,
+  orgData: orgDataReducer,
+  reviewFormFilling: reviewFormFillingReducer,
+  navBarCustomItems: navBarCustomItems,
 };
 
 const store = configureStore({

@@ -24,13 +24,13 @@ const Base = css`
     --layout-col-width: 64px;
   }
 
-  @media (min-width: 1281px) {
+  @media (min-width: 1280px) {
     :root {
       --layout-col-width: 80px;
     }
   }
 
-  @media (min-width: 1441px) {
+  @media (min-width: 1440px) {
     :root {
       --layout-col-width: 90px;
     }

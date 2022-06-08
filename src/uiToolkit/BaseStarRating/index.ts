@@ -1,0 +1,1 @@
+export { BaseStarRating } from './BaseStarRating';

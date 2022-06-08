@@ -1,13 +1,11 @@
-import React, { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
-import { TextLabelLarge } from '@uiToolkit/Typography';
 import { ThemeType } from '@themes/clients/baseTheme';
 
 interface ICheckbox {
   onChange: (value: string) => void;
   value: string;
   options: any;
-  doNotShowLabel?: boolean;
+  showLabel?: boolean;
 }
 
 const StyledLabel = styled.label`
@@ -62,7 +60,7 @@ const Input = styled.input<InputTypes>`
   }
 `;
 
-export const Checkbox = ({ options, onChange, value, doNotShowLabel = false }: ICheckbox) => {
+export const Checkbox = ({ options, onChange, value, showLabel = false }: ICheckbox) => {
   const handleOnChange = (e: any) => {
     if (onChange) {
       onChange(e.target.value);
@@ -70,7 +68,7 @@ export const Checkbox = ({ options, onChange, value, doNotShowLabel = false }: I
   };
 
   const renderLabel = (): JSX.Element | undefined => {
-    if (!doNotShowLabel) {
+    if (!showLabel) {
       return <StyledLabel htmlFor={options.uid}>{options.label}</StyledLabel>;
     }
   };

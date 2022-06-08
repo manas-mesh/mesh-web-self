@@ -1,7 +1,5 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
 import { useFetch } from '../fetcher/';
-import { AppNavigationOutlined, ArrowRight, Test } from '@iconComponents';
 import { TextBodyLargeBold } from '@uiToolkit/Typography/Typography';
 
 const Home: NextPage = () => {

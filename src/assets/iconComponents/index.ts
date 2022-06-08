@@ -1,5 +1,6 @@
 export { AppNavigationOutlined } from './AppNavigationOutlined';
 export { ArrowRight } from './ArrowRight';
+export { ArrowLeft } from './ArrowLeft';
 export { Test } from './Test';
 export { Minimize } from './Minimize';
 export { SliderThumbIcon } from './SliderThumbIcon';
@@ -12,5 +13,9 @@ export { Tick } from './Tick';
 export { EmptyStar } from './EmptyStar'
 export { FilledStar } from './FilledStar'
 export { ArrowDropDown } from './ArrowDropDown';
+export { DisabledIcon } from './DisabledIcon';
+export { StatusCompleted } from './StatusCompleted';
+export { StatusInProgress } from './StatusInProgress';
+export { StatusNotStarted } from './StatusNotStarted';
 export { DoubleTick } from './DoubleTick';
 export { ReviewEmptyState } from './ReviewEmptyState';

@@ -93,7 +93,7 @@ const Slider: React.FC<SliderProps> = ({
   //slider thumb render
   const renderSliderThumb = (): JSX.Element => (
     <SliderThumbWrapper>
-      <SliderThumbIcon boxSize={20} color={theme.colors.surfaces.white} />
+      <SliderThumbIcon boxSize="20px" color={theme.colors.surfaces.white} />
     </SliderThumbWrapper>
   );
 

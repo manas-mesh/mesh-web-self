@@ -14,9 +14,9 @@ import { ThemeType } from '@themes/clients/baseTheme';
 import { useTheme } from '@emotion/react';
 import Input from '@uiToolkit/Input';
 import { TextLink } from '@uiToolkit/TextLink';
-import { Divider } from '@uiToolkit/commonComps';
 import { BREAKPOINTS } from 'constants/mediaQueries';
 import Image from 'next/image';
+import { Divider } from '@uiToolkit/Divider';
 
 const containerCSS = {
   display: 'grid',
