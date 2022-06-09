@@ -14,7 +14,7 @@ export default function Document() {
           rel="stylesheet"
         />
         {/* eslint-disable-next-line @next/next/no-title-in-document-head */}
-        <title>Mesh - Connect. Reflect. Grow.</title>
+        {/* <title>Mesh - Connect. Reflect. Grow.</title> */}
       </Head>
       <body>
         <Main />

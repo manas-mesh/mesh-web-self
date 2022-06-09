@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ChakraProvider } from '@chakra-ui/react';
 import ErrorBoundary from 'components/ErrorBoundary';
+import { createStandaloneToast } from '@chakra-ui/toast';
 
 // Types
 import type { AppProps } from 'next/app';

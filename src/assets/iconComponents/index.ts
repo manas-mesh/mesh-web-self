@@ -19,3 +19,6 @@ export { StatusInProgress } from './StatusInProgress';
 export { StatusNotStarted } from './StatusNotStarted';
 export { DoubleTick } from './DoubleTick';
 export { ReviewEmptyState } from './ReviewEmptyState';
+export { Success } from './Success';
+export { Info } from './Info';
+export { Error } from './Error';
