@@ -79,13 +79,17 @@ export const StyledFormControl = styled(FormControl, {
   shouldForwardProp: (prop: string) => !['withBackground'].includes(prop),
 })`
   background: ${(props) =>
-    props.withBackground ? props.theme.colors.formFields.bg : props.theme.colors.formFields.transparentBg};
+    props.withBackground && !props.isDisabled
+      ? props.theme.colors.formFields.bg
+      : props.theme.colors.formFields.transparentBg};
   padding: 12px;
   border-radius: 8px;
 
   &:hover {
     background: ${(props) =>
-      props.withBackground ? props.theme.colors.formFields.hoverBg : props.theme.colors.formFields.transparentBg};
+      props.withBackground & !props.isDisabled
+        ? props.theme.colors.formFields.hoverBg
+        : props.theme.colors.formFields.transparentBg};
   }
 
   &:focus-within {
@@ -96,6 +100,12 @@ export const StyledFormControl = styled(FormControl, {
 
 export const StyledFormLabel = styled(FormLabel)`
   margin: 0;
+
+  &[disabled],
+  &[aria-disabled='true'],
+  &[data-disabled] {
+    opacity: 1;
+  }
 `;
 
 export const StyledFormHelperText = styled(FormHelperText)`

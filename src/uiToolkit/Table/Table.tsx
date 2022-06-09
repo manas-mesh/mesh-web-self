@@ -2,26 +2,70 @@
 import { useTable, Column, useSortBy } from 'react-table';
 import { Table as ChakraTable, Tr } from '@chakra-ui/react';
 
+// UIKit
+import { BUTTON_VARIANT } from '@uiToolkit/Button/Button';
+
 // Typography
 import { TextLabelSmall, TextBodyMedium } from '@uiToolkit/Typography';
+
+// Hooks
+import useInfiniteLoading from '@hooks/useInfiniteLoading';
+
+// Skeleton
+import TableSkeleton from './Table.Skeleton';
 
 // Icons
 import { TableSort } from '@iconComponents';
 
 // Styles
-import { TableWrapper, StyledThead, StyledTh, StyledTbody, StyledBodyTr, StyledTd, SortOption } from './Table.styles';
+import {
+  TableWrapper,
+  StyledThead,
+  StyledTh,
+  StyledTbody,
+  StyledBodyTr,
+  StyledTd,
+  SortOption,
+  StyledButton,
+} from './Table.styles';
 
 export type TableProps = {
   data: any[];
   columns: Column[];
   withSorting?: boolean;
+  showMoreRowsBtn?: boolean;
+  onShowMoreRowsBtnClick?: React.MouseEventHandler<HTMLButtonElement>;
+  moreRowsCount?: number;
+  withInfiniteLoading?: boolean;
+  canLoadMore?: boolean;
+  isLoading?: boolean;
+  onLoadMore?: () => void;
 };
 
-const Table: React.FC<TableProps> = ({ data, columns, withSorting }) => {
+const Table: React.FC<TableProps> = ({
+  data,
+  columns,
+  withSorting,
+  showMoreRowsBtn,
+  onShowMoreRowsBtnClick,
+  moreRowsCount = 0,
+  withInfiniteLoading = false,
+  canLoadMore = false,
+  isLoading = false,
+  onLoadMore,
+}) => {
+  const loadingTriggerRef = useInfiniteLoading({
+    isLoading: isLoading,
+    canLoadMore: canLoadMore,
+    onLoadMore: onLoadMore,
+  });
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     { columns, data, disableSortBy: !withSorting },
     useSortBy,
   );
+
+  const displayMoreRowsBtn = showMoreRowsBtn && moreRowsCount > 0;
 
   return (
     <TableWrapper>
@@ -61,6 +105,18 @@ const Table: React.FC<TableProps> = ({ data, columns, withSorting }) => {
           })}
         </StyledTbody>
       </ChakraTable>
+
+      {withInfiniteLoading && canLoadMore && (
+        <div ref={loadingTriggerRef}>
+          <TableSkeleton cols={columns.length} />
+        </div>
+      )}
+
+      {displayMoreRowsBtn && (
+        <StyledButton variant={BUTTON_VARIANT.outlined} StartIcon={TableSort} onClick={onShowMoreRowsBtnClick}>
+          {moreRowsCount} more rows
+        </StyledButton>
+      )}
     </TableWrapper>
   );
 };

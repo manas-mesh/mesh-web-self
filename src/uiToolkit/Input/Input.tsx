@@ -60,6 +60,7 @@ const Input = ({
           value={value}
           endIcon={endIcon}
           onChange={handleChange}
+          _disabled={{ opacity: '1' }}
           {...restChakraInputProps}
         />
         <StyledInputRightElement>{endIcon}</StyledInputRightElement>
