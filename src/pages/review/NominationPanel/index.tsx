@@ -5,7 +5,7 @@ import { useTheme } from '@emotion/react';
 import { Dialog } from '@uiToolkit/Dialog';
 import { ThemeType } from '@themes/clients/baseTheme';
 import { TextLabelMedium } from '@uiToolkit/Typography';
-import { Input } from '@uiToolkit/Input';
+import Input from '@uiToolkit/Input';
 import { Search } from '@iconComponents';
 import Filter from './Filters';
 import { Listitem } from '@uiToolkit/Listitem';

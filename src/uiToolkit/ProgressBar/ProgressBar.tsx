@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Progress } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { ThemeType } from '@themes/clients/baseTheme';
-import { Input } from '@uiToolkit/Input';
+import Input from '@uiToolkit/Input';
 import { Box } from '@chakra-ui/react';
 import { TextBodyMedium } from '@uiToolkit/Typography';
 import { useTheme } from '@emotion/react';
